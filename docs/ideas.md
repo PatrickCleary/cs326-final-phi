@@ -1,7 +1,7 @@
-### Team Name: Phi
+# Team Name: Phi
 # Project Name: COVID Symptom tracker
 
-# Team Overview:
+### Team Overview:
 Members:
 | Name            | GitHub         |
 |-----------------|----------------|
@@ -9,10 +9,10 @@ Members:
 | Stephen Disario | stephendisario |
 | Nathan Duarte   | nduartech      |
 
-# Innovative Idea:
+### Innovative Idea:
 Our application will be similar to existing COVID-19 trackers. The difference will be that members of the public will be allowed to input their own data. So someone who thinks they may have the disease can upload their symptoms, location, age, etc. Then we will combine this data with exiting data to paint a more complete picture of the outbreak. We will also have more features than simple maps, such as data analysis and different visualizations of the data, such as graphs where the axis can be changed based on different datapoints, such as age, location, existing conditons, etc.
 
-# Important Components:
+### Important Components:
 The site will need three main components:
 1. A form for people to submit their data, as described above.
 2. A map with a visualization of most concentrated areas
