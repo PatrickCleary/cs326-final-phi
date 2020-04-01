@@ -17,3 +17,8 @@ The site will need three main components:
 1. A form for people to submit their data, as described above.
 2. A map with a visualization of most concentrated areas
 3. A graph maker which can create graphs using the data, and allow people to select which attributes they want to focus on when creating graphs. 
+
+### Data Interactions:
+- Login form with username email and password.
+- Submission for symptom tracker including location, age, symptoms, dates, etc.
+- Create and download charts and maps.
