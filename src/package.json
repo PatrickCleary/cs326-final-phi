@@ -1,15 +1,23 @@
 {
-  "name": "src",
+  "name": "covid-tracker",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Patrick Cleary, Stephen Disario, Nathan Duarte",
+  "license": "UNLICENSED",
   "dependencies": {
-    "jquery": "^3.4.1"
+    "@types/node": "^13.9.8",
+    "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "typescript": "^3.8.3"
   },
-  "description": ""
+  "description": "Final Project for UMass CS 326",
+  "repository": {
+    "type": "git",
+    "url": "n"
+  }
 }
