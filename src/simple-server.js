@@ -1,2 +1,3 @@
 'use strict';
-console.log('check 1 2');
+var express = require('express');
+var app = express();
