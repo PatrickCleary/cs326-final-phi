@@ -7,7 +7,7 @@
         <meta charset = "UTF-8">
         <meta http-equiv="X-UA-Compatible" content = "IE=edge">
         <meta name = "viewport" content="width = device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <title>COVID-19 Tracker</title>
@@ -17,19 +17,27 @@
             <div class="page-header">
                 <h1>Submit Form</h1>
             </div>
+
+            <div class="jumbotron">
+              <p class="lead">Submit this form to help us collect more data regarding the spread of the coronavirus.</p>
+              <hr class="my-4">
+            </div>
+
             <div class = "row">
-              <h3>About You</h3>
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <h3>About You</h3>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                  <h4>Sex</h4>
+                  <p class="lead">Sex</p>
               </div>
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="sex" id="male" value="option1">
                     <label class="form-check-label" for="male">Male</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="sex" id="female" value="option2">
                     <label class="form-check-label" for="female">Female</label>
                   </div>
@@ -37,26 +45,26 @@
           </div>
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <h4>Age</h4>
+                  <p class="lead">Age</p>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <div class="radio-inline">
+                    <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="age" id="under-21" value="option1">
                       <label class="form-check-label" for="under-21">Under 21</label>
                     </div>
-                    <div class="radio-inline">
+                    <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="age" id="21-35" value="option2">
                       <label class="form-check-label" for="21-35">21-35</label>
                     </div>
-                    <div class="radio-inline">
+                    <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="age" id="35-50" value="option3">
                       <label class="form-check-label" for="35-50">35-50</label>
                     </div>
-                    <div class="radio-inline">
+                    <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="age" id="50-65" value="option4">
                       <label class="form-check-label" for="50-65">50-65</label>
                     </div>
-                    <div class="radio-inline">
+                    <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="age" id="over-65" value="option5">
                       <label class="form-check-label" for="over-65">Over 65</label>
                     </div>
@@ -64,7 +72,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <h4>Location</h4>
+                  <p class="lead">Location</p>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                   <div class="form-group">
@@ -89,22 +97,24 @@
                 </div>
             </div>
             <div class="row">
-              <h3>Symptoms </h3>
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <h3>Symptoms </h3>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                  <h4>Fever</h4>
+                <p class="lead">Fever</p>
               </div>
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="fever" id="none" value="option1">
                     <label class="form-check-label" for="none">None</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="fever" id="mild" value="option2">
                     <label class="form-check-label" for="mild">Mild</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="fever" id="severe" value="option3">
                     <label class="form-check-label" for="severe">Severe</label>
                   </div>
@@ -112,18 +122,18 @@
             </div>
             <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                  <h4>Tiredness</h4>
+                <p class="lead">Tiredness</p>
               </div>
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="tiredness" id="none" value="option1">
                     <label class="form-check-label" for="none">None</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="tiredness" id="mild" value="option2">
                     <label class="form-check-label" for="mild">Mild</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="tiredness" id="severe" value="option3">
                     <label class="form-check-label" for="severe">Severe</label>
                   </div>
@@ -131,18 +141,18 @@
             </div>
             <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                  <h4>Dry Cough</h4>
+                <p class="lead">Dry Cough</p>
               </div>
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="dry-cough" id="none" value="option1">
                     <label class="form-check-label" for="none">None</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="dry-cough" id="mild" value="option2">
                     <label class="form-check-label" for="mild">Mild</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="dry-cough" id="severe" value="option3">
                     <label class="form-check-label" for="severe">Severe</label>
                   </div>
@@ -150,23 +160,28 @@
             </div>           
             <div class="row">
               <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                  <h4>Difficulty Breathing</h4>
+                <p class="lead">Difficulty Breathing</p>
               </div>
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="difficulty-breathing" id="none" value="option1">
                     <label class="form-check-label" for="none">None</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="difficulty-breathing" id="mild" value="option2">
                     <label class="form-check-label" for="mild">Mild</label>
                   </div>
-                  <div class="radio-inline">
+                  <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="difficulty-breathing" id="severe" value="option3">
                     <label class="form-check-label" for="severe">Severe</label>
                   </div>
               </div>
-            </div>  
+            </div><br><br>
+            <div class = "row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <button type="button" class="btn btn-primary btn-lg">Submit</button>
+              </div>
+            </div>
           </div>
 
     </body>
