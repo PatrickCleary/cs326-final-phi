@@ -8,20 +8,166 @@
         <meta http-equiv="X-UA-Compatible" content = "IE=edge">
         <meta name = "viewport" content="width = device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <title>COVID-19 Tracker</title>
     </head>
     <body>
-        <div class ="container">
-            <div class ="page-header">
+        <div class="container">
+            <div class="page-header">
                 <h1>Submit Form</h1>
             </div>
-        <div class ="jumbotron">
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-        </div>
-        </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+            <div class = "row">
+              <h3>About You</h3>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <h4>Sex</h4>
+              </div>
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="sex" id="male" value="option1">
+                    <label class="form-check-label" for="male">Male</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="sex" id="female" value="option2">
+                    <label class="form-check-label" for="female">Female</label>
+                  </div>
+              </div>
+          </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <h4>Age</h4>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <div class="radio-inline">
+                      <input class="form-check-input" type="radio" name="age" id="under-21" value="option1">
+                      <label class="form-check-label" for="under-21">Under 21</label>
+                    </div>
+                    <div class="radio-inline">
+                      <input class="form-check-input" type="radio" name="age" id="21-35" value="option2">
+                      <label class="form-check-label" for="21-35">21-35</label>
+                    </div>
+                    <div class="radio-inline">
+                      <input class="form-check-input" type="radio" name="age" id="35-50" value="option3">
+                      <label class="form-check-label" for="35-50">35-50</label>
+                    </div>
+                    <div class="radio-inline">
+                      <input class="form-check-input" type="radio" name="age" id="50-65" value="option4">
+                      <label class="form-check-label" for="50-65">50-65</label>
+                    </div>
+                    <div class="radio-inline">
+                      <input class="form-check-input" type="radio" name="age" id="over-65" value="option5">
+                      <label class="form-check-label" for="over-65">Over 65</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <h4>Location</h4>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div class="form-group">
+                    <label for="location">County</label>
+                    <select class="form-control" id="location">
+                      <option>Barnstable County</option>
+                      <option>Berkshire County</option>
+                      <option>Bristol County</option>
+                      <option>Dukes County</option>
+                      <option>Essex County</option>
+                      <option>Franklin County</option>
+                      <option>Hampden County</option>
+                      <option>Hampshire County</option>
+                      <option>Middlesex County</option>
+                      <option>Nantucket County</option>
+                      <option>Norfolk County</option>
+                      <option>Plymouth County</option>
+                      <option>Suffolk County</option>
+                      <option>Worcester County</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <h3>Symptoms </h3>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <h4>Fever</h4>
+              </div>
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="fever" id="none" value="option1">
+                    <label class="form-check-label" for="none">None</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="fever" id="mild" value="option2">
+                    <label class="form-check-label" for="mild">Mild</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="fever" id="severe" value="option3">
+                    <label class="form-check-label" for="severe">Severe</label>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <h4>Tiredness</h4>
+              </div>
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="tiredness" id="none" value="option1">
+                    <label class="form-check-label" for="none">None</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="tiredness" id="mild" value="option2">
+                    <label class="form-check-label" for="mild">Mild</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="tiredness" id="severe" value="option3">
+                    <label class="form-check-label" for="severe">Severe</label>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <h4>Dry Cough</h4>
+              </div>
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="dry-cough" id="none" value="option1">
+                    <label class="form-check-label" for="none">None</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="dry-cough" id="mild" value="option2">
+                    <label class="form-check-label" for="mild">Mild</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="dry-cough" id="severe" value="option3">
+                    <label class="form-check-label" for="severe">Severe</label>
+                  </div>
+              </div>
+            </div>           
+            <div class="row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <h4>Difficulty Breathing</h4>
+              </div>
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="difficulty-breathing" id="none" value="option1">
+                    <label class="form-check-label" for="none">None</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="difficulty-breathing" id="mild" value="option2">
+                    <label class="form-check-label" for="mild">Mild</label>
+                  </div>
+                  <div class="radio-inline">
+                    <input class="form-check-input" type="radio" name="difficulty-breathing" id="severe" value="option3">
+                    <label class="form-check-label" for="severe">Severe</label>
+                  </div>
+              </div>
+            </div>  
+          </div>
 
     </body>
 
