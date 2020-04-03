@@ -4,22 +4,37 @@
         <meta charset = "UTF-8">
         <meta http-equiv="X-UA-Compatible" content = "IE=edge">
         <meta name = "viewport" content="width = device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <title>COVID-19 Tracker</title>
     </head>
     <body>
-        <div class ="container-fluid">
-            <div class ="page-header">
-                <h1>Signup:</h1>
+        <div class ="container">
+            <div class = "jumbotron bg-dark text-white">
+                <h1 class = "display-4">Sign Up</h1>
+                <p class="lead">Please make an account before completing the symptoms form</p>
             </div>
-        <div class ="jumbotron">
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
         </div>
+        <div class="container">
+            <div class="form-group">
+                <labal for="email">Email</labal>
+                <input type="email" class="form-control" id="email" placeholder="Enter Email">
+            </div>
+            <div class="form-group">
+                <labal for="username">Username</labal>
+                <input type="text" class="form-control" id="username" placeholder="Enter Username">
+            </div>
+            <div class="form-group">
+                <labal for="password">Password</labal>
+                <input type="password" class="form-control" id="password" placeholder="Enter Password">
+            </div>
+            <div class="form-group">
+                <labal for="confirm-password">Confirm Password</labal>
+                <input type="password" class="form-control" id="confirm-password" placeholder="Re-Enter Password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </div>
-
-
     </body>
 
 </html>
