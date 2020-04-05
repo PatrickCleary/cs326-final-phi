@@ -28,5 +28,65 @@
 }
 
 .bg-dr {
-  background: darkred;
+  background: rgb(134, 134, 134);
+}
+
+body{
+  background-color:rgb(40, 40, 40);
+  background-size: cover;
+}
+h1{
+  color:#fff;
+  font-weight: lighter;
+  font-size: 4vw;
+  text-align:center;
+}
+.page-header{
+  margin-bottom:1.5%;
+}
+.map{
+  background-color: rgb(40,40,40);
+}
+.data-box{
+  background-color: rgb(40, 40, 40);
+}
+.table{
+  color:#fff;
+}
+.hr-fix{
+  margin: 0;
+  margin-left: 3%;
+  margin-right: 3%;
+  border-bottom: 1px solid #747474;
+  
+}
+.signup{
+  font-size: 1vw;
+}
+.table-box{
+  color:#fff;
+  background-color: rgb(40, 40, 40);
+}
+.slider-box{
+  color:white;
+  background-color: rgb(40, 40, 40);
+
+}
+h4{
+  text-align: center;
+  margin-bottom:1%;
+
+}
+p{
+  color:white;
+  text-align:center;
+}
+.middlerow{
+  color:white;
+  text-align: center;
+  margin-top: 1%;
+}
+ 
+.signuplink{
+  color: rgb(0,0,255);
 }

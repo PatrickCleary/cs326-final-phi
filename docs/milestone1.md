@@ -12,7 +12,13 @@
     -Future Goal: Users can see data for multiple states and have the option to jump from state to state.
     -Future Goal: The map of the state will be interactive, areas with a lot of cases will be marked darker.
 ### Wireframes:
-    -
+<<<<<<< HEAD
+=======
+![login wireframe](./images/login-wireframe.PNG)
+
+>>>>>>> 898bda788ca746e8896c4851944190e9bc162a52
+
+
 ### HTML and CSS screenshots:
 
 ### Contributions:
