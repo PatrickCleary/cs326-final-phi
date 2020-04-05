@@ -13,13 +13,16 @@
     -Future Goal: The map of the state will be interactive, areas with a lot of cases will be marked darker.
 ### Wireframes:
 ![login wireframe](./images/login-wireframe.PNG)
-![home page wireframe](./images/home-page.PNG)
-![sign up wireframe](./images/sign-up.PNG)
-![symptoms form wireframe](./images/symptoms-form.PNG)
+![home page wireframe](./images/home-wireframe.PNG)
+![sign up wireframe](./images/signup-wireframe.PNG)
+![symptoms form wireframe](./images/form-wireframe.PNG)
 ### HTML and CSS screenshots:
-
+![login wireframe](./images/login-html.PNG)
+![home page wireframe](./images/home1-html.PNG)
+![home page wireframe](./images/home2-html.PNG)
+![sign up wireframe](./images/signup-html.PNG)
+![symptoms form wireframe](./images/form-html.PNG)
 ### Contributions:
-
 Stephen:
     - Created the symptoms form page
     - Created the first version of the Sign In Page (later aesthetic/layout changes were made)
