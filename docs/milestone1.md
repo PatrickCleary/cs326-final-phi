@@ -12,13 +12,10 @@
     -Future Goal: Users can see data for multiple states and have the option to jump from state to state.
     -Future Goal: The map of the state will be interactive, areas with a lot of cases will be marked darker.
 ### Wireframes:
-<<<<<<< HEAD
-=======
 ![login wireframe](./images/login-wireframe.PNG)
-
->>>>>>> 898bda788ca746e8896c4851944190e9bc162a52
-
-
+![home page wireframe](./images/home-page.PNG)
+![sign up wireframe](./images/sign-up.PNG)
+![symptoms form wireframe](./images/symptoms-form.PNG)
 ### HTML and CSS screenshots:
 
 ### Contributions:
@@ -27,6 +24,7 @@ Stephen:
     - Created the symptoms form page
     - Created the first version of the Sign In Page (later aesthetic/layout changes were made)
     - Created the first version of the Sign Up Page (later aesthetic/layout changes were made)
+
 Patrick
 
 Nathan
