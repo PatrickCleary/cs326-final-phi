@@ -53,11 +53,11 @@ a{
     margin-top:5%;
     align-items: center;
     justify-content: center;
-    background-color: rgb(197, 197, 197);
+    background-color: rgb(85, 85, 85);
 }
 html{height:100%}
 body{
-    background-image: url('./images/Coronavirus.png');
+    background-image: url('../img/Coronavirus.png');
     background-size: cover;
     height:100%;
     display:flex;
