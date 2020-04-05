@@ -7,25 +7,32 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <title>COVID-19 Tracker</title>
+        <link rel = "stylesheet" href = "./login.css">
+        <title>Login</title>
     </head>
     <body>
-        <div class ="container">
-            <div class = "jumbotron bg-dark text-white">
-                <h1 class = "display-4">Login Page</h1>
-                <p class="lead">Please login to complete the symptoms form.</p>
+        <div class = 'header'><h2>Massachusetts COVID-19 Symptom Tracker</h2></div>
+        <div class = "loginbox loginboxtop">
+            <h1 >Sign in</h1>
+        </div>
+        <div class = "loginbox loginboxcenter">  
+
+            <div class="container inputContainer">
+                <div class="form-group inputDiv emailBox">
+                    <input type="text" class="form-control inputBox" id="username" placeholder="Enter your email...">
+                </div>
+                <div class="form-group inputDiv">
+                    <input type="password" class="form-control inputBox" id="password" placeholder="Enter your password...">
+                </div>
+                <div class ="submitForm">
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+                </div>
+                <a href="./login.html">Forgot your password?</a>
             </div>
         </div>
-        <div class="container">
-            <div class="form-group">
-                <labal for="username">Username</labal>
-                <input type="text" class="form-control" id="username" placeholder="Enter Username">
-            </div>
-            <div class="form-group">
-                <labal for="password">Password</labal>
-                <input type="password" class="form-control" id="password" placeholder="Enter Password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        <div class = "loginbox loginboxbottom">
+            <p>New user?<a href='./signup.html'> Create an account.</a></p>  
         </div>
     </body>
 
