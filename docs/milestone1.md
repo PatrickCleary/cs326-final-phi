@@ -17,11 +17,11 @@
 ![sign up wireframe](./images/signup-wireframe.PNG)
 ![symptoms form wireframe](./images/form-wireframe.PNG)
 ### HTML and CSS screenshots:
-![login wireframe](./images/login-html.PNG)
-![home page wireframe](./images/home1-html.PNG)
-![home page wireframe](./images/home2-html.PNG)
-![sign up wireframe](./images/signup-html.PNG)
-![symptoms form wireframe](./images/form-html.PNG)
+![login html](./images/login-html.png)
+![home page1 html](./images/home1-html.png)
+![home page2 html](./images/home2-html.png)
+![sign up html](./images/signup-html.png)
+![symptoms form html](./images/form-html.png)
 ### Contributions:
 Stephen:
     - Created the symptoms form page
