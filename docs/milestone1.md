@@ -2,10 +2,10 @@
 
 ### Data Interactions:
 - Users will be able to select certain variables to view graphs/charts pertaining to their selection.
-    - Ex, choose to view graph that displays new cases per day over time
-    - Ex, choose to view a graph that looks at how many cases there are per age group
+    - E.g. choose to view graph that displays new cases per day over time
+    - E.g. choose to view a graph that looks at how many cases there are per age group
 - Users will be able to see chart data change based on what day the have the slider on the bottom set to.
-    - Ex, If they set the slider to day 10, the chart will display the active, confirmed, death, and recovery valuesfrom day 10 in each county
+    - E.g. If they set the slider to day 10, the chart will display the active, confirmed, death, and recovery valuesfrom day 10 in each county
 - Users can submit a symptoms form that will allow us to obtain more data related to the virus
 - Users will be able to create an account and sign in, users must be signed in to submit a symptoms form.
 - Future Goal: Users can see data for multiple states and have the option to jump from state to state.
