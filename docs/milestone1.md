@@ -12,21 +12,40 @@
 - Future Goal: Users can see data for multiple states and have the option to jump from state to state.
 - Future Goal: The map of the state will be interactive, areas with a lot of cases will be marked darker.
 ### Wireframes:
+Log in page:
 ![login wireframe](./images/login-wireframe.PNG)
-![home page wireframe](./images/home-wireframe.PNG)
+
+Sign up page:
 ![sign up wireframe](./images/signup-wireframe.PNG)
+
+Home page:
+![home page wireframe](./images/home-wireframe.PNG)
+
+Form submission Page:
 ![symptoms form wireframe](./images/form-wireframe.PNG)
+
 ### HTML and CSS screenshots:
+
+Login page:
 ![login html](./images/login-html.png)
-![home page1 html](./images/home1-html.png)
+
+Sign up page:
 ![sign up html](./images/signup-html.png)
+
+Home page:
+![home page1 html](./images/home1-html.png)
+
+Form submission page:
 ![symptoms form html](./images/form-html.png)
 ### Contributions:
 Stephen:
-    - Created the symptoms form page
-    - Created the first version of the Sign In Page (later aesthetic/layout changes were made)
-    - Created the first version of the Sign Up Page (later aesthetic/layout changes were made)
+- Created the symptoms form page
+- Created the first version of the Log In Page (later aesthetic/layout changes were made)
+- Created the first version of the Sign Up Page (later aesthetic/layout changes were made)
 
 Patrick
+- Set up project, initial files, and file structure
+- Worked on style and html on all of the pages.
+
 
 Nathan
