@@ -46,5 +46,5 @@ Patrick
 - Set up project, initial files, and file structure
 - Worked on style and html on all of the pages.
 
-
-Nathan
+Nathan:
+- Created initial dashboard/main page (home.html).
