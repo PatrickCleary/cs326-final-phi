@@ -38,10 +38,11 @@ Form submission page:
 ![symptoms form html](./images/form-html.png)
 ### Contributions:
 Stephen:
-- Created the symptoms form page
-- Created the first version of the Log In Page (later aesthetic/layout changes were made)
-- Created the first version of the Sign Up Page (later aesthetic/layout changes were made)
-
+- Created the symptoms form page and worked on html and css.
+- Created the first version of the Log In Page (basic layout and style)
+- Created the first version of the Sign Up Page (basic layout and style)
+- Added content to milestone1.md
+- **** Made all of my commits without being a contributor :( Made 23 commits.****
 Patrick
 - Set up project, initial files, and file structure
 - Worked on style and html on all of the pages.
