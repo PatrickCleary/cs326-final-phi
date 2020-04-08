@@ -1,0 +1,104 @@
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  width: 100%; /* Full-width */
+  background: #d3d3d3; /* Grey background */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  background: darkred;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  background: darkred;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.bg-dr {
+  background: rgb(134, 134, 134);
+}
+
+body{
+  background-color:rgb(40, 40, 40);
+  background-size: cover;
+}
+h1{
+  color:#fff;
+  font-weight: lighter;
+  font-size: 4vw;
+  text-align:center;
+}
+.page-header{
+  margin-bottom:1.5%;
+}
+.map{
+  background-color: rgb(40,40,40);
+}
+.data-box{
+  background-color: rgb(40, 40, 40);
+}
+.table{
+  color:#fff;
+}
+.hr-fix{
+  margin: 0;
+  margin-left: 3%;
+  margin-right: 3%;
+  border-bottom: 1px solid #747474;
+  
+}
+.signup{
+  font-size: 1vw;
+}
+.table-box{
+  color:#fff;
+  background-color: rgb(40, 40, 40);
+}
+.slider-box{
+  color:white;
+  background-color: rgb(40, 40, 40);
+
+}
+h4{
+  text-align: center;
+  margin-bottom:1%;
+
+}
+p{
+  color:white;
+  text-align:center;
+}
+.middlerow{
+  color:white;
+  text-align: center;
+  margin-top: 1%;
+}
+ 
+.signuplink{
+  color: rgb(0,0,255);
+}
+
+.slider-handle.custom {
+	background: transparent none;
+	/* You can customize the handle and set a background image */
+}
+
+.slider-handle.custom::before {
+	line-height: 20px;
+	font-size: 20px;
+	content: '\2605'; /*unicode star character*/
+	color: #726204;
+}
