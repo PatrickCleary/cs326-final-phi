@@ -9,6 +9,7 @@
         <link rel ="stylesheet" href = "./css/form.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="./js/form.js"></script>
         <title>Symptoms Form</title>
 
         <style>
@@ -265,11 +266,11 @@
               </div>
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 checkboxes">
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tested-check" id="tested-check-yes" value="yes">
+                    <input class="form-check-input" type="radio" name="tested-check" id="tested-check-yes" value="yes" onclick="yesTested()">
                     <label class="form-check-label" for="tested-check-yes">Yes</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="tested-check" id="tested-check-no" value="no">
+                    <input class="form-check-input" type="radio" name="tested-check" id="tested-check-no" value="no" onclick="noTested()">
                     <label class="form-check-label" for="tested-check-no">No</label>
                   </div>
               </div>
@@ -281,16 +282,16 @@
               </div>
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 checkboxes">
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="results" id="results-na" value="na" checked>
-                    <label class="form-check-label" for="results-na">NA</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="results" id="results-positive" value="positive">
+                    <input class="form-check-input" type="radio" name="results" id="results-positive" value="positive" disabled>
                     <label class="form-check-label" for="results-positive">Positive</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="results" id="results-negative" value="negative">
+                    <input class="form-check-input" type="radio" name="results" id="results-negative" value="negative" disabled>
                     <label class="form-check-label" for="results-negative">Negative</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="results" id="results-na" value="na" checked>
+                    <label class="form-check-label" for="results-na">NA</label>
                   </div>
               </div>
             </div>
