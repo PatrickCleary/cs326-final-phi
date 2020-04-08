@@ -90,3 +90,15 @@ p{
 .signuplink{
   color: rgb(0,0,255);
 }
+
+.slider-handle.custom {
+	background: transparent none;
+	/* You can customize the handle and set a background image */
+}
+
+.slider-handle.custom::before {
+	line-height: 20px;
+	font-size: 20px;
+	content: '\2605'; /*unicode star character*/
+	color: #726204;
+}
