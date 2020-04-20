@@ -1,21 +1,21 @@
 const url = 'http://localhost:8080/submission';
-import $ from 'jquery';
 
 const placeholdervalue = 'placeholder';
 
 function yesTested(){
-    ($('#results-positive') as any).disabled = false;
-    ($("#results-negative") as any).disabled = false;
-    ($("#results-na") as any).disabled = true;
+    
+    ($('#results-positive') as any).removeAttr('disabled');
+    ($("#results-negative") as any).removeAttr('disabled');
+    ($("#results-na") as any).attr("disabled", 'true');
     ($("results-na") as any).checked = false;
 
 
 }
 
 function noTested(){
-    ($('#results-positive') as any).disabled = true;
-    ($("#results-negative") as any).disabled = true;
-    ($("#results-na") as any).disabled = false;
+    ($('#results-positive') as any).attr("disabled", 'true');
+    ($("#results-negative") as any).attr("disabled", 'true');
+    ($("#results-na") as any).removeAttr('disabled');
     ($("results-na") as any).checked = true;
 
 }

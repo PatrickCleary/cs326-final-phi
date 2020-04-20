@@ -30,6 +30,14 @@ export class Server {
     //// HANDLE ERRORS WITH A WILDCARD (*)
     // Start up the form submission endpoint at '/submission'.
     this.server.use('/submission', this.router);
+
+
+    this.router.get('/form', function(request:any, response:any){
+        response.render('form', {
+            title: 'Submission Form'
+        });
+        });
+        
     this.router.get('/submission/create', this.createHandler.bind(this));
     this.router.get('/submission/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
     this.router.get('/submission/update', [this.errorHandler.bind(this), this.updateHandler.bind(this)]);
