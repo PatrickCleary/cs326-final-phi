@@ -37,17 +37,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var url = 'http://localhost:8080/submission';
 var placeholdervalue = 'placeholder';
 function yesTested() {
-    $('#results-positive').disabled = false;
-    console.log($('#results-positive').disabled);
-    $("#results-negative").disabled = false;
-    $("#results-na").disabled = true;
-    $("results-na").checked = false;
+    $('#results-positive')[0].disabled = false;
+    $("#results-negative")[0].disabled = false;
+    $("#results-na")[0].disabled = true;
+    $("#results-na")[0].checked = false;
+    $("#results-na")[0].innerHTML = '<p>POTATO<p>';
 }
 function noTested() {
-    $('#results-positive').disabled = true;
-    $("#results-negative").disabled = true;
-    $("#results-na").disabled = false;
-    $("results-na").checked = true;
+    $('#results-positive')[0].disabled = true;
+    $("#results-negative")[0].disabled = true;
+    $("#results-na")[0].disabled = false;
+    $("#results-na")[0].checked = true;
 }
 function submissionCreate() {
     var _this = this;
@@ -56,6 +56,7 @@ function submissionCreate() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    console.log('here');
                     username = "placeholderUsername";
                     password = "placeholderPassword";
                     newURL = url + '/create?username=' + placeholdervalue;
