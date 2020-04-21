@@ -15,6 +15,7 @@ export class Server {
     constructor(db : Database) {
     this.theDatabase = db;
 
+    //CORS
     this.router.use((request:any, response:any, next:any) => {
         response.header('Content-Type','application/json');
         response.header('Access-Control-Allow-Origin', '*');
@@ -22,22 +23,23 @@ export class Server {
         next();
     });
 
-    // Serve static pages from a particular path.
+
     //TODO: change folder to html folder
     this.server.use('/', express.static('./'));
-    //// YOUR CODE GOES HERE
-    //// HANDLE CREATE, READ, UPDATE, AND DELETE OPERATIONS
-    //// HANDLE ERRORS WITH A WILDCARD (*)
-    // Start up the form submission endpoint at '/submission'.
-    this.server.use('/submission', this.router);
+   
+    //start up router for api (CRUD operations)
+    this.server.use('/api', this.router);
 
 
+
+    //TODO: add links between all pages.
     this.router.get('/form', function(request:any, response:any){
         response.render('form', {
             title: 'Submission Form'
         });
         });
-        
+
+    //TODO: add operations for all necessary database reads.
     this.router.get('/submission/create', this.createHandler.bind(this));
     this.router.get('/submission/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
     this.router.get('/submission/update', [this.errorHandler.bind(this), this.updateHandler.bind(this)]);
@@ -45,8 +47,11 @@ export class Server {
     this.router.get('*', this.errorHandler.bind(this));
     }
 
+
+
     private async errorHandler(request:any, response:any, next:any) : Promise<void> {
-    let value : boolean = await this.theDatabase.isFound(request.params['userId']+"-"+request.query.name);
+        console.log(request)
+        let value : boolean = await this.theDatabase.isFound(request.query.name);
     if (!value) {
         response.write(JSON.stringify({'result' : 'error'}));
         response.end();
@@ -56,12 +61,12 @@ export class Server {
     }
     
     private async createHandler(request:any, response:any) : Promise<void> {
-    await this.createCounter(request.params['userId']+"-"+request.query.name, response);
+    await this.createCounter(request.query.name, response);
     }
 
     private async readHandler(request:any, response:any): Promise<void> {
     /// YOUR CODE GOES HERE
-    await this.readCounter(request.params['userId']+"-"+request.query.name, response);
+    await this.readCounter(request.query.name, response);
 
     }
 
@@ -80,6 +85,11 @@ export class Server {
     this.server.listen(port);
     }
 
+
+
+
+
+    //TODO: update these to work with our data... aka add fields to create entries with User types.
     public async createCounter(name: string, response:any) : Promise<void> {
     console.log("creating counter named '" + name + "'");
     await this.theDatabase.put(name, '0');
