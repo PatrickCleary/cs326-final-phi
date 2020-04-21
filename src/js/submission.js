@@ -41,7 +41,6 @@ function yesTested() {
     $("#results-negative")[0].disabled = false;
     $("#results-na")[0].disabled = true;
     $("#results-na")[0].checked = false;
-    $("#results-na")[0].innerHTML = '<p>POTATO<p>';
 }
 function noTested() {
     $('#results-positive')[0].disabled = true;
@@ -51,6 +50,7 @@ function noTested() {
 }
 function submissionCreate() {
     var _this = this;
+    console.log('potatos');
     (function () { return __awaiter(_this, void 0, void 0, function () {
         var username, password, newURL, responseValue, JSONResponse;
         return __generator(this, function (_a) {

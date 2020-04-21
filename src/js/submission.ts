@@ -8,7 +8,6 @@ function yesTested(){
     ($("#results-negative") as any)[0].disabled = false;
     ($("#results-na") as any)[0].disabled=true;
     ($("#results-na") as any)[0].checked = false;
-    ($("#results-na") as any)[0].innerHTML = '<p>POTATO<p>';
 
 
 }
@@ -16,7 +15,7 @@ function yesTested(){
 function noTested(){
     ($('#results-positive') as any)[0].disabled=true;
     ($("#results-negative") as any)[0].disabled=true;
-    ($("#results-na") as any)[0].disabled=false;
+    ($("#results-na") as any)[0].disabled=false; 
     ($("#results-na") as any)[0].checked = true;
 
 }
