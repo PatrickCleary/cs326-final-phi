@@ -12,7 +12,7 @@
     "@types/node": "^13.9.8",
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "typescript": "^3.8.3"
   },
   "description": "Final Project for UMass CS 326",
