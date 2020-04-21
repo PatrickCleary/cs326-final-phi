@@ -50,7 +50,6 @@ function noTested() {
 }
 function submissionCreate() {
     var _this = this;
-    console.log('potatos');
     (function () { return __awaiter(_this, void 0, void 0, function () {
         var username, password, newURL, responseValue, JSONResponse;
         return __generator(this, function (_a) {
@@ -76,5 +75,5 @@ function submissionCreate() {
                     return [2 /*return*/];
             }
         });
-    }); });
+    }); })();
 }
