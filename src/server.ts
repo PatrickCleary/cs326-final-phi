@@ -38,13 +38,22 @@ export class Server {
         response.render('form', {
             title: 'Submission Form'
         });
+    });
+
+    /*
+    this.router.post('/charts', function(request:any, response:any){
+        response.render('index', {
+            title: 'Home Page'
         });
+    });
+    */
 
     //TODO: add operations for all necessary database reads.
     this.router.post('/submission/create', this.createHandler.bind(this));
     this.router.post('/submission/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
     this.router.post('/submission/update', [this.errorHandler.bind(this), this.updateHandler.bind(this)]);
     this.router.post('/submission/delete', [this.errorHandler.bind(this), this.deleteHandler.bind(this)]);
+    this.router.post('/home/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
     this.router.post('*', this.errorHandler.bind(this));
     }
 

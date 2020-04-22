@@ -8,6 +8,7 @@
   <meta name="viewport" content="width = device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/styles.min.css">
+  <script src="./js/home.js"></script>
   <title>COVID-19 Symptom Tracker</title>
 </head>
 
@@ -63,21 +64,15 @@
             </fieldset>
           -->
             <div class="form-group">
-              <label for="fever">Fever</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>None</option>
-                <option>Mild</option>
-                <option>Severe</option>
-                <option selected="selected">Any</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="fever">Cough</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>None</option>
-                <option>Mild</option>
-                <option>Severe</option>
-                <option selected="selected">Any</option>
+              <select onchange="symptomRead()" class="form-control" id="symptoms">
+                <option>Fever</option>
+                <option>Tiredness</option>
+                <option>Chills and Body Aches</option>
+                <option>Digestion Issues</option>
+                <option>Loss of smell and taste</option>
+                <option>Head ache, sore throat, or congestion</option>
+                <option>Dry Cough</option>
+                <option>Difficulty Breathing</option>
               </select>
             </div>
         </div>

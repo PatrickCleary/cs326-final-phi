@@ -6,7 +6,7 @@ if __name__ == '__main__':
     print('compiling typescript...')
     #compile submission typescript. We should add this for all typescript.
     os.system('tsc ./js/submission.ts')
-    #os.system('tsc ./js/postData.ts')
+    os.system('tsc ./js/home.ts')
 
     
     print('done compiling.')
