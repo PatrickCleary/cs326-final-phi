@@ -33,6 +33,9 @@ export class Database {
 	})();
     }
 
+    //TODO: Fix all of these DB functions to line up with our data
+
+    //make this actually store a User object
     public async put(userName: string, value: string) : Promise<void> {
         let db = this.client.db(this.dbName);
         let collection = db.collection(this.collectionName);
@@ -42,6 +45,8 @@ export class Database {
     
     }
 
+    
+    //get none/mild/severe value for every User for selected symptom
     public async get(userName: string) : Promise<string> {
         let db = this.client.db(this.dbName); // this.level(this.dbFile);
         let collection = db.collection(this.collectionName);

@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,31 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url = 'http://localhost:8080/api/submission';
-var placeholdervalue = 'placeholder';
-function yesTested() {
-    $('#results-positive')[0].disabled = false;
-    $("#results-negative")[0].disabled = false;
-    $("#results-na")[0].disabled = true;
-    $("#results-na")[0].checked = false;
-}
-function noTested() {
-    $('#results-positive')[0].disabled = true;
-    $("#results-negative")[0].disabled = true;
-    $("#results-na")[0].disabled = false;
-    $("#results-na")[0].checked = true;
-}
-var User = /** @class */ (function () {
-    function User(username, password) {
-        this.tested = false;
-        this.testedResult = "-1";
-        //TODO: fill out Symptoms Interface in Symptoms.ts
-        this.Symptoms = { fever: 0, tiredness: 0, chills: 0, digestion: 0, smell: 0, congestion: 0, cough: 0, breathing: 0 };
-        this.username = username;
-        this.password = password;
-    }
-    return User;
-}());
+exports.__esModule = true;
 function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
@@ -82,51 +59,4 @@ function postData(url, data) {
         });
     });
 }
-function getSubmissionValues() {
-    var user = new User("username", "password");
-    var feverValue = $('input[name="fever"]:checked').val();
-    var tirednessValue = $('input[name="tiredness"]:checked').val();
-    var chillsValue = $('input[name="Chills"]:checked').val();
-    var digestionValue = $('input[name="digestion"]:checked').val();
-    var smellValue = $('input[name="smell"]:checked').val();
-    var congestionValue = $('input[name="congestion"]:checked').val();
-    var coughValue = $('input[name="dry-cough"]:checked').val();
-    var breathingValue = $('input[name="difficulty-breathing"]:checked').val();
-    var testedCheckValue = $('input[name="tested-check"]:checked').val();
-    var testedResultsValue = $('input[name="results"]:checked').val();
-    user.Symptoms = { fever: feverValue, tiredness: tirednessValue, chills: chillsValue, digestion: digestionValue, smell: smellValue, congestion: congestionValue, cough: coughValue, breathing: breathingValue };
-    user.tested = testedCheckValue;
-    user.testedResult = testedResultsValue;
-    return user;
-}
-function submissionCreate() {
-    var _this = this;
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var username, password, newURL, data, responseValue, JSONResponse;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    console.log('here');
-                    username = "placeholderUsername";
-                    password = "placeholderPassword";
-                    newURL = url + '/create';
-                    data = getSubmissionValues();
-                    console.log(data);
-                    console.log('creating new submission. fetching:' + newURL);
-                    return [4 /*yield*/, postData(newURL, data)];
-                case 1:
-                    responseValue = _a.sent();
-                    return [4 /*yield*/, responseValue.json()];
-                case 2:
-                    JSONResponse = _a.sent();
-                    if (JSONResponse['result'] !== 'error') {
-                        console.log('submission created');
-                    }
-                    else {
-                        console.log('submission failed!');
-                    }
-                    return [2 /*return*/];
-            }
-        });
-    }); })();
-}
+exports["default"] = postData;
