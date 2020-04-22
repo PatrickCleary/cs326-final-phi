@@ -26,6 +26,7 @@ export class Server {
 
     //TODO: change folder to html folder
     this.server.use('/', express.static('./'));
+    this.server.use(express.json());
    
     //start up router for api (CRUD operations)
     this.server.use('/api', this.router);
@@ -33,25 +34,25 @@ export class Server {
 
 
     //TODO: add links between all pages.
-    this.router.get('/form', function(request:any, response:any){
+    this.router.post('/form', function(request:any, response:any){
         response.render('form', {
             title: 'Submission Form'
         });
         });
 
     //TODO: add operations for all necessary database reads.
-    this.router.get('/submission/create', this.createHandler.bind(this));
-    this.router.get('/submission/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
-    this.router.get('/submission/update', [this.errorHandler.bind(this), this.updateHandler.bind(this)]);
-    this.router.get('/submission/delete', [this.errorHandler.bind(this), this.deleteHandler.bind(this)]);
-    this.router.get('*', this.errorHandler.bind(this));
+    this.router.post('/submission/create', this.createHandler.bind(this));
+    this.router.post('/submission/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
+    this.router.post('/submission/update', [this.errorHandler.bind(this), this.updateHandler.bind(this)]);
+    this.router.post('/submission/delete', [this.errorHandler.bind(this), this.deleteHandler.bind(this)]);
+    this.router.post('*', this.errorHandler.bind(this));
     }
 
 
 
     private async errorHandler(request:any, response:any, next:any) : Promise<void> {
         console.log(request)
-        let value : boolean = await this.theDatabase.isFound(request.query.name);
+        let value : boolean = await this.theDatabase.isFound(request.body.name);
     if (!value) {
         response.write(JSON.stringify({'result' : 'error'}));
         response.end();
@@ -61,24 +62,24 @@ export class Server {
     }
     
     private async createHandler(request:any, response:any) : Promise<void> {
-    await this.createCounter(request.query.name, response);
+    await this.createCounter(request.body.name, response);
     }
 
     private async readHandler(request:any, response:any): Promise<void> {
     /// YOUR CODE GOES HERE
-    await this.readCounter(request.query.name, response);
+    await this.readCounter(request.body.name, response);
 
     }
 
     private async updateHandler(request:any, response:any) : Promise<void> {
     /// YOUR CODE GOES HERE
-    await this.updateCounter(request.params['userId']+"-"+request.query.name, request.query.value, response);
+    await this.updateCounter(request.params['userId']+"-"+request.body.name, request.body.value, response);
 
     }
 
     private async deleteHandler(request:any, response:any) : Promise<void> {
     /// YOUR CODE GOES HERE
-    await this.deleteCounter(request.params['userId']+"-"+request.query.name, response);
+    await this.deleteCounter(request.params['userId']+"-"+request.body.name, response);
     }
 
     public listen(port: any) : void  {

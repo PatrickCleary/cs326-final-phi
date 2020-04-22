@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,30 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url = 'http://localhost:8080/api/submission';
-var placeholdervalue = 'placeholder';
-function yesTested() {
-    $('#results-positive')[0].disabled = false;
-    $("#results-negative")[0].disabled = false;
-    $("#results-na")[0].disabled = true;
-    $("#results-na")[0].checked = false;
-}
-function noTested() {
-    $('#results-positive')[0].disabled = true;
-    $("#results-negative")[0].disabled = true;
-    $("#results-na")[0].disabled = false;
-    $("#results-na")[0].checked = true;
-}
-var User = /** @class */ (function () {
-    function User(username, password) {
-        this.tested = false;
-        //TODO: fill out Symptoms Interface in Symptoms.ts
-        this.Symptoms = { cough: 0, fever: 0, tiredness: 0, chills: 0, digestion: 0, loss: 0, headache: 0, breathing: 0 };
-        this.username = username;
-        this.password = password;
-    }
-    return User;
-}());
+exports.__esModule = true;
 function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
@@ -81,34 +59,4 @@ function postData(url, data) {
         });
     });
 }
-function submissionCreate() {
-    var _this = this;
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var username, password, newURL, data, responseValue, JSONResponse;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    console.log('here');
-                    username = "placeholderUsername";
-                    password = "placeholderPassword";
-                    newURL = url + '/create';
-                    data = new User(username, password);
-                    //const data = {'username':username};
-                    console.log('creating new submission. fetching:' + newURL);
-                    return [4 /*yield*/, postData(newURL, data)];
-                case 1:
-                    responseValue = _a.sent();
-                    return [4 /*yield*/, responseValue.json()];
-                case 2:
-                    JSONResponse = _a.sent();
-                    if (JSONResponse['result'] !== 'error') {
-                        console.log('submission created');
-                    }
-                    else {
-                        console.log('submission failed!');
-                    }
-                    return [2 /*return*/];
-            }
-        });
-    }); })();
-}
+exports["default"] = postData;

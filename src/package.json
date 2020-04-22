@@ -9,6 +9,7 @@
   "author": "Patrick Cleary, Stephen Disario, Nathan Duarte",
   "license": "UNLICENSED",
   "dependencies": {
+    "@types/jquery": "^3.3.35",
     "@types/node": "^13.9.8",
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
