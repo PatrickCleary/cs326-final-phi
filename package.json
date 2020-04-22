@@ -1,19 +1,25 @@
 {
   "name": "covid-tracker",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "start": "tsc && node ./src/app.js"
   },
   "keywords": [],
   "author": "Patrick Cleary, Stephen Disario, Nathan Duarte",
   "license": "UNLICENSED",
   "dependencies": {
+    "@types/express": "^4.17.6",
     "@types/jquery": "^3.3.35",
     "@types/node": "^13.9.8",
     "bootstrap": "^4.4.1",
+    "ejs": "^3.0.2",
     "express": "^4.17.1",
     "jquery": "^3.5.0",
+    "path": "^0.12.7",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   },
   "description": "Final Project for UMass CS 326",

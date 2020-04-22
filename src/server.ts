@@ -5,7 +5,7 @@ import {Database} from './database';
 
 export class Server {
 
-    private theDatabase: Database;
+    private theDatabase: any;
 
     // Server stuff: use express instead of http.createServer
     private server = express();
@@ -13,7 +13,6 @@ export class Server {
     private router = express.Router();
 
     constructor(db : Database) {
-    this.theDatabase = db;
 
     //CORS
     this.router.use((request:any, response:any, next:any) => {
@@ -23,42 +22,40 @@ export class Server {
         next();
     });
 
-
-    //TODO: change folder to html folder
-    this.server.use('/', express.static('./'));
+    var path = require('path');
+    this.server.use('/', express.static('./src/public'));
+    this.server.use('/symptoms', express.static('./src/public'));
     this.server.use(express.json());
-   
-    //start up router for api (CRUD operations)
-    this.server.use('/api', this.router);
+    //TODO: change folder to html folder
+    this.server.set('views', path.join(__dirname, 'views'));
+    this.server.engine('html', require('ejs').renderFile);
+    this.server.set('view engine', 'html');
+
+    var indexRouter = require('./routes/IndexRouter');
+    var symptomsRouter = require('./routes/SymptomRouter');
+
+    this.server.use('/', indexRouter);
+    this.server.use('/symptoms', symptomsRouter);
 
 
-
-    //TODO: add links between all pages.
-    this.router.post('/form', function(request:any, response:any){
-        response.render('form', {
-            title: 'Submission Form'
-        });
+    this.server.use(function(req, res, next) {
+      next(createError(404));
     });
 
-    /*
-    this.router.post('/charts', function(request:any, response:any){
-        response.render('index', {
-            title: 'Home Page'
-        });
-    });
-    */
 
-    //TODO: add operations for all necessary database reads.
-    this.router.post('/submission/create', this.createHandler.bind(this));
-    this.router.post('/submission/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
-    this.router.post('/submission/update', [this.errorHandler.bind(this), this.updateHandler.bind(this)]);
-    this.router.post('/submission/delete', [this.errorHandler.bind(this), this.deleteHandler.bind(this)]);
-    this.router.post('/home/read', [this.errorHandler.bind(this), this.readHandler.bind(this)]);
-    this.router.post('*', this.errorHandler.bind(this));
+    // error handler
+    this.server.use(function(err, req, res, next) {
+      // set locals, only providing error in development
+      res.locals.message = err.message;
+      res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+      // render the error page
+      res.status(err.status || 500);
+      res.send('404');
+    });
     }
 
-
-
+    /*
     private async errorHandler(request:any, response:any, next:any) : Promise<void> {
         console.log(request)
         let value : boolean = await this.theDatabase.isFound(request.body.name);
@@ -69,7 +66,7 @@ export class Server {
         next();
     }
     }
-    
+
     private async createHandler(request:any, response:any) : Promise<void> {
     await this.createCounter(request.body.name, response);
     }
@@ -90,51 +87,10 @@ export class Server {
     /// YOUR CODE GOES HERE
     await this.deleteCounter(request.params['userId']+"-"+request.body.name, response);
     }
-
+    */
     public listen(port: any) : void  {
     this.server.listen(port);
     }
 
 
-
-
-
-    //TODO: update these to work with our data... aka add fields to create entries with User types.
-    public async createCounter(name: string, response:any) : Promise<void> {
-    console.log("creating counter named '" + name + "'");
-    await this.theDatabase.put(name, '0');
-    response.write(JSON.stringify({'result' : 'created',
-                    'name' : name,
-                    'value' : 0 }));
-    response.end();
-    }
-
-    public async errorCounter(name: string, response:any) : Promise<void> {
-    response.write(JSON.stringify({'result': 'error'}));
-    response.end();
-    }
-
-    public async readCounter(name: string, response:any) : Promise<void> {
-    let value = await this.theDatabase.get(name);
-    response.write(JSON.stringify({'result' : 'read',
-                    'name' : name,
-                    'value' : value }));
-    response.end();
-    }
-
-    public async updateCounter(name: string, value: string, response:any) : Promise<void> {
-    await this.theDatabase.put(name, value);
-    response.write(JSON.stringify({'result' : 'updated',
-                    'name' : name,
-                    'value' : value }));
-    response.end();
-    }
-    
-    public async deleteCounter(name : string, response:any) : Promise<void> {
-    await this.theDatabase.del(name);
-    response.write(JSON.stringify({'result' : 'deleted',
-                    'value'  : name }));
-    response.end();
-    }
 }
-
