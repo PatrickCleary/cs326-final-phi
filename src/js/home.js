@@ -1,4 +1,4 @@
-//TODO: Fix double variable names
+//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -59,7 +59,9 @@ function postData2(url, data) {
         });
     });
 }
-//TODO: Return all of the User Data regarding the selected symptom
+//sends symptom selected to DB, goal is to then get info from every User for that symptom.
+//Issue is User class is currently defined in submission.ts bc of the import/export bug
+//which needs to change
 function symptomRead() {
     var _this = this;
     (function () { return __awaiter(_this, void 0, void 0, function () {
