@@ -51,8 +51,9 @@ function noTested() {
 var User = /** @class */ (function () {
     function User(username, password) {
         this.tested = false;
+        this.testedResult = "-1";
         //TODO: fill out Symptoms Interface in Symptoms.ts
-        this.Symptoms = { cough: 0, fever: 0, tiredness: 0, chills: 0, digestion: 0, loss: 0, headache: 0, breathing: 0 };
+        this.Symptoms = { fever: 0, tiredness: 0, chills: 0, digestion: 0, smell: 0, congestion: 0, cough: 0, breathing: 0 };
         this.username = username;
         this.password = password;
     }
@@ -81,6 +82,23 @@ function postData(url, data) {
         });
     });
 }
+function getSubmissionValues() {
+    var user = new User("username", "password");
+    var feverValue = $('input[name="fever"]:checked').val();
+    var tirednessValue = $('input[name="tiredness"]:checked').val();
+    var chillsValue = $('input[name="Chills"]:checked').val();
+    var digestionValue = $('input[name="digestion"]:checked').val();
+    var smellValue = $('input[name="smell"]:checked').val();
+    var congestionValue = $('input[name="congestion"]:checked').val();
+    var coughValue = $('input[name="dry-cough"]:checked').val();
+    var breathingValue = $('input[name="difficulty-breathing"]:checked').val();
+    var testedCheckValue = $('input[name="tested-check"]:checked').val();
+    var testedResultsValue = $('input[name="results"]:checked').val();
+    user.Symptoms = { fever: feverValue, tiredness: tirednessValue, chills: chillsValue, digestion: digestionValue, smell: smellValue, congestion: congestionValue, cough: coughValue, breathing: breathingValue };
+    user.tested = testedCheckValue;
+    user.testedResult = testedResultsValue;
+    return user;
+}
 function submissionCreate() {
     var _this = this;
     (function () { return __awaiter(_this, void 0, void 0, function () {
@@ -92,8 +110,8 @@ function submissionCreate() {
                     username = "placeholderUsername";
                     password = "placeholderPassword";
                     newURL = url + '/create';
-                    data = new User(username, password);
-                    //const data = {'username':username};
+                    data = getSubmissionValues();
+                    console.log(data);
                     console.log('creating new submission. fetching:' + newURL);
                     return [4 /*yield*/, postData(newURL, data)];
                 case 1:
