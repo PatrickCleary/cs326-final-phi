@@ -35,8 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url2 = 'http://localhost:8080/api/home';
-function postData2(url, data) {
+var url2 = 'http://localhost:8080';
+var connect = function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
         return __generator(this, function (_a) {
@@ -58,34 +58,26 @@ function postData2(url, data) {
             }
         });
     });
-}
+};
 //sends symptom selected to DB, goal is to then get info from every User for that symptom.
 //Issue is User class is currently defined in submission.ts bc of the import/export bug
 //which needs to change
 function symptomRead() {
     var _this = this;
     (function () { return __awaiter(_this, void 0, void 0, function () {
-        var filter, newURL2, data2, responseValue, JSONResponse;
+        var filter, newURL2, data2, responseValue;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     filter = $("#symptoms option:selected").text();
-                    newURL2 = url2 + '/read';
-                    console.log('getting symptom data: fetching' + newURL2);
+                    newURL2 = url2 + '/filter';
+                    console.log('getting symptom data: fetching from ' + newURL2);
                     console.log(filter);
                     data2 = { "symptom": filter };
-                    return [4 /*yield*/, postData2(newURL2, data2)];
+                    return [4 /*yield*/, connect(newURL2, data2)];
                 case 1:
                     responseValue = _a.sent();
-                    return [4 /*yield*/, responseValue.json()];
-                case 2:
-                    JSONResponse = _a.sent();
-                    if (JSONResponse['result'] !== 'error') {
-                        console.log('data found');
-                    }
-                    else {
-                        console.log('failed!');
-                    }
+                    console.log(responseValue);
                     return [2 /*return*/];
             }
         });

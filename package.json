@@ -1,30 +1,54 @@
 {
   "name": "covid-tracker",
   "version": "1.0.0",
-  "main": "src/app.ts",
+  "main": "./build/app.js",
   "scripts": {
     "tsc": "tsc",
-    "dev": "tsc src/public/js/*.ts && ts-node-dev --respawn --transpileOnly ./src/app.ts",
-    "start": "tsc && node ./src/app.js"
+    "dev": "tsc src/public/js/*.ts src/models/*.ts --module commonjs && ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "start": "tsc && node ./build/app.js"
   },
   "keywords": [],
   "author": "Patrick Cleary, Stephen Disario, Nathan Duarte",
   "license": "UNLICENSED",
   "dependencies": {
-    "@types/express": "^4.17.6",
     "@types/jquery": "^3.3.35",
-    "@types/node": "^13.9.8",
+    "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
+    "common-js": "^0.3.8",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
+    "g": "^2.0.1",
     "jquery": "^3.5.0",
+    "mongoose": "^5.9.10",
     "path": "^0.12.7",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3"
+    "ts-node-dev": "^1.0.0-pre.44"
   },
   "description": "Final Project for UMass CS 326",
   "repository": {
     "type": "git",
     "url": "n"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/node": "^13.13.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.3",
+    "ts-node": "^8.9.0",
+    "tsc-watch": "^4.2.3",
+    "typescript": "^3.8.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
   }
 }

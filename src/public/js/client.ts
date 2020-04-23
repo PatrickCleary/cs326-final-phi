@@ -1,5 +1,3 @@
-import {User} from '../../User';
-
 
 export default async function postData(url: any, data: any) {
     const resp = await fetch(url,

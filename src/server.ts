@@ -1,6 +1,8 @@
 let http = require('http');
 let url = require('url');
 let express = require('express');
+let mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 import {Database} from './database';
 
 export class Server {
@@ -15,12 +17,18 @@ export class Server {
     constructor(db : Database) {
 
     //CORS
-    this.router.use((request, response, next) => {
+    this.router.use((request:any, response:any, next:any) => {
         response.header('Content-Type','application/json');
         response.header('Access-Control-Allow-Origin', '*');
         response.header('Access-Control-Allow-Headers', '*');
         next();
     });
+
+    this.server.use(bodyParser.urlencoded({ extended: true }));
+    this.server.use(bodyParser.json());
+
+    this.server.use(express.json());       // to support JSON-encoded bodies
+    this.server.use(express.urlencoded());
 
     var path = require('path');
     this.server.use('/', express.static('./src/public'));
@@ -33,26 +41,13 @@ export class Server {
 
     var indexRouter = require('./routes/IndexRouter');
     var symptomsRouter = require('./routes/SymptomRouter');
+    var usersRouter = require('./routes/UserRouter');
+
 
     this.server.use('/', indexRouter);
     this.server.use('/symptoms', symptomsRouter);
+    this.server.use('/users', usersRouter);
 
-
-    this.server.use(function(req, res, next) {
-      next(createError(404));
-    });
-
-
-    // error handler
-    this.server.use(function(err, req, res, next) {
-      // set locals, only providing error in development
-      res.locals.message = err.message;
-      res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-      // render the error page
-      res.status(err.status || 500);
-      res.send('404');
-    });
     }
 
     /*
