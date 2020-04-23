@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url = 'http://localhost:8080/api/submission';
+var url = 'http://localhost:8080';
 var placeholdervalue = 'placeholder';
 function yesTested() {
     $('#results-positive')[0].disabled = false;
@@ -109,7 +110,7 @@ function submissionCreate() {
                     console.log('here');
                     username = "placeholderUsername";
                     password = "placeholderPassword";
-                    newURL = url + '/create';
+                    newURL = url + '/symptoms/sample/update';
                     data = getSubmissionValues();
                     console.log(data);
                     console.log('creating new submission. fetching:' + newURL);

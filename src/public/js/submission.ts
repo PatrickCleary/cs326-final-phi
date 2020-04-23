@@ -1,8 +1,8 @@
-const url = 'http://localhost:8080/api/submission';
+const url = 'http://localhost:8080';
 const placeholdervalue = 'placeholder';
 
 function yesTested(){
-    
+
     ($('#results-positive') as any)[0].disabled = false;
     ($("#results-negative") as any)[0].disabled = false;
     ($("#results-na") as any)[0].disabled=true;
@@ -14,7 +14,7 @@ function yesTested(){
 function noTested(){
     ($('#results-positive') as any)[0].disabled=true;
     ($("#results-negative") as any)[0].disabled=true;
-    ($("#results-na") as any)[0].disabled=false; 
+    ($("#results-na") as any)[0].disabled=false;
     ($("#results-na") as any)[0].checked = true;
 
 }
@@ -49,8 +49,8 @@ class User{
         this.username = username;
         this.password = password;
     }
-    
-}  
+
+}
 
 async function postData(url: any, data: any) {
     const resp = await fetch(url,
@@ -90,10 +90,10 @@ function getSubmissionValues(): User{
 function submissionCreate(){
     (async()=>{
         console.log('here');
-        
+
         let username = "placeholderUsername";
         let password = "placeholderPassword";
-        const newURL = url + '/create';
+        const newURL = url + '/symptoms/sample/update';
         //TODO: On Submit button press, check if all fields have been filled out
         const data = getSubmissionValues();
         console.log(data)

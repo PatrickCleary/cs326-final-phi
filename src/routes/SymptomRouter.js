@@ -1,5 +1,4 @@
 "use strict";
-//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -36,51 +35,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url2 = 'http://localhost:8080';
-var connect = function postData(url, data) {
+var express = require('express');
+var router = express.Router();
+var User = require('../models/User');
+var Symptom = require('../models/Symptoms');
+/* GET users listing. */
+router.get('/:username/checkup', function (req, res) {
+    res.render('form');
+});
+router.post('/:username/update', function (req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var resp;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch(url, {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        credentials: 'same-origin',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        redirect: 'follow',
-                        body: JSON.stringify(data)
-                    })];
-                case 1:
-                    resp = _a.sent();
-                    return [2 /*return*/, resp];
-            }
-        });
-    });
-};
-//sends symptom selected to DB, goal is to then get info from every User for that symptom.
-//Issue is User class is currently defined in submission.ts bc of the import/export bug
-//which needs to change
-function symptomRead() {
-    var _this = this;
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var filter, newURL2, data2, responseValue;
+        var curr_user;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    filter = $("#symptoms option:selected").text();
-                    newURL2 = url2 + '/filter';
-                    console.log('getting symptom data: fetching from ' + newURL2);
-                    console.log(filter);
-                    data2 = { "symptom": filter };
-                    return [4 /*yield*/, connect(newURL2, data2)];
+                    req.body.username = req.params.username;
+                    return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true }, function (err, u) {
+                            return u;
+                        })];
                 case 1:
-                    responseValue = _a.sent();
-                    console.log(responseValue);
+                    curr_user = _a.sent();
+                    console.log(curr_user);
+                    console.log(req.body);
                     return [2 /*return*/];
             }
         });
-    }); })();
-}
+    });
+});
+module.exports = router;

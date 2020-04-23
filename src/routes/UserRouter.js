@@ -1,5 +1,4 @@
 "use strict";
-//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -36,51 +35,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url2 = 'http://localhost:8080';
-var connect = function postData(url, data) {
-    return __awaiter(this, void 0, void 0, function () {
-        var resp;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch(url, {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        credentials: 'same-origin',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        redirect: 'follow',
-                        body: JSON.stringify(data)
-                    })];
-                case 1:
-                    resp = _a.sent();
-                    return [2 /*return*/, resp];
-            }
+var express = require('express');
+var router = express.Router();
+var User = require('../models/User');
+router.get('/', function (req, res) {
+    res.render('signup');
+});
+router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var newbie;
+    return __generator(this, function (_a) {
+        newbie = new User({ username: req.body.username, email: req.body.email, password: req.body.password, tested: false, testedResult: -1, symptom: null });
+        newbie.save(function (err) {
+            if (err)
+                return handleError(err);
+            res.redirect('/');
         });
+        return [2 /*return*/];
     });
-};
-//sends symptom selected to DB, goal is to then get info from every User for that symptom.
-//Issue is User class is currently defined in submission.ts bc of the import/export bug
-//which needs to change
-function symptomRead() {
-    var _this = this;
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var filter, newURL2, data2, responseValue;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    filter = $("#symptoms option:selected").text();
-                    newURL2 = url2 + '/filter';
-                    console.log('getting symptom data: fetching from ' + newURL2);
-                    console.log(filter);
-                    data2 = { "symptom": filter };
-                    return [4 /*yield*/, connect(newURL2, data2)];
-                case 1:
-                    responseValue = _a.sent();
-                    console.log(responseValue);
-                    return [2 /*return*/];
-            }
-        });
-    }); })();
-}
+}); });
+module.exports = router;
