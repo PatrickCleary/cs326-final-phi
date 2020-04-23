@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url2 = 'http://localhost:8080/api/home';
+var url2 = 'https://powerful-bayou-58370.herokuapp.com/api/home';
 function postData2(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;

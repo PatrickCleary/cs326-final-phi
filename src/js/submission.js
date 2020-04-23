@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url = 'http://localhost:8080/api/submission';
+var url = 'https://powerful-bayou-58370.herokuapp.com/api/submission';
 var placeholdervalue = 'placeholder';
 function yesTested() {
     $('#results-positive')[0].disabled = false;

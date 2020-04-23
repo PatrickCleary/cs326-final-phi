@@ -1,4 +1,4 @@
-const url = 'http://localhost:8080/api/submission';
+const url = 'https://powerful-bayou-58370.herokuapp.com/api/submission';
 const placeholdervalue = 'placeholder';
 
 function yesTested(){

@@ -1,6 +1,6 @@
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 
-const url2 = 'http://localhost:8080/api/home';
+const url2 = 'https://powerful-bayou-58370.herokuapp.com/api/home';
 
 async function postData2(url: any, data: any) {
     const resp = await fetch(url,
