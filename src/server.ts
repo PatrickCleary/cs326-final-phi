@@ -15,7 +15,7 @@ export class Server {
     constructor(db : Database) {
 
     //CORS
-    this.router.use((request:any, response:any, next:any) => {
+    this.router.use((request, response, next) => {
         response.header('Content-Type','application/json');
         response.header('Access-Control-Allow-Origin', '*');
         response.header('Access-Control-Allow-Headers', '*');
