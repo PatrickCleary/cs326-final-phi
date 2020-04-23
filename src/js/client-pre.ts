@@ -1,7 +1,11 @@
-const url = 'http://localhost:8080/api/submission';
-const placeholdervalue = 'placeholder';
+import {User} from "./User"
+import {postData} from "./postData"
 
-function yesTested(){
+///////////////////////////////////////////////FORM PAGE///////////////////////////////////////////////
+
+const urlForm = 'http://localhost:8080/api/submission';
+
+export function yesTested(){
     
     ($('#results-positive') as any)[0].disabled = false;
     ($("#results-negative") as any)[0].disabled = false;
@@ -11,7 +15,7 @@ function yesTested(){
 
 }
 
-function noTested(){
+export function noTested(){
     ($('#results-positive') as any)[0].disabled=true;
     ($("#results-negative") as any)[0].disabled=true;
     ($("#results-na") as any)[0].disabled=false; 
@@ -20,55 +24,7 @@ function noTested(){
 }
 
 
-interface symptoms{
-
-    fever: any;
-    tiredness: any;
-    chills: any;
-    digestion: any;
-    smell: any;
-    congestion: any;
-    cough: any;
-    breathing: any;
-
-}
-
-class User{
-
-
-    private username : string;
-    private password : string;
-    tested: any = false;
-    testedResult: any = "-1";
-
-    //TODO: fill out Symptoms Interface in Symptoms.ts
-    Symptoms: symptoms= {fever:0, tiredness: 0, chills: 0, digestion: 0, smell: 0, congestion: 0, cough: 0, breathing: 0};
-
-
-    constructor(username:string, password:string){
-        this.username = username;
-        this.password = password;
-    }
-    
-}  
-
-async function postData(url: any, data: any) {
-    const resp = await fetch(url,
-                             {
-                                 method: 'POST',
-                                 mode: 'cors',
-                                 cache: 'no-cache',
-                                 credentials: 'same-origin',
-                                 headers: {
-                                     'Content-Type': 'application/json'
-                                 },
-                                 redirect: 'follow',
-                                 body: JSON.stringify(data)
-                             });
-    return resp;
-}
-
-function getSubmissionValues(): User{
+export function getSubmissionValues(): User{
 
     let user = new User("username","password");
     let feverValue = $('input[name="fever"]:checked').val();
@@ -87,13 +43,13 @@ function getSubmissionValues(): User{
     return user;
 }
 
-function submissionCreate(){
+export function submissionCreate(){
     (async()=>{
         console.log('here');
         
         let username = "placeholderUsername";
         let password = "placeholderPassword";
-        const newURL = url + '/create';
+        const newURL = urlForm + '/create';
         //TODO: On Submit button press, check if all fields have been filled out
         const data = getSubmissionValues();
         console.log(data)
@@ -112,3 +68,31 @@ function submissionCreate(){
 
 
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////HOME PAGE///////////////////////////////////////////////
+
+const urlHome = 'http://localhost:8080/api/home';
+
+export function symptomRead(){
+    (async()=>{
+        let filter = $("#symptoms option:selected" ).text();
+        const newURL = urlHome + '/read';
+        console.log('getting symptom data: fetching' + newURL);
+        console.log(filter);
+        const data = {"symptom":filter}
+        const responseValue = await postData(newURL,data);
+        const JSONResponse = await responseValue.json();
+        if(JSONResponse['result']!=='error'){
+            console.log('data found');
+        }else{
+            console.log('failed!');
+        }
+
+
+    })();
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+

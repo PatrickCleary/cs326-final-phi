@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width = device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/styles.min.css">
-  <script src="./js/home.js"></script>
+  <link rel="stylesheet" href="../css/styles.min.css">
+  <script src="../js/client-main.js"></script>
   <title>COVID-19 Symptom Tracker</title>
 </head>
 
@@ -21,7 +21,7 @@
       <div class="row">
         <div class="col-12 col-sm-12">
           <div class="jumbotron map">
-            <img src="img/mass-bw.png" alt="" class="rounded mx-auto d-block" style="width: 50%;">
+            <img src="../img/mass-bw.png" alt="" class="rounded mx-auto d-block" style="width: 50%;">
           </div>
           <p class = 'signup'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="form.html">here</a></p>
         </div>
@@ -64,7 +64,7 @@
             </fieldset>
           -->
             <div class="form-group">
-              <select onchange="symptomRead()" class="form-control" id="symptoms">
+              <select onchange="client.symptomRead()" class="form-control" id="symptoms">
                 <option>Fever</option>
                 <option>Tiredness</option>
                 <option>Chills and Body Aches</option>
