@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+      "target": "es2016",
+      "skipLibCheck": true,
+      "noImplicitAny": true,
+      "noImplicitReturns": true,
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitThis": true,
+      "noUnusedParameters": true,
+      "noFallthroughCasesInSwitch": true,
+      "strictNullChecks": true, // good idea not to disable
+      "pretty": true,
+      "module": "commonjs",
+  },
+  "files": [ "User.ts", "postData.ts", "client-pre.ts" ] // change me
+}
+

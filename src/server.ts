@@ -16,7 +16,7 @@ export class Server {
     this.theDatabase = db;
 
     //CORS
-    this.router.use((request:any, response:any, next:any) => {
+    this.router.use((_request:any, response:any, next:any) => {
         response.header('Content-Type','application/json');
         response.header('Access-Control-Allow-Origin', '*');
         response.header('Access-Control-Allow-Headers', '*');
@@ -25,7 +25,12 @@ export class Server {
 
 
     //TODO: change folder to html folder
-    this.server.use('/', express.static('./'));
+    this.server.use('/', express.static('./html'));
+    this.server.use('/css', express.static('./css'));
+    this.server.use('/img', express.static('./img'));
+    this.server.use('/js', express.static('./js'));
+
+
     this.server.use(express.json());
    
     //start up router for api (CRUD operations)
@@ -34,7 +39,7 @@ export class Server {
 
 
     //TODO: add links between all pages.
-    this.router.post('/form', function(request:any, response:any){
+    this.router.post('/form', function(_request:any, response:any){
         response.render('form', {
             title: 'Submission Form'
         });
@@ -109,7 +114,7 @@ export class Server {
     response.end();
     }
 
-    public async errorCounter(name: string, response:any) : Promise<void> {
+    public async errorCounter(_name: string, response:any) : Promise<void> {
     response.write(JSON.stringify({'result': 'error'}));
     response.end();
     }
