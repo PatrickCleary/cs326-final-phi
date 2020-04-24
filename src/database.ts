@@ -6,7 +6,7 @@ export class Database {
   //Import the mongoose module
   //Set up default mongoose connection
   constructor(name: String) {
-    mongoose.connect(process.env.mongoDBuri, { useNewUrlParser: true });
+    mongoose.connect("mongodb+srv://heroku_user:potato99@cluster0-krl3x.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
 
     //Get the default connection
     var db = mongoose.connection;
