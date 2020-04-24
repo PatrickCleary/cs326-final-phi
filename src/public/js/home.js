@@ -1,4 +1,4 @@
-//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,7 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+<<<<<<< HEAD
 var url2 = '/symptoms';
+=======
+exports.__esModule = true;
+//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
+var url2 = 'http://localhost:8080/symptoms';
+>>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
 var connect = function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
@@ -77,12 +83,18 @@ function symptomRead() {
                     return [4 /*yield*/, connect(newURL2, data2)];
                 case 1:
                     responseValue = _a.sent();
+<<<<<<< HEAD
                     localStorage.setItem('response', responseValue);
+=======
+                    updateTable(responseValue);
+                    updateChart(filter, responseValue);
+>>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
                     return [2 /*return*/];
             }
         });
     }); })();
 }
+<<<<<<< HEAD
 function getWeights() {
     var _this = this;
     (function () { return __awaiter(_this, void 0, void 0, function () {
@@ -113,3 +125,78 @@ function getWeights() {
         });
     }); })();
 }
+=======
+exports.symptomRead = symptomRead;
+function updateTable(symptomTable) {
+    console.log(symptomTable);
+    var table = document.getElementById("countyTable");
+    for (var i = 1; i < 15; i++) {
+        var row = table.rows[i];
+        for (var j = 1; j < 7; j++) {
+            var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden", "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
+            var num = 0;
+            if (j == 1)
+                num = symptomTable[counties[i - 1]].nes;
+            if (j == 2)
+                num = symptomTable[counties[i - 1]].mild;
+            if (j == 3)
+                num = symptomTable[counties[i - 1]].severe;
+            if (j == 4)
+                num = symptomTable[counties[i - 1]].positive;
+            if (j == 5)
+                num = symptomTable[counties[i - 1]].negative;
+            if (j == 6)
+                num = symptomTable[counties[i - 1]].untested;
+            row.cells[j].innerHTML = num.toString();
+        }
+    }
+}
+exports.updateTable = updateTable;
+function updateChart(symptom, symptomTable) {
+    var c3 = require("c3");
+    var d3 = require("d3");
+    var rawData = [];
+    var barData = [["none", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["mild", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ["severe", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+    var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden",
+        "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
+    for (var i = 0; i < 14; i++) {
+        for (var j = 0; j < 3; j++) {
+            if (j == 0)
+                rawData.push(symptomTable[counties[i]].nes);
+            if (j == 1)
+                rawData.push(symptomTable[counties[i]].mild);
+            if (j == 2)
+                rawData.push(symptomTable[counties[i]].severe);
+        }
+    }
+    var count = 0;
+    for (var i = 1; i < 15; i++) {
+        for (var j = 0; j < 3; j++) {
+            barData[j][i] = rawData[count];
+            count++;
+        }
+    }
+    console.log(rawData);
+    console.log(barData);
+    var chart = c3.generate({
+        bindto: '#chart-1',
+        data: {
+            columns: barData,
+            types: {
+                mild: 'bar',
+                none: 'bar',
+                severe: 'bar'
+            }
+        },
+        axis: {
+            x: {
+                type: 'category',
+                categories: [counties[0], counties[1], counties[2], counties[3], counties[4], counties[5], counties[6],
+                    counties[7], counties[8], counties[9], counties[10], counties[11], counties[12], counties[13]]
+            }
+        }
+    });
+}
+exports.updateChart = updateChart;
+>>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
