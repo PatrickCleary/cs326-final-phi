@@ -37,7 +37,7 @@ export class Server {
     //TODO: change folder to html folder
     this.server.set('views', path.join(__dirname, 'views'));
     this.server.engine('html', require('ejs').renderFile);
-    this.server.set('view engine', 'html');
+    this.server.set('view engine', 'ejs');
 
     var indexRouter = require('./routes/IndexRouter');
     var symptomsRouter = require('./routes/SymptomRouter');
