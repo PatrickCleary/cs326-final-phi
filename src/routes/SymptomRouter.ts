@@ -11,21 +11,6 @@ router.get('/:username/checkup', function(req: any, res: any) {
 
 router.post('/:username/update', async (req: any, res: any) => {
   req.body.username = req.params.username;
-<<<<<<< HEAD
-  var curr_user = await User.findOne({username: req.params.username}, ['_id', 'tested', 'testedResult'],  { lean: true },
-  function(err:any,u:any) {
-    return u;
-  });
-  var sick = new Symptom({user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness,chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing});
-  sick.save(function(err:any) {
-    if (err) return err;
-    User.findOneAndUpdate({_id: curr_user._id}, {symptom:sick._id, tested:req.body.tested,testedResult:req.body.testedResult},function(err:any) {
-      if (err) return err;
-      else {return 0;}
-    });
-  });
-  res.redirect('/');
-=======
   console.log(req.body);
   var curr_user = await User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true },
     function(err: any, u: any) {
@@ -92,7 +77,6 @@ router.post('/filter', async (req: any, res: any) => {
     }
   }
   res.send(JSON.stringify(results));
->>>>>>> 19ecd71bc3ca44430953933fb88de612383cc539
 });
 
 module.exports = router;

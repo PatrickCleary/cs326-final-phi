@@ -55,21 +55,6 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
                     })];
             case 1:
                 curr_user = _a.sent();
-<<<<<<< HEAD
-                sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing });
-                sick.save(function (err) {
-                    if (err)
-                        return err;
-                    User.findOneAndUpdate({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult }, function (err) {
-                        if (err)
-                            return err;
-                        else {
-                            return 0;
-                        }
-                    });
-                });
-                res.redirect('/');
-=======
                 sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
                 sick.save(function (err) {
                     return __awaiter(this, void 0, void 0, function () {
@@ -151,7 +136,6 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                     }
                 }
                 res.send(JSON.stringify(results));
->>>>>>> 19ecd71bc3ca44430953933fb88de612383cc539
                 return [2 /*return*/];
         }
     });
