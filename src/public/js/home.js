@@ -1,4 +1,3 @@
-"use strict";
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -78,7 +77,7 @@ function symptomRead() {
                     return [4 /*yield*/, connect(newURL2, data2)];
                 case 1:
                     responseValue = _a.sent();
-                    console.log(responseValue);
+                    console.log(responseValue.Franklin.mild);
                     return [2 /*return*/];
             }
         });
