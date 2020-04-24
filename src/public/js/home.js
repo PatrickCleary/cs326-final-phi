@@ -1,5 +1,4 @@
 "use strict";
-//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -36,6 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+exports.__esModule = true;
+//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
+var chartkick = require("chartkick");
+var chart = require("chart.js");
 var url2 = 'http://localhost:8080/symptoms';
 var connect = function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
@@ -79,11 +82,13 @@ function symptomRead() {
                 case 1:
                     responseValue = _a.sent();
                     updateTable(responseValue);
+                    updateChart(responseValue);
                     return [2 /*return*/];
             }
         });
     }); })();
 }
+exports.symptomRead = symptomRead;
 function updateTable(symptomTable) {
     console.log(symptomTable);
     var table = document.getElementById("countyTable");
@@ -91,7 +96,6 @@ function updateTable(symptomTable) {
         var row = table.rows[i];
         for (var j = 1; j < 7; j++) {
             var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden", "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
-            var dataArray = ["nes", "mild", "severe", "positive", "negative", "untested"];
             var num = 0;
             if (j == 1)
                 num = symptomTable[counties[i - 1]].nes;
@@ -108,4 +112,8 @@ function updateTable(symptomTable) {
             row.cells[j].innerHTML = num.toString();
         }
     }
+}
+function updateChart(symptomTable) {
+    chartkick.use(chart);
+    var x = new chartkick.PieChart("chart-1", [["Blueberry", 44], ["Strawberry", 23]]);
 }
