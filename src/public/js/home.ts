@@ -40,7 +40,6 @@ function updateTable(symptomTable:any){
         let row = table.rows[i];
         for(let j=1;j<7;j++){
             let counties = ["Barnstable","Berkshire","Bristol","Dukes","Essex","Franklin","Hampden","Hampshire","Middlesex","Nantucket","Norfolk","Plymouth","Suffolk","Worcester"];
-            let dataArray = ["nes","mild","severe","positive","negative","untested"];
             let num = 0;
             if(j==1) num = symptomTable[counties[i-1]].nes;
             if(j==2) num = symptomTable[counties[i-1]].mild;
