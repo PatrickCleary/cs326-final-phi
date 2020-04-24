@@ -77,7 +77,8 @@ function symptomRead() {
                     return [4 /*yield*/, connect(newURL2, data2)];
                 case 1:
                     responseValue = _a.sent();
-                    console.log(responseValue.Franklin.mild);
+                    console.log(responseValue);
+                    console.log('here');
                     return [2 /*return*/];
             }
         });

@@ -74,9 +74,16 @@ MongoClient.connect(url, function(err, client) {
     // visual feedback again!
   //  console.log(newSymptom);
   }
-  symptomsCollection.insertMany(symptoms);
-  console.log("Database seeded!");
+  symptomsCollection.insertMany(symptoms, function(err, r){
+      symptomIds = r.insertedIds;
+      for( let i = 0; i<1000; i++){
+      usersCollection.findOneAndUpdate({_id: userIds[i]},
+      { $set: { symptom: symptomIds[i]}});
+      }
     client.close();
+
+  });
+  console.log("Database seeded!");
   });
   // make a bunch of posts
   
