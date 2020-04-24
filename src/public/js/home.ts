@@ -1,6 +1,6 @@
+import { raw } from "body-parser";
+
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
-var chartkick = require("chartkick");
-var chart = require("chart.js");
 
 
 const url2 = 'http://localhost:8080/symptoms';
@@ -32,13 +32,12 @@ export function symptomRead(){
         console.log(filter);
         const data2 = {"symptom":filter}
         const responseValue = await connect(newURL2,data2);
-<<<<<<< HEAD
         updateTable(responseValue);
-        updateChart(responseValue);
+        updateChart(filter,responseValue);
     })();
 }
 
-function updateTable(symptomTable:any){
+export function updateTable(symptomTable:any){
 
     console.log(symptomTable)
     let table = (<HTMLTableElement>document.getElementById("countyTable"));
@@ -60,16 +59,52 @@ function updateTable(symptomTable:any){
 
 }
 
-function updateChart(symptomTable:any){
+export function updateChart(symptom:string,symptomTable:any){
 
-    chartkick.use(chart);
-    let x = new chartkick.PieChart("chart-1", [["Blueberry", 44], ["Strawberry", 23]]);
+    var c3 = require("c3");
+    var d3 = require("d3");
+
+    var rawData = [];
+    var barData = [["none",0,0,0,0,0,0,0,0,0,0,0,0,0,0],["mild",0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                   ["severe",0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+    let counties = ["Barnstable","Berkshire","Bristol","Dukes","Essex","Franklin","Hampden",
+                    "Hampshire","Middlesex","Nantucket","Norfolk","Plymouth","Suffolk","Worcester"];
+
+    for(let i=0;i<14;i++){
+        for(let j=0;j<3;j++){
+            if(j==0) rawData.push(symptomTable[counties[i]].nes);
+            if(j==1) rawData.push(symptomTable[counties[i]].mild);
+            if(j==2) rawData.push(symptomTable[counties[i]].severe);
+        }
+    }
+
+    let count=0;
+    for(let i=1;i<15;i++){
+        for(let j=0;j<3;j++){
+            barData[j][i] = rawData[count];
+            count++;
+        }
+    }
+    
+    var chart = c3.generate({
+        bindto: '#chart-1',
+        data: {
+            columns: barData,
+            types: {
+                none: 'bar',
+                mild: 'bar',
+                severe: 'bar',
+            }
+        },
+        axis: {
+            x: {
+                type: 'category',
+                categories: [counties[0], counties[1], counties[2],counties[3],counties[4],counties[5],counties[6],
+                counties[7],counties[8],counties[9],counties[10],counties[11],counties[12],counties[13]]
+               }
+        }
+    });
+
 
 }
 
-=======
-        
-
-    })();
-}
->>>>>>> 355ff4c666316d9dd2241d1d3c7685c2a5f499d5

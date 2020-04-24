@@ -4,11 +4,7 @@
   "main": "./build/app.js",
   "scripts": {
     "tsc": "tsc",
-<<<<<<< HEAD
-    "dev": "tsc && tsc src/public/js/.ts --module commonjs && tsc src/models/.ts --module commonjs && node ./src/app.js",
-=======
-    "dev": "tsc && tsc src/public/js/*.ts --module commonjs && tsc src/models/*.ts --module commonjs && node ./src/app.js",
->>>>>>> 355ff4c666316d9dd2241d1d3c7685c2a5f499d5
+    "dev": "tsc && tsc src/public/js/*.ts --module commonjs && tsc src/models/*.ts --module commonjs && browserify ./src/public/js/home.js -o ./src/public/js/client-main.js --standalone client && node ./src/app.js",
     "start": "node ./src/app.js"
   },
   "keywords": [],
@@ -20,9 +16,11 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "browserify": "^16.5.1",
+    "c3": "^0.7.15",
     "chart.js": "^2.9.3",
     "chartkick": "^1.5.1",
     "common-js": "^0.3.8",
+    "d3": "^5.16.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "faker": "^4.1.0",

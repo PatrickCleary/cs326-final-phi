@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
@@ -43,7 +43,7 @@ var Symptom = require('../models/Symptoms');
 router.get('/:username/checkup', function (req, res) {
     res.render('form');
 });
-router.post('/:username/update', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+router.post('/:username/update', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var curr_user, sick;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -76,12 +76,12 @@ router.post('/:username/update', function (req, res) { return __awaiter(_this, v
         }
     });
 }); });
-router.post('/all', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+router.post('/all', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/];
     });
 }); });
-router.post('/filter', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var query, flatSymptoms, results, symp, currObj, county, tested, testedResult, sympResult;
     return __generator(this, function (_a) {
         switch (_a.label) {
