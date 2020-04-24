@@ -4,7 +4,7 @@
   "main": "./build/app.js",
   "scripts": {
     "tsc": "tsc",
-    "dev": "tsc src/public/js/*.ts src/models/*.ts --module commonjs && ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
     "start": "tsc && node ./build/app.js"
   },
   "keywords": [],
