@@ -27,6 +27,7 @@ export class Server {
     this.server.use(bodyParser.urlencoded({ extended: true }));
     this.server.use(bodyParser.json());
 
+
     this.server.use(express.json());       // to support JSON-encoded bodies
     this.server.use(express.urlencoded());
 
