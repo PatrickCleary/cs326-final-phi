@@ -54,15 +54,19 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
                     })];
             case 1:
                 curr_user = _a.sent();
-                sick = new Symptom({ user: curr_user._id, fever: req.body.Symptoms.fever, tiredness: req.body.Symptoms.tiredness, chills: req.body.Symptoms.chills, digestion: req.body.Symptoms.digestion, smell: req.body.Symptoms.smell, congestion: req.body.Symptoms.congestion, cough: req.body.Symptoms.cough, breathing: req.body.Symptoms.breathing });
+                sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing });
                 sick.save(function (err) {
                     if (err)
                         return err;
                     User.findOneAndUpdate({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult }, function (err) {
                         if (err)
                             return err;
+                        else {
+                            return 0;
+                        }
                     });
                 });
+                res.redirect('/');
                 return [2 /*return*/];
         }
     });
