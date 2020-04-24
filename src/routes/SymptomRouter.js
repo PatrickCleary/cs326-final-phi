@@ -43,23 +43,28 @@ var Symptom = require('../models/Symptoms');
 router.get('/:username/checkup', function (req, res) {
     res.render('form');
 });
-router.post('/:username/update', function (req, res) {
-    return __awaiter(this, void 0, void 0, function () {
-        var curr_user;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    req.body.username = req.params.username;
-                    return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true }, function (err, u) {
-                            return u;
-                        })];
-                case 1:
-                    curr_user = _a.sent();
-                    console.log(curr_user);
-                    console.log(req.body);
-                    return [2 /*return*/];
-            }
-        });
+router.post('/:username/update', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var curr_user, sick;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                req.body.username = req.params.username;
+                return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true }, function (err, u) {
+                        return u;
+                    })];
+            case 1:
+                curr_user = _a.sent();
+                sick = new Symptom({ user: curr_user._id, fever: req.body.Symptoms.fever, tiredness: req.body.Symptoms.tiredness, chills: req.body.Symptoms.chills, digestion: req.body.Symptoms.digestion, smell: req.body.Symptoms.smell, congestion: req.body.Symptoms.congestion, cough: req.body.Symptoms.cough, breathing: req.body.Symptoms.breathing });
+                sick.save(function (err) {
+                    if (err)
+                        return err;
+                    User.findOneAndUpdate({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult }, function (err) {
+                        if (err)
+                            return err;
+                    });
+                });
+                return [2 /*return*/];
+        }
     });
-});
+}); });
 module.exports = router;

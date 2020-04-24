@@ -119,6 +119,7 @@ function submissionCreate() {
                     JSONResponse = _a.sent();
                     if (JSONResponse['result'] !== 'error') {
                         console.log('submission created');
+                        window.location.href = "http://localhost:3000";
                     }
                     else {
                         console.log('submission failed!');

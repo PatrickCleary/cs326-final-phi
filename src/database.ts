@@ -6,7 +6,7 @@ export class Database {
   //Import the mongoose module
   //Set up default mongoose connection
   constructor(name: String) {
-    var mongoDB = 'mongodb://127.0.0.1/' + name;
+    var mongoDB = 'mongodb+srv://heroku_user:potato99@cluster0-krl3x.coronaDB.net/test?retryWrites=true&w=majority';
     mongoose.connect(mongoDB, { useNewUrlParser: true });
 
     //Get the default connection

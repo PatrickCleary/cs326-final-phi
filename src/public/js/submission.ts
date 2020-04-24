@@ -96,6 +96,7 @@ function submissionCreate(){
         const JSONResponse = await responseValue.json();
         if(JSONResponse['result']!=='error'){
             console.log('submission created');
+            window.location.href = "http://localhost:3000";
         }else{
             console.log('submission failed!');
         }
