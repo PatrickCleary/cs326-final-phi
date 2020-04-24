@@ -1,3 +1,4 @@
+"use strict";
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -77,9 +78,34 @@ function symptomRead() {
                     return [4 /*yield*/, connect(newURL2, data2)];
                 case 1:
                     responseValue = _a.sent();
-                    console.log(responseValue);
+                    updateTable(responseValue);
                     return [2 /*return*/];
             }
         });
     }); })();
+}
+function updateTable(symptomTable) {
+    console.log(symptomTable);
+    var table = document.getElementById("countyTable");
+    for (var i = 1; i < 15; i++) {
+        var row = table.rows[i];
+        for (var j = 1; j < 7; j++) {
+            var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden", "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
+            var dataArray = ["nes", "mild", "severe", "positive", "negative", "untested"];
+            var num = 0;
+            if (j == 1)
+                num = symptomTable[counties[i - 1]].nes;
+            if (j == 2)
+                num = symptomTable[counties[i - 1]].mild;
+            if (j == 3)
+                num = symptomTable[counties[i - 1]].severe;
+            if (j == 4)
+                num = symptomTable[counties[i - 1]].positive;
+            if (j == 5)
+                num = symptomTable[counties[i - 1]].negative;
+            if (j == 6)
+                num = symptomTable[counties[i - 1]].untested;
+            row.cells[j].innerHTML = num.toString();
+        }
+    }
 }
