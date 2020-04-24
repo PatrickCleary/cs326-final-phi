@@ -32,6 +32,7 @@ export function symptomRead(){
         console.log(filter);
         const data2 = {"symptom":filter}
         const responseValue = await connect(newURL2,data2);
+<<<<<<< HEAD
         updateTable(responseValue);
         updateChart(responseValue);
     })();
@@ -66,3 +67,9 @@ function updateChart(symptomTable:any){
 
 }
 
+=======
+        
+
+    })();
+}
+>>>>>>> 355ff4c666316d9dd2241d1d3c7685c2a5f499d5

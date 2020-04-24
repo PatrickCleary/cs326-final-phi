@@ -35,12 +35,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-//TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
-var chartkick = require("chartkick");
-var chart = require("chart.js");
-var url2 = 'http://localhost:8080/symptoms';
-var connect = function postData(url, data) {
+Object.defineProperty(exports, "__esModule", { value: true });
+function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
         return __generator(this, function (_a) {
@@ -55,70 +51,12 @@ var connect = function postData(url, data) {
                         },
                         redirect: 'follow',
                         body: JSON.stringify(data)
-                    }).then(function (resp) { return resp.json(); })];
+                    })];
                 case 1:
                     resp = _a.sent();
                     return [2 /*return*/, resp];
             }
         });
     });
-};
-//sends symptom selected to DB, goal is to then get info from every User for that symptom.
-//Issue is User class is currently defined in submission.ts bc of the import/export bug
-//which needs to change
-function symptomRead() {
-    var _this = this;
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var filter, newURL2, data2, responseValue;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    filter = document.getElementById('symptoms').value;
-                    newURL2 = url2 + '/filter';
-                    console.log('getting symptom data: fetching from ' + newURL2);
-                    console.log(filter);
-                    data2 = { "symptom": filter };
-                    return [4 /*yield*/, connect(newURL2, data2)];
-                case 1:
-                    responseValue = _a.sent();
-<<<<<<< HEAD
-                    updateTable(responseValue);
-                    updateChart(responseValue);
-=======
-                    console.log(responseValue);
-                    console.log('here');
->>>>>>> 355ff4c666316d9dd2241d1d3c7685c2a5f499d5
-                    return [2 /*return*/];
-            }
-        });
-    }); })();
 }
-exports.symptomRead = symptomRead;
-function updateTable(symptomTable) {
-    console.log(symptomTable);
-    var table = document.getElementById("countyTable");
-    for (var i = 1; i < 15; i++) {
-        var row = table.rows[i];
-        for (var j = 1; j < 7; j++) {
-            var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden", "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
-            var num = 0;
-            if (j == 1)
-                num = symptomTable[counties[i - 1]].nes;
-            if (j == 2)
-                num = symptomTable[counties[i - 1]].mild;
-            if (j == 3)
-                num = symptomTable[counties[i - 1]].severe;
-            if (j == 4)
-                num = symptomTable[counties[i - 1]].positive;
-            if (j == 5)
-                num = symptomTable[counties[i - 1]].negative;
-            if (j == 6)
-                num = symptomTable[counties[i - 1]].untested;
-            row.cells[j].innerHTML = num.toString();
-        }
-    }
-}
-function updateChart(symptomTable) {
-    chartkick.use(chart);
-    var x = new chartkick.PieChart("chart-1", [["Blueberry", 44], ["Strawberry", 23]]);
-}
+exports.default = postData;

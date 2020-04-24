@@ -7,8 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width = device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<<<<<<< HEAD
   <link rel="stylesheet" href="./css/styles.min.css">
   <script src="./js/client-main.js"></script>
+=======
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+  <script src="./js/home.js"></script>
+>>>>>>> 355ff4c666316d9dd2241d1d3c7685c2a5f499d5
   <title>COVID-19 Symptom Tracker</title>
 </head>
 
@@ -21,7 +33,7 @@
       <div class="row">
         <div class="col-12 col-sm-12">
           <div class="jumbotron map">
-            <img src="img/mass-bw.png" alt="" class="rounded mx-auto d-block" style="width: 50%;">
+            <div id="map"></div>
           </div>
           <p class = 'signup'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="/register">here</a></p>
         </div>
@@ -231,7 +243,52 @@
     </div>
   </div>
   </div>
+  <script>
 
+    // initialize the map
+    var map = L.map('map').setView([42.35, -71.08], 13);
+    
+var geojsonFeature = {
+    "type": "Feature",
+    "properties": {
+        "name": "Coors Field",
+        "amenity": "Baseball Stadium",
+        "popupContent": "This is where the Rockies play!"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [42.3601, 71.0589]
+    
+    }
+
+    }
+var myStyle = {
+    "color": "#ff7800",
+    "weight": 10,
+};
+    // load a tile layer
+    L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
+      {
+        attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
+        maxZoom: 17,
+        minZoom: 8
+      }).addTo(map);
+
+      jQuery.getJSON("/maps/COUNTIES_POLY.json",function(hoodData){
+        console.log(hoodData);
+
+
+     L.geoJson( hoodData, {style: function(feature) {
+    switch (feature.properties.NAME) {
+        case 'Suffolk': return {color: "#ff0000"};
+        case 'Democrat':   return {color: "#0000ff"};
+        default: return {};
+    }
+}} ).addTo(map);
+     
+}); 
+  
+    </script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

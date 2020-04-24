@@ -4,7 +4,11 @@
   "main": "./build/app.js",
   "scripts": {
     "tsc": "tsc",
+<<<<<<< HEAD
     "dev": "tsc && tsc src/public/js/.ts --module commonjs && tsc src/models/.ts --module commonjs && node ./src/app.js",
+=======
+    "dev": "tsc && tsc src/public/js/*.ts --module commonjs && tsc src/models/*.ts --module commonjs && node ./src/app.js",
+>>>>>>> 355ff4c666316d9dd2241d1d3c7685c2a5f499d5
     "start": "node ./src/app.js"
   },
   "keywords": [],
@@ -12,6 +16,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@types/jquery": "^3.3.35",
+    "assert": "^2.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "browserify": "^16.5.1",
@@ -20,8 +25,11 @@
     "common-js": "^0.3.8",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
     "g": "^2.0.1",
     "jquery": "^3.5.0",
+    "leaflet": "^1.6.0",
+    "lodash": "^4.17.15",
     "mongoose": "^5.9.10",
     "path": "^0.12.7",
     "ts-node-dev": "^1.0.0-pre.44"
