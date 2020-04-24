@@ -29,6 +29,29 @@ function symptomRead(){
         const data2 = {"symptom":filter}
         const responseValue = await connect(newURL2,data2);
         
+
+        
+
+    })();
+}
+
+function getWeights(){
+    (async()=>{
+        let filter = (<HTMLSelectElement>document.getElementById('symptoms')).value;
+        //TODO: add none button to filters
+        filter = '';
+        if(filter.length > 1){
+        const newURL2 = url2 + '/filter';
+        console.log('getting symptom data: fetching from ' + newURL2);
+        console.log(filter);
+        const data2 = {"symptom":filter}
+        const responseValue = await connect(newURL2,data2);
+        }else{
+            const newURL2 = url2 + '/all';
+            const responseValue = await connect(newURL2, {})
+        }
+        
+
         
 
     })();

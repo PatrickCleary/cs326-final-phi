@@ -24,8 +24,6 @@ router.post('/:username/update', async (req: any, res: any) => {
   res.redirect('/');
 });
 
-router.post('/all', async (req: any, res: any) => {
-});
 
 router.post('/filter', async (req: any, res: any) => {
   const query = await Symptom.find({}, 'user ' + req.body.symptom).populate('user');
@@ -79,4 +77,36 @@ router.post('/filter', async (req: any, res: any) => {
   res.send(JSON.stringify(results));
 });
 
+router.post('/all', async (req: any, res: any) => {
+  const query = await Symptom.find().populate('user');
+  var flatSymptoms = query.map(function(user: any) {
+    return user.toObject();
+  });
+  var results: { [key: string]: number;}  = {};
+  results = {
+    "Barnstable": 0,
+    "Berkshire": 0,
+    "Bristol": 0,
+    "Dukes": 0,
+    "Essex": 0,
+    "Franklin": 0,
+    "Hampden": 0,
+    "Hampshire": 0,
+    "Middlesex": 0,
+    "Nantucket": 0,
+    "Norfolk": 0,
+    "Plymouth": 0,
+    "Suffolk": 0,
+    "Worcester": 0,
+    "total": 0,
+  }
+  for (var symp in flatSymptoms) {
+    var currObj = flatSymptoms[symp];
+    var county = currObj.user.county as string;
+   
+        results[county] +=1;
+        results['total']+=1; 
+  }
+  res.send(JSON.stringify(results));
+});
 module.exports = router;

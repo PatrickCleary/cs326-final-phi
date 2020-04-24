@@ -171,24 +171,6 @@
     // initialize the map
     var map = L.map('map').setView([42.35, -71.08], 13);
     
-var geojsonFeature = {
-    "type": "Feature",
-    "properties": {
-        "name": "Coors Field",
-        "amenity": "Baseball Stadium",
-        "popupContent": "This is where the Rockies play!"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [42.3601, 71.0589]
-    
-    }
-
-    }
-var myStyle = {
-    "color": "#ff7800",
-    "weight": 10,
-};
     // load a tile layer
     L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
       {
@@ -198,16 +180,32 @@ var myStyle = {
       }).addTo(map);
 
       jQuery.getJSON("/maps/COUNTIES_POLY.json",function(hoodData){
-        console.log(hoodData);
 
-
+async function addData(){
      L.geoJson( hoodData, {style: function(feature) {
+       let weights = getWeights();
+       let weightedColors = weights.map((weight)=>{let value = weight/weights.total; return value*255 })
     switch (feature.properties.NAME) {
-        case 'Suffolk': return {color: "#ff0000"};
-        case 'Democrat':   return {color: "#0000ff"};
+        case 'Barnstable': return {color:rgb(weightedColors['Barnstable'],0,0)};
+        case 'Berkshire': return {color: rgb(weightedColors['Berkshire'],0,0)};
+        case 'Bristol': return {color: rgb(weightedColors['Bristol'],0,0)};
+        case 'Dukes': return {color: rgb(weightedColors['Dukes'],0,0)};
+        case 'Essex': return {color: rgb(weightedColors['Essex'],0,0)};
+        case 'Franklin': return {color: rgb(weightedColors['Franklin'],0,0)};
+        case 'Hampden': return {color: rgb(weightedColors['Hampden'],0,0)};
+        case 'Hampshire': return {color: rgb(weightedColors['Hampshire'],0,0)};
+        case 'Middlesex': return {color: rgb(weightedColors['Middlesex'],0,0)};
+        case 'Nantucket': return {color: rgb(weightedColors['Nantucket'],0,0)};
+        case 'Norfolk': return {color: rgb(weightedColors['Norfolk'],0,0)};
+        case 'Plymouth': return {color: rgb(weightedColors['Plymouth'],0,0)};
+        case 'Suffolk': return {color: rgb(weightedColors['Suffolk'],0,0)};
+        case 'Worcester': return {color: rgb(weightedColors['Worcester'],0,0)};
         default: return {};
     }
 }} ).addTo(map);
+
+}
+addData();
      
 }); 
   
