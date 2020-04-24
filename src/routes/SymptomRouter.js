@@ -49,24 +49,93 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 req.body.username = req.params.username;
+                console.log(req.body);
                 return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true }, function (err, u) {
                         return u;
                     })];
             case 1:
                 curr_user = _a.sent();
-                sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing });
+                sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
                 sick.save(function (err) {
-                    if (err)
-                        return err;
-                    User.findOneAndUpdate({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult }, function (err) {
-                        if (err)
-                            return err;
-                        else {
-                            return 0;
-                        }
+                    return __awaiter(this, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    if (err)
+                                        return [2 /*return*/, err];
+                                    return [4 /*yield*/, User.updateOne({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) })];
+                                case 1:
+                                    _a.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
                     });
                 });
                 res.redirect('/');
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.post('/all', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/];
+    });
+}); });
+router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var query, flatSymptoms, results, symp, currObj, county, tested, testedResult, sympResult;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Symptom.find({}, 'user ' + req.body.symptom).populate('user')];
+            case 1:
+                query = _a.sent();
+                flatSymptoms = query.map(function (user) {
+                    return user.toObject();
+                });
+                results = {};
+                results = {
+                    "Barnstable": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Berkshire": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Bristol": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Dukes": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Essex": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Franklin": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Hampden": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Hampshire": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Middlesex": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Nantucket": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Norfolk": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Plymouth": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Suffolk": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
+                    "Worcester": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 }
+                };
+                for (symp in flatSymptoms) {
+                    currObj = flatSymptoms[symp];
+                    county = currObj.user.county;
+                    tested = currObj.user.tested;
+                    testedResult = currObj.user.testedResult;
+                    sympResult = currObj[req.body.symptom];
+                    if (tested) {
+                        if (testedResult === 1) {
+                            results[county].positive += 1;
+                        }
+                        else if (testedResult === 0) {
+                            results[county].negative += 1;
+                        }
+                    }
+                    else {
+                        results[county].untested += 1;
+                    }
+                    if (sympResult === 0) {
+                        results[county].nes += 1;
+                    }
+                    else if (sympResult === 1) {
+                        results[county].mild += 1;
+                    }
+                    else if (sympResult === 2) {
+                        results[county].severe += 1;
+                    }
+                }
+                res.send(JSON.stringify(results));
                 return [2 /*return*/];
         }
     });

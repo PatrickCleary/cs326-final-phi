@@ -6,8 +6,8 @@ export class Database {
   //Import the mongoose module
   //Set up default mongoose connection
   constructor(name: String) {
-    //var mongoDB = 'mongodb+srv://heroku_user:potato99@cluster0-krl3x.coronaDB.net/test?retryWrites=true&w=majority';
-    var mongoDB = 'mongodb://127.0.0.1/' + name;
+    const mongoDB= 'mongodb://heroku_user:potato99@cluster0-shard-00-00-krl3x.mongodb.net:27017,cluster0-shard-00-01-krl3x.mongodb.net:27017,cluster0-shard-00-02-krl3x.mongodb.net:27017/coronaDB?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
+    //var mongoDB = 'mongodb://127.0.0.1/' + name;
     mongoose.connect(mongoDB, { useNewUrlParser: true });
 
     //Get the default connection
