@@ -10,7 +10,6 @@ router.get('/:username/checkup', function(req: any, res: any) {
 });
 
 router.post('/:username/update', async (req: any, res: any) => {
-  req.body.username = req.params.username;
   console.log(req.body);
   var curr_user = await User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true },
     function(err: any, u: any) {
@@ -22,9 +21,6 @@ router.post('/:username/update', async (req: any, res: any) => {
     await User.updateOne({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) });
   });
   res.redirect('/');
-});
-
-router.post('/all', async (req: any, res: any) => {
 });
 
 router.post('/filter', async (req: any, res: any) => {

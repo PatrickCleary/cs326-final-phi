@@ -137,15 +137,13 @@ function updateChart(symptom, symptomTable) {
             count++;
         }
     }
-    console.log(rawData);
-    console.log(barData);
     var chart = c3.generate({
         bindto: '#chart-1',
         data: {
             columns: barData,
             types: {
-                mild: 'bar',
                 none: 'bar',
+                mild: 'bar',
                 severe: 'bar'
             }
         },

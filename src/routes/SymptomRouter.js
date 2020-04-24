@@ -48,7 +48,6 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                req.body.username = req.params.username;
                 console.log(req.body);
                 return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true }, function (err, u) {
                         return u;
@@ -74,11 +73,6 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
                 res.redirect('/');
                 return [2 /*return*/];
         }
-    });
-}); });
-router.post('/all', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/];
     });
 }); });
 router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
