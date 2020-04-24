@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-let User = require('../models/User');
-let Symptom = require('../models/Symptoms');
+var User = require('../models/User');
+var Symptom = require('../models/Symptoms');
+
 
 /* GET users listing. */
 router.get('/:username/checkup',function(req:any,res:any) {
