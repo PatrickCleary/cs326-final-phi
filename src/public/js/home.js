@@ -78,6 +78,7 @@ function symptomRead() {
                 case 1:
                     responseValue = _a.sent();
                     console.log(responseValue);
+                    console.log('here');
                     return [2 /*return*/];
             }
         });

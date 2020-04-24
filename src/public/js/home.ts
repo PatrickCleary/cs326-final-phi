@@ -28,6 +28,7 @@ function symptomRead(){
         console.log(filter);
         const data2 = {"symptom":filter}
         const responseValue = await connect(newURL2,data2);
-        console.log(responseValue);
+        
+
     })();
 }
