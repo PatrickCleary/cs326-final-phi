@@ -47,7 +47,7 @@ router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, v
         newbie = new User({ username: req.body.username, email: req.body.email, password: req.body.password, tested: false, testedResult: -1, symptom: null });
         newbie.save(function (err) {
             if (err)
-                return handleError(err);
+                return err;
             res.redirect('/');
         });
         return [2 /*return*/];

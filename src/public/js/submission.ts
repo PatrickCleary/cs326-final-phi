@@ -33,11 +33,7 @@ interface symptoms{
 
 }
 
-class User{
-
-
-    private username : string;
-    private password : string;
+class Use{
     tested: any = false;
     testedResult: any = "-1";
 
@@ -45,9 +41,7 @@ class User{
     Symptoms: symptoms= {fever:0, tiredness: 0, chills: 0, digestion: 0, smell: 0, congestion: 0, cough: 0, breathing: 0};
 
 
-    constructor(username:string, password:string){
-        this.username = username;
-        this.password = password;
+    constructor(){
     }
 
 }
@@ -68,9 +62,9 @@ async function postData(url: any, data: any) {
     return resp;
 }
 
-function getSubmissionValues(): User{
+function getSubmissionValues(): Use{
 
-    let user = new User("username","password");
+    let user = new Use();
     let feverValue = $('input[name="fever"]:checked').val();
     let tirednessValue = $('input[name="tiredness"]:checked').val();
     let chillsValue = $('input[name="Chills"]:checked').val();

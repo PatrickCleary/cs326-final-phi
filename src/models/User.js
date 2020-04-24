@@ -8,11 +8,6 @@ var UserSchema = new Schema({
     testedResult: { type: Number, "default": -1, "enum": [-1, 0, 1] },
     symptom: { type: Schema.Types.ObjectId, ref: 'Symptom' }
 });
-UserSchema
-    .virtual('url')
-    .get(function () {
-    return '/users/' + this._id;
-});
 UserSchema.set('toJSON', { virtuals: true });
 //Export model
 module.exports = mongoose.model('User', UserSchema);

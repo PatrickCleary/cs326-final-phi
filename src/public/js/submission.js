@@ -48,16 +48,14 @@ function noTested() {
     $("#results-na")[0].disabled = false;
     $("#results-na")[0].checked = true;
 }
-var User = /** @class */ (function () {
-    function User(username, password) {
+var Use = /** @class */ (function () {
+    function Use() {
         this.tested = false;
         this.testedResult = "-1";
         //TODO: fill out Symptoms Interface in Symptoms.ts
         this.Symptoms = { fever: 0, tiredness: 0, chills: 0, digestion: 0, smell: 0, congestion: 0, cough: 0, breathing: 0 };
-        this.username = username;
-        this.password = password;
     }
-    return User;
+    return Use;
 }());
 function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
@@ -83,7 +81,7 @@ function postData(url, data) {
     });
 }
 function getSubmissionValues() {
-    var user = new User("username", "password");
+    var user = new Use();
     var feverValue = $('input[name="fever"]:checked').val();
     var tirednessValue = $('input[name="tiredness"]:checked').val();
     var chillsValue = $('input[name="Chills"]:checked').val();
