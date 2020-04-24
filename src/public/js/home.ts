@@ -1,6 +1,6 @@
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 
-const url2 = 'http://localhost:8080/symptoms';
+const url2 = '/symptoms';
 const connect = async function postData(url: any, data: any) {
     const resp = await fetch(url,
                              {
@@ -28,6 +28,7 @@ function symptomRead(){
         console.log(filter);
         const data2 = {"symptom":filter}
         const responseValue = await connect(newURL2,data2);
+        
         
 
     })();
