@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var url2 = 'http://localhost:8080';
+var url2 = 'http://localhost:8080/symptoms';
 var connect = function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
@@ -52,7 +52,7 @@ var connect = function postData(url, data) {
                         },
                         redirect: 'follow',
                         body: JSON.stringify(data)
-                    })];
+                    }).then(function (resp) { return resp.json(); })];
                 case 1:
                     resp = _a.sent();
                     return [2 /*return*/, resp];
@@ -70,7 +70,7 @@ function symptomRead() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    filter = $("#symptoms option:selected").text();
+                    filter = document.getElementById('symptoms').value;
                     newURL2 = url2 + '/filter';
                     console.log('getting symptom data: fetching from ' + newURL2);
                     console.log(filter);

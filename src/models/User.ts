@@ -9,7 +9,10 @@ var UserSchema = new Schema(
     password: {type: String, required: true, max: 30},
     tested: {type: Boolean, default: false},
     testedResult: {type: Number, default: -1, enum: [-1,0,1]},
-    symptom: {type: Schema.Types.ObjectId, ref: 'Symptom'}
+    symptom: {type: Schema.Types.ObjectId, ref: 'Symptom'},
+    sex: {type: String},
+    county: {type:String},
+    age: {type:Number}
   }
 );
 

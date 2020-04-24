@@ -12,9 +12,13 @@ var SymptomSchema = new Schema(
     smell: {type: Number, default: 0, required: true},
     congestion: {type: Number, default: 0, required: true},
     cough: {type: Number, default: 0, required: true},
-    breathing: {type: Number, default: 0, required: true}
+    breathing: {type: Number, default: 0, required: true},
+    startDate: {type:Date, required:true},
+    endDate: {type:Date, required:true}
   }
 );
+
+SymptomSchema.set('toJSON', { virtuals: true });
 
 //Export model
 module.exports = mongoose.model('Symptom', SymptomSchema);
