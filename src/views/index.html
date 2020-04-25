@@ -239,50 +239,6 @@
     </div>
   </div>
   </div>
-  <script>
-
-    // initialize the map
-    var map = L.map('map').setView([42.35, -71.08], 13);
-    
-    // load a tile layer
-    L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
-      {
-        attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
-        maxZoom: 17,
-        minZoom: 8
-      }).addTo(map);
-
-      jQuery.getJSON("/maps/COUNTIES_POLY.json",function(hoodData){
-
-async function addData(){
-     L.geoJson( hoodData, {style: function(feature) {
-       let weights = getWeights();
-       let weightedColors = weights.map((weight)=>{let value = weight/weights.total; return value*255 })
-    switch (feature.properties.NAME) {
-        case 'Barnstable': return {color:rgb(weightedColors['Barnstable'],0,0)};
-        case 'Berkshire': return {color: rgb(weightedColors['Berkshire'],0,0)};
-        case 'Bristol': return {color: rgb(weightedColors['Bristol'],0,0)};
-        case 'Dukes': return {color: rgb(weightedColors['Dukes'],0,0)};
-        case 'Essex': return {color: rgb(weightedColors['Essex'],0,0)};
-        case 'Franklin': return {color: rgb(weightedColors['Franklin'],0,0)};
-        case 'Hampden': return {color: rgb(weightedColors['Hampden'],0,0)};
-        case 'Hampshire': return {color: rgb(weightedColors['Hampshire'],0,0)};
-        case 'Middlesex': return {color: rgb(weightedColors['Middlesex'],0,0)};
-        case 'Nantucket': return {color: rgb(weightedColors['Nantucket'],0,0)};
-        case 'Norfolk': return {color: rgb(weightedColors['Norfolk'],0,0)};
-        case 'Plymouth': return {color: rgb(weightedColors['Plymouth'],0,0)};
-        case 'Suffolk': return {color: rgb(weightedColors['Suffolk'],0,0)};
-        case 'Worcester': return {color: rgb(weightedColors['Worcester'],0,0)};
-        default: return {};
-    }
-}} ).addTo(map);
-
-}
-addData();
-     
-}); 
-  
-    </script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>    

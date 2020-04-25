@@ -35,13 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-<<<<<<< HEAD
-var url2 = '/symptoms';
-=======
 exports.__esModule = true;
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
-var url2 = 'http://localhost:8080/symptoms';
->>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
+var url2 = '/symptoms';
 var connect = function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
@@ -83,49 +79,14 @@ function symptomRead() {
                     return [4 /*yield*/, connect(newURL2, data2)];
                 case 1:
                     responseValue = _a.sent();
-<<<<<<< HEAD
-                    localStorage.setItem('response', responseValue);
-=======
                     updateTable(responseValue);
                     updateChart(filter, responseValue);
->>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
+                    updateMap(responseValue);
                     return [2 /*return*/];
             }
         });
     }); })();
 }
-<<<<<<< HEAD
-function getWeights() {
-    var _this = this;
-    (function () { return __awaiter(_this, void 0, void 0, function () {
-        var filter, newURL2, data2, responseValue, newURL2, responseValue;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    filter = document.getElementById('symptoms').value;
-                    //TODO: add none button to filters
-                    filter = '';
-                    if (!(filter.length > 1)) return [3 /*break*/, 2];
-                    newURL2 = url2 + '/filter';
-                    console.log('getting symptom data: fetching from ' + newURL2);
-                    console.log(filter);
-                    data2 = { "symptom": filter };
-                    return [4 /*yield*/, connect(newURL2, data2)];
-                case 1:
-                    responseValue = _a.sent();
-                    return [3 /*break*/, 4];
-                case 2:
-                    newURL2 = url2 + '/all';
-                    return [4 /*yield*/, connect(newURL2, {})];
-                case 3:
-                    responseValue = _a.sent();
-                    return [2 /*return*/, responseValue];
-                case 4: return [2 /*return*/];
-            }
-        });
-    }); })();
-}
-=======
 exports.symptomRead = symptomRead;
 function updateTable(symptomTable) {
     console.log(symptomTable);
@@ -152,9 +113,9 @@ function updateTable(symptomTable) {
     }
 }
 exports.updateTable = updateTable;
+var c3 = require("c3");
+var d3 = require("d3");
 function updateChart(symptom, symptomTable) {
-    var c3 = require("c3");
-    var d3 = require("d3");
     var rawData = [];
     var barData = [["none", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["mild", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ["severe", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
@@ -177,15 +138,13 @@ function updateChart(symptom, symptomTable) {
             count++;
         }
     }
-    console.log(rawData);
-    console.log(barData);
     var chart = c3.generate({
         bindto: '#chart-1',
         data: {
             columns: barData,
             types: {
-                mild: 'bar',
                 none: 'bar',
+                mild: 'bar',
                 severe: 'bar'
             }
         },
@@ -199,4 +158,47 @@ function updateChart(symptom, symptomTable) {
     });
 }
 exports.updateChart = updateChart;
->>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
+var L = require("leaflet");
+var map = L.map('map').setView([42.35, -71.08], 13);
+var jQuery = require("jquery");
+var geojsonlayer = L.geoJson();
+L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
+    attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
+    maxZoom: 17,
+    minZoom: 8
+}).addTo(map);
+function updateMap(symptoms) {
+    // load a tile layer
+    var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden",
+        "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
+    var totals = [];
+    for (var i = 0; i < counties.length; i++) {
+        totals[i] = symptoms[counties[i]].mild +
+            symptoms[counties[i]].nes +
+            symptoms[counties[i]].severe;
+        totals[i] = (totals[i] - symptoms[counties[i]].nes) / 1100;
+        totals[i] = 255 - Math.round(totals[i] * 255);
+    }
+    map.removeLayer(geojsonlayer);
+    jQuery.getJSON("/maps/COUNTIES_POLY.json", function (hoodData) {
+        geojsonlayer = L.geoJson(hoodData, { style: function (feature) {
+                switch (feature.properties.NAME) {
+                    case ('Barnstable'): return { color: 'rgb(255, ' + totals[0] + ',' + totals[0] + ')' };
+                    case ('Berkshire'): return { color: 'rgb(255, ' + totals[1] + ',' + totals[1] + ')' };
+                    case ('Bristol'): return { color: 'rgb(255, ' + totals[2] + ',' + totals[2] + ')' };
+                    case ('Dukes'): return { color: 'rgb(255, ' + totals[3] + ',' + totals[3] + ')' };
+                    case ('Essex'): return { color: 'rgb(255, ' + totals[4] + ',' + totals[4] + ')' };
+                    case ('Franklin'): return { color: 'rgb(255, ' + totals[5] + ',' + totals[5] + ')' };
+                    case ('Hampden'): return { color: 'rgb(255, ' + totals[6] + ',' + totals[6] + ')' };
+                    case ('Hampshire'): return { color: 'rgb(255, ' + totals[7] + ',' + totals[7] + ')' };
+                    case ('Middlesex'): return { color: 'rgb(255, ' + totals[8] + ',' + totals[8] + ')' };
+                    case ('Nantucket'): return { color: 'rgb(255, ' + totals[9] + ',' + totals[9] + ')' };
+                    case ('Norfolk'): return { color: 'rgb(255, ' + totals[10] + ',' + totals[10] + ')' };
+                    case ('Plymouth'): return { color: 'rgb(255, ' + totals[11] + ',' + totals[11] + ')' };
+                    case ('Suffolk'): return { color: 'rgb(255, ' + totals[12] + ',' + totals[12] + ')' };
+                    case ('Worcester'): return { color: 'rgb(255, ' + totals[13] + ',' + totals[13] + ')' };
+                }
+            } }).addTo(map);
+    });
+}
+exports.updateMap = updateMap;

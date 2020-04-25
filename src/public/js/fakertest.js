@@ -22,9 +22,9 @@ MongoClient.connect(url, function(err, client) {
   // make a bunch of users
   let users = [];
   let userIds = [];
-  usersCollection.deleteMany({});
-  symptomsCollection.deleteMany({});
-  for (let i = 0; i < 1000; i += 1) {
+  //usersCollection.deleteMany({});
+  //symptomsCollection.deleteMany({});
+  for (let i = 0; i < 1100; i += 1) {
     const email = faker.internet.email();
     const password = faker.internet.password();
     let newUser = {
@@ -35,7 +35,7 @@ MongoClient.connect(url, function(err, client) {
         password,
         symptom:null,
       sex:"female",
-      county: "Suffolk",
+      county: "Worcester",
       age:23
     };
     users.push(newUser);
@@ -48,7 +48,7 @@ MongoClient.connect(url, function(err, client) {
     userIds= r.insertedIds;
     console.log(userIds);
     let symptoms = [];
-  for (let i = 0; i < 1000; i += 1) {
+  for (let i = 0; i < 1100; i += 1) {
     let newSymptom = {
     fever: faker.random.number({max:2, min:0}),
     tiredness: faker.random.number({max:2, min:0}),
@@ -76,7 +76,7 @@ MongoClient.connect(url, function(err, client) {
   }
   symptomsCollection.insertMany(symptoms, function(err, r){
       symptomIds = r.insertedIds;
-      for( let i = 0; i<1000; i++){
+      for( let i = 0; i<1100; i++){
       usersCollection.findOneAndUpdate({_id: userIds[i]},
       { $set: { symptom: symptomIds[i]}});
       }

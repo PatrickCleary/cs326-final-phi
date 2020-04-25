@@ -2,12 +2,7 @@ import { raw } from "body-parser";
 
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 
-<<<<<<< HEAD
 const url2 = '/symptoms';
-=======
-
-const url2 = 'http://localhost:8080/symptoms';
->>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
 const connect = async function postData(url: any, data: any) {
     const resp = await fetch(url,
                              {
@@ -36,37 +31,9 @@ export function symptomRead(){
         console.log(filter);
         const data2 = {"symptom":filter}
         const responseValue = await connect(newURL2,data2);
-<<<<<<< HEAD
-        
-
-        
-
-    })();
-}
-
-function getWeights(){
-    (async()=>{
-        let filter = (<HTMLSelectElement>document.getElementById('symptoms')).value;
-        //TODO: add none button to filters
-        filter = '';
-        if(filter.length > 1){
-        const newURL2 = url2 + '/filter';
-        console.log('getting symptom data: fetching from ' + newURL2);
-        console.log(filter);
-        const data2 = {"symptom":filter}
-        const responseValue = await connect(newURL2,data2);
-        }else{
-            const newURL2 = url2 + '/all';
-            const responseValue = await connect(newURL2, {})
-        }
-        
-
-        
-
-=======
         updateTable(responseValue);
         updateChart(filter,responseValue);
->>>>>>> 94e1ef914a6ead509408b0b5287e51f60786cc33
+        updateMap(responseValue);
     })();
 }
 
@@ -92,10 +59,11 @@ export function updateTable(symptomTable:any){
 
 }
 
+var c3 = require("c3");
+var d3 = require("d3");
+
 export function updateChart(symptom:string,symptomTable:any){
 
-    var c3 = require("c3");
-    var d3 = require("d3");
 
     var rawData = [];
     var barData = [["none",0,0,0,0,0,0,0,0,0,0,0,0,0,0],["mild",0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -140,4 +108,57 @@ export function updateChart(symptom:string,symptomTable:any){
 
 
 }
+let L = require("leaflet");
+var map = L.map('map').setView([42.35, -71.08], 13);
+let jQuery=require("jquery");
+let geojsonlayer = L.geoJson();
+L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
+      {
+        attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
+        maxZoom: 17,
+        minZoom: 8
+      }).addTo(map);
 
+
+export function updateMap(symptoms:any){
+    
+    // load a tile layer
+    let counties = ["Barnstable","Berkshire","Bristol","Dukes","Essex","Franklin","Hampden",
+                    "Hampshire","Middlesex","Nantucket","Norfolk","Plymouth","Suffolk","Worcester"];
+
+    let totals:any = []
+    for(let i =0; i <counties.length; i++){
+        totals[i] = symptoms[counties[i]].mild+
+        symptoms[counties[i]].nes+
+        symptoms[counties[i]].severe
+
+        totals[i] = (totals[i]- symptoms[counties[i]].nes)/1100;
+        totals[i] = 255 - Math.round(totals[i]*255);
+    }
+
+    map.removeLayer(geojsonlayer);
+      jQuery.getJSON("/maps/COUNTIES_POLY.json",function(hoodData: any){
+
+     geojsonlayer = L.geoJson(hoodData, {style: function(feature:any) {
+        switch(feature.properties.NAME){
+            case('Barnstable'): return {color: 'rgb(255, '+totals[0] + ','+ totals[0]+')'};
+            case('Berkshire'): return {color: 'rgb(255, '+totals[1] + ','+ totals[1]+')'};
+            case('Bristol'): return {color: 'rgb(255, '+totals[2] + ','+ totals[2]+')'};
+            case('Dukes'): return {color: 'rgb(255, '+totals[3] + ','+ totals[3]+')'};
+            case('Essex'): return {color: 'rgb(255, '+totals[4] + ','+ totals[4]+')'};
+            case('Franklin'): return {color: 'rgb(255, '+totals[5] + ','+ totals[5]+')'};
+            case('Hampden'): return {color: 'rgb(255, '+totals[6] + ','+ totals[6]+')'};
+            case('Hampshire'): return {color: 'rgb(255, '+totals[7] + ','+ totals[7]+')'};
+            case('Middlesex'): return {color: 'rgb(255, '+totals[8] + ','+ totals[8]+')'};
+            case('Nantucket'): return {color: 'rgb(255, '+totals[9] + ','+ totals[9]+')'};
+            case('Norfolk'): return {color: 'rgb(255, '+totals[10] + ','+ totals[10]+')'};
+            case('Plymouth'): return {color: 'rgb(255, '+totals[11] + ','+ totals[11]+')'};
+            case('Suffolk'): return {color: 'rgb(255, '+totals[12] + ','+ totals[12]+')'};
+            case('Worcester'): return {color: 'rgb(255, '+totals[13] + ','+ totals[13]+')'};
+        
+        }
+    }}).addTo(map);
+
+     
+}); 
+}
