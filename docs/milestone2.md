@@ -32,5 +32,7 @@ https://arcane-bayou-18470.herokuapp.com
 ### Contributions
 
 Nathan: Back end, routing
+
 Stephen: Table, Charts, symptom routes, the entirety of node_modules (whoops) 
+
 Patrick: Maps, heroku, mongodb and fake data setup
