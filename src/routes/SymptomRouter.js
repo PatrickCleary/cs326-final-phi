@@ -48,12 +48,16 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(req.body);
-                return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true }, function (err, u) {
+                req.body.username = req.params.username;
+                console.log("first", req.body);
+                return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult', 'symptom'], { lean: true }, function (err, u) {
                         return u;
                     })];
             case 1:
                 curr_user = _a.sent();
+                console.log(curr_user);
+                if (!(curr_user.symptom === null)) return [3 /*break*/, 2];
+                console.log("new", curr_user.symptom);
                 sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
                 sick.save(function (err) {
                     return __awaiter(this, void 0, void 0, function () {
@@ -70,6 +74,15 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
                         });
                     });
                 });
+                return [3 /*break*/, 5];
+            case 2: return [4 /*yield*/, Symptom.updateOne({ user: curr_user._id }, { fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate })];
+            case 3:
+                _a.sent();
+                return [4 /*yield*/, User.updateOne({ _id: curr_user._id }, { tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) })];
+            case 4:
+                _a.sent();
+                _a.label = 5;
+            case 5:
                 res.redirect('/');
                 return [2 /*return*/];
         }
