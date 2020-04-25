@@ -6,7 +6,7 @@ var Symptom = require('../models/Symptoms');
 
 /* GET users listing. */
 router.get('/:username/checkup', function(req: any, res: any) {
-  res.render('form',{username: "/symptoms/"+req.params.username+"/update"});
+  res.render('form');
 });
 
 router.post('/:username/update', async (req: any, res: any) => {
