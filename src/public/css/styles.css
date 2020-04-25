@@ -42,6 +42,14 @@
   height:60vh;
   width:80vw;
 }
+
+#mapcontainer{
+	width:100%;
+	display:flex;
+	justify-content:center;
+	align-content:center;
+	align-items;
+}
 body{
   background-color:rgb(40, 40, 40);
   background-size: cover;
