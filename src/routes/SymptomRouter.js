@@ -88,11 +88,6 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
         }
     });
 }); });
-router.post('/all', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/];
-    });
-}); });
 router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var query, flatSymptoms, results, symp, currObj, county, tested, testedResult, sympResult;
     return __generator(this, function (_a) {
