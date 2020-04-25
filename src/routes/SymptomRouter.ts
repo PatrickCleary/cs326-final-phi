@@ -6,21 +6,29 @@ var Symptom = require('../models/Symptoms');
 
 /* GET users listing. */
 router.get('/:username/checkup', function(req: any, res: any) {
-  res.render('form');
+  res.render('form',{username: "/symptoms/"+req.params.username+"/update"});
 });
 
 router.post('/:username/update', async (req: any, res: any) => {
   req.body.username = req.params.username;
-  console.log(req.body);
-  var curr_user = await User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult'], { lean: true },
+  console.log("first",req.body);
+  var curr_user = await User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult','symptom'], { lean: true },
     function(err: any, u: any) {
       return u;
     });
-  var sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
-  sick.save(async function(err: any) {
-    if (err) return err;
-    await User.updateOne({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) });
-  });
+  console.log(curr_user);
+  if(curr_user.symptom === null){
+    console.log("new",curr_user.symptom);
+    var sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
+    sick.save(async function(err: any) {
+      if (err) return err;
+      await User.updateOne({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) });
+    });
+  }
+  else{
+    await Symptom.updateOne({ user: curr_user._id}, {fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
+    await User.updateOne({ _id: curr_user._id }, {tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) });
+  }
   res.redirect('/');
 });
 
