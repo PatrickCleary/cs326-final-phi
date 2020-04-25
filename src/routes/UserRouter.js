@@ -48,7 +48,7 @@ router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, v
         newbie.save(function (err) {
             if (err)
                 return err;
-            res.redirect('/symptoms/' + newbie.username + '/checkup');
+            res.redirect('/symptoms/sample/checkup');
         });
         return [2 /*return*/];
     });
