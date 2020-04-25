@@ -147,4 +147,43 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
         }
     });
 }); });
+router.post('/all', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var query, flatSymptoms, results, symp, currObj, county;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Symptom.find().populate('user')];
+            case 1:
+                query = _a.sent();
+                flatSymptoms = query.map(function (user) {
+                    return user.toObject();
+                });
+                results = {};
+                results = {
+                    "Barnstable": 0,
+                    "Berkshire": 0,
+                    "Bristol": 0,
+                    "Dukes": 0,
+                    "Essex": 0,
+                    "Franklin": 0,
+                    "Hampden": 0,
+                    "Hampshire": 0,
+                    "Middlesex": 0,
+                    "Nantucket": 0,
+                    "Norfolk": 0,
+                    "Plymouth": 0,
+                    "Suffolk": 0,
+                    "Worcester": 0,
+                    "total": 0,
+                };
+                for (symp in flatSymptoms) {
+                    currObj = flatSymptoms[symp];
+                    county = currObj.user.county;
+                    results[county] += 1;
+                    results['total'] += 1;
+                }
+                res.send(JSON.stringify(results));
+                return [2 /*return*/];
+        }
+    });
+}); });
 module.exports = router;

@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
-var url2 = 'http://localhost:8080/symptoms';
+var url2 = '/symptoms';
 var connect = function postData(url, data) {
     return __awaiter(this, void 0, void 0, function () {
         var resp;
@@ -81,6 +81,7 @@ function symptomRead() {
                     responseValue = _a.sent();
                     updateTable(responseValue);
                     updateChart(filter, responseValue);
+                    updateMap(responseValue);
                     return [2 /*return*/];
             }
         });
@@ -112,9 +113,9 @@ function updateTable(symptomTable) {
     }
 }
 exports.updateTable = updateTable;
+var c3 = require("c3");
+var d3 = require("d3");
 function updateChart(symptom, symptomTable) {
-    var c3 = require("c3");
-    var d3 = require("d3");
     var rawData = [];
     var barData = [["none", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["mild", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ["severe", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
@@ -157,3 +158,47 @@ function updateChart(symptom, symptomTable) {
     });
 }
 exports.updateChart = updateChart;
+var L = require("leaflet");
+var map = L.map('map').setView([42.35, -71.08], 13);
+var jQuery = require("jquery");
+var geojsonlayer = L.geoJson();
+L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png', {
+    attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
+    maxZoom: 17,
+    minZoom: 8
+}).addTo(map);
+function updateMap(symptoms) {
+    // load a tile layer
+    var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden",
+        "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
+    var totals = [];
+    for (var i = 0; i < counties.length; i++) {
+        totals[i] = symptoms[counties[i]].mild +
+            symptoms[counties[i]].nes +
+            symptoms[counties[i]].severe;
+        totals[i] = (totals[i] - symptoms[counties[i]].nes) / 1100;
+        totals[i] = 255 - Math.round(totals[i] * 255);
+    }
+    map.removeLayer(geojsonlayer);
+    jQuery.getJSON("/maps/COUNTIES_POLY.json", function (hoodData) {
+        geojsonlayer = L.geoJson(hoodData, { style: function (feature) {
+                switch (feature.properties.NAME) {
+                    case ('Barnstable'): return { color: 'rgb(255, ' + totals[0] + ',' + totals[0] + ')' };
+                    case ('Berkshire'): return { color: 'rgb(255, ' + totals[1] + ',' + totals[1] + ')' };
+                    case ('Bristol'): return { color: 'rgb(255, ' + totals[2] + ',' + totals[2] + ')' };
+                    case ('Dukes'): return { color: 'rgb(255, ' + totals[3] + ',' + totals[3] + ')' };
+                    case ('Essex'): return { color: 'rgb(255, ' + totals[4] + ',' + totals[4] + ')' };
+                    case ('Franklin'): return { color: 'rgb(255, ' + totals[5] + ',' + totals[5] + ')' };
+                    case ('Hampden'): return { color: 'rgb(255, ' + totals[6] + ',' + totals[6] + ')' };
+                    case ('Hampshire'): return { color: 'rgb(255, ' + totals[7] + ',' + totals[7] + ')' };
+                    case ('Middlesex'): return { color: 'rgb(255, ' + totals[8] + ',' + totals[8] + ')' };
+                    case ('Nantucket'): return { color: 'rgb(255, ' + totals[9] + ',' + totals[9] + ')' };
+                    case ('Norfolk'): return { color: 'rgb(255, ' + totals[10] + ',' + totals[10] + ')' };
+                    case ('Plymouth'): return { color: 'rgb(255, ' + totals[11] + ',' + totals[11] + ')' };
+                    case ('Suffolk'): return { color: 'rgb(255, ' + totals[12] + ',' + totals[12] + ')' };
+                    case ('Worcester'): return { color: 'rgb(255, ' + totals[13] + ',' + totals[13] + ')' };
+                }
+            } }).addTo(map);
+    });
+}
+exports.updateMap = updateMap;
