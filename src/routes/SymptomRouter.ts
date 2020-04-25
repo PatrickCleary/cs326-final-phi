@@ -32,9 +32,6 @@ router.post('/:username/update', async (req: any, res: any) => {
   res.redirect('/');
 });
 
-router.post('/all', async (req: any, res: any) => {
-});
-
 router.post('/filter', async (req: any, res: any) => {
   const query = await Symptom.find({}, 'user ' + req.body.symptom).populate('user');
   var flatSymptoms = query.map(function(user: any) {
