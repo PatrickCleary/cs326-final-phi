@@ -23,7 +23,7 @@
 
 <body>
   <div class="container entire-page">
-    <form action="/symptoms/sample/update" method="POST" id="symptomForm">
+    <form action="<%= user %>" method="POST" id="symptomForm">
       <div class="container fields">
         <div class="row">
           <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -328,7 +328,6 @@
       </div>
     </form>
   </div>
-
   <script src="../../js/submission.js"></script>
   <script>
     let map = L.map('map').setView([42.35, -71.08], 13);

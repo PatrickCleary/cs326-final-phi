@@ -6,28 +6,29 @@ var Symptom = require('../models/Symptoms');
 
 /* GET users listing. */
 router.get('/:username/checkup', function(req: any, res: any) {
-  res.render('form',{username: "/symptoms/"+req.params.username+"/update"});
+  console.log("/symptoms/" + req.params.username + "/update");
+  res.render('form', { user: ("/symptoms/" + req.params.username + "/update") });
 });
 
 router.post('/:username/update', async (req: any, res: any) => {
   req.body.username = req.params.username;
-  console.log("first",req.body);
-  var curr_user = await User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult','symptom'], { lean: true },
+  console.log("first", req.body);
+  var curr_user = await User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult', 'symptom'], { lean: true },
     function(err: any, u: any) {
       return u;
     });
   console.log(curr_user);
-  if(curr_user.symptom === null){
-    console.log("new",curr_user.symptom);
+  if (curr_user.symptom === null) {
+    console.log("new", curr_user.symptom);
     var sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
     sick.save(async function(err: any) {
       if (err) return err;
       await User.updateOne({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) });
     });
   }
-  else{
-    await Symptom.updateOne({ user: curr_user._id}, {fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
-    await User.updateOne({ _id: curr_user._id }, {tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) });
+  else {
+    await Symptom.updateOne({ user: curr_user._id }, { fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
+    await User.updateOne({ _id: curr_user._id }, { tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) });
   }
   res.redirect('/');
 });
@@ -37,7 +38,8 @@ router.post('/filter', async (req: any, res: any) => {
   var flatSymptoms = query.map(function(user: any) {
     return user.toObject();
   });
-  var results: { [key: string]: { [key: string]: number;} } = {};
+  console.log(flatSymptoms);
+  var results: { [key: string]: { [key: string]: number; } } = {};
   results = {
     "Barnstable": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
     "Berkshire": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
@@ -56,29 +58,32 @@ router.post('/filter', async (req: any, res: any) => {
   }
   for (var symp in flatSymptoms) {
     var currObj = flatSymptoms[symp];
-    var county = currObj.user.county as string;
-    var tested = currObj.user.tested;
-    var testedResult = currObj.user.testedResult;
-    var sympResult = currObj[req.body.symptom];
-    if(tested) {
-      if(testedResult===1) {
-        results[county].positive +=1;
+    if (currObj && currObj !== null && currObj.user && currObj.user!== null) {
+      console.log(currObj);
+      var county = currObj.user.county;
+      var tested = currObj.user.tested;
+      var testedResult = currObj.user.testedResult;
+      var sympResult = currObj[req.body.symptom];
+      if (tested) {
+        if (testedResult === 1) {
+          results[county].positive += 1;
+        }
+        else if (testedResult === 0) {
+          results[county].negative += 1;
+        }
       }
-      else if(testedResult===0) {
-        results[county].negative +=1;
+      else {
+        results[county].untested += 1;
       }
-    }
-    else {
-      results[county].untested+=1;
-    }
-    if(sympResult===0) {
-      results[county].nes+=1;
-    }
-    else if(sympResult===1) {
-      results[county].mild+=1;
-    }
-    else if(sympResult===2) {
-      results[county].severe+=1;
+      if (sympResult === 0) {
+        results[county].nes += 1;
+      }
+      else if (sympResult === 1) {
+        results[county].mild += 1;
+      }
+      else if (sympResult === 2) {
+        results[county].severe += 1;
+      }
     }
   }
   res.send(JSON.stringify(results));
