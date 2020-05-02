@@ -6,4 +6,4 @@ import {Server} from './server';
 const database = new Database('coronaDB');
 const server =   new Server(database);
 
-server.listen(process.env.PORT|| '8080');
+server.listen(process.env.PORT || '8080');
