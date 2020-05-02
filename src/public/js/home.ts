@@ -109,7 +109,7 @@ export function updateChart(symptom:string,symptomTable:any){
 
 }
 let L = require("leaflet");
-var map = L.map('map').setView([42.35, -71.08], 13);
+var map = L.map('map').setView([42.35, -71.08], 9);
 let jQuery=require("jquery");
 let geojsonlayer = L.geoJson();
 L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
