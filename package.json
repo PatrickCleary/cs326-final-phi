@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "./build/app.js",
   "scripts": {
-    "dev": "node ./src/app.js",
+    "dev": "tsc && tsc src/public/js/*.ts --module commonjs && tsc src/models/*.ts --module commonjs && browserify ./src/public/js/home.js -o ./src/public/js/client-main.js --standalone client && node ./src/app.js",
     "start": "node ./src/app.js"
   },
   "keywords": [],

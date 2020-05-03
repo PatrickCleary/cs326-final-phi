@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var url2 = '/symptoms';
 var connect = function postData(url, data) {
@@ -61,9 +61,32 @@ var connect = function postData(url, data) {
         });
     });
 };
-//sends symptom selected to DB, goal is to then get info from every User for that symptom.
-//Issue is User class is currently defined in submission.ts bc of the import/export bug
-//which needs to change
+function start() {
+    positiveCases();
+    symptomRead();
+}
+exports.start = start;
+function positiveCases() {
+    var _this = this;
+    (function () { return __awaiter(_this, void 0, void 0, function () {
+        var filterTest, filterCounty, newURL, data, responseValue;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    filterTest = document.getElementById('testResult').value;
+                    filterCounty = document.getElementById('countyFilter').value;
+                    newURL = url2 + '/caseFilter';
+                    data = { "testValue": filterTest, "countyValue": filterCounty };
+                    return [4 /*yield*/, connect(newURL, data)];
+                case 1:
+                    responseValue = _a.sent();
+                    updateTestedChart(filterTest, responseValue);
+                    return [2 /*return*/];
+            }
+        });
+    }); })();
+}
+exports.positiveCases = positiveCases;
 function symptomRead() {
     var _this = this;
     (function () { return __awaiter(_this, void 0, void 0, function () {
@@ -80,7 +103,7 @@ function symptomRead() {
                 case 1:
                     responseValue = _a.sent();
                     updateTable(responseValue);
-                    updateChart(filter, responseValue);
+                    updateSymptomChart(filter, responseValue);
                     updateMap(responseValue);
                     return [2 /*return*/];
             }
@@ -115,7 +138,52 @@ function updateTable(symptomTable) {
 exports.updateTable = updateTable;
 var c3 = require("c3");
 var d3 = require("d3");
-function updateChart(symptom, symptomTable) {
+function updateTestedChart(filter, caseTable) {
+    console.log(caseTable);
+    var count = 0;
+    var rawData = [];
+    var barData = ["none", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var days = [];
+    var values = [];
+    days.push('x');
+    values.push("New Cases");
+    for (var _i = 0, _a = Object.entries(caseTable); _i < _a.length; _i++) {
+        var key = _a[_i][0];
+        days.push(key);
+        if (filter == -1) {
+            values.push(caseTable[key].untested);
+            count = count + caseTable[key].untested;
+        }
+        else if (filter == 0) {
+            values.push(caseTable[key].negative);
+            count = count + caseTable[key].negative;
+        }
+        else if (filter == 1) {
+            values.push(caseTable[key].positive);
+            count = count + caseTable[key].positive;
+        }
+    }
+    console.log(count);
+    var chart = c3.generate({
+        bindto: '#chart-2',
+        data: {
+            x: 'x',
+            columns: [
+                days,
+                values
+            ],
+            type: 'bar'
+        },
+        axis: {
+            x: {
+                type: 'category',
+                show: false
+            }
+        }
+    });
+}
+exports.updateTestedChart = updateTestedChart;
+function updateSymptomChart(symptom, symptomTable) {
     var rawData = [];
     var barData = [["none", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], ["mild", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ["severe", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
@@ -145,7 +213,7 @@ function updateChart(symptom, symptomTable) {
             types: {
                 none: 'bar',
                 mild: 'bar',
-                severe: 'bar',
+                severe: 'bar'
             }
         },
         axis: {
@@ -157,7 +225,7 @@ function updateChart(symptom, symptomTable) {
         }
     });
 }
-exports.updateChart = updateChart;
+exports.updateSymptomChart = updateSymptomChart;
 var L = require("leaflet");
 var map = L.map('map').setView([42.35, -71.08], 9);
 var jQuery = require("jquery");

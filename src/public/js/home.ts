@@ -19,10 +19,24 @@ const connect = async function postData(url: any, data: any) {
     return resp;
 }
 
+export function start(){
+    positiveCases();
+    symptomRead();
+}
 
-//sends symptom selected to DB, goal is to then get info from every User for that symptom.
-//Issue is User class is currently defined in submission.ts bc of the import/export bug
-//which needs to change
+
+export function positiveCases(){
+    (async()=>{
+        let filterTest = (<HTMLSelectElement>document.getElementById('testResult')).value;
+        let filterCounty = (<HTMLSelectElement>document.getElementById('countyFilter')).value;
+        const newURL = url2 + '/caseFilter';
+        const data = {"testValue":filterTest,"countyValue":filterCounty};
+        const responseValue = await connect(newURL,data);
+        updateTestedChart(filterTest,responseValue);
+    })();
+}
+
+
 export function symptomRead(){
     (async()=>{
         let filter = (<HTMLSelectElement>document.getElementById('symptoms')).value;
@@ -32,7 +46,7 @@ export function symptomRead(){
         const data2 = {"symptom":filter}
         const responseValue = await connect(newURL2,data2);
         updateTable(responseValue);
-        updateChart(filter,responseValue);
+        updateSymptomChart(filter,responseValue);
         updateMap(responseValue);
     })();
 }
@@ -62,7 +76,62 @@ export function updateTable(symptomTable:any){
 var c3 = require("c3");
 var d3 = require("d3");
 
-export function updateChart(symptom:string,symptomTable:any){
+export function updateTestedChart(filter:any,caseTable:any){
+
+    console.log(caseTable)
+    var count = 0;
+    var rawData = [];
+    var barData = ["none",0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+    var days = [];
+    var values = [];
+
+    days.push('x');
+    values.push("New Cases");
+
+    for (const [key] of Object.entries(caseTable)) {
+        days.push(key);
+        if(filter == -1){
+            values.push(caseTable[key].untested);
+            count = count + caseTable[key].untested;
+        }
+        else if(filter == 0){
+            values.push(caseTable[key].negative);
+            count = count + caseTable[key].negative;
+
+        }
+        else if(filter == 1){
+            values.push(caseTable[key].positive);
+            count = count + caseTable[key].positive;
+
+        }
+    }
+
+
+    console.log(count);
+
+
+    
+    var chart = c3.generate({
+        bindto: '#chart-2',
+        data: {
+            x: 'x',
+            columns: [
+                days,
+                values
+              ],
+            type:'bar'
+        },
+        axis: {
+            x: {
+                type: 'category',
+                show: false
+            }
+        }
+    });
+}
+
+export function updateSymptomChart(symptom:string,symptomTable:any){
 
 
     var rawData = [];

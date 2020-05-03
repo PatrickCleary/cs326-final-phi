@@ -20,7 +20,7 @@
   <title>COVID-19 Symptom Tracker</title>
 </head>
 
-<body onload="client.symptomRead()">
+<body onload="client.start()">
   <div class="container-fluid">
     <div class="page-header">
       <h1>COVID-19 Symptom Tracker</h1>
@@ -38,39 +38,6 @@
       <div class="row middlerow">
         <div class="col-12 col-sm-4 data-box">
             <h4>Search By Symptoms</h4>
-            <!--
-            <fieldset class="form-group">
-              <div class="row">
-                <legend class="col-form-label col-sm-4 text-right">Mode</legend>
-                <div class="col-sm-8">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode1" value="Active Cases" checked>
-                    <label class="form-check-label" for="mode1">
-                      Active Cases
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode2" value="Confirmed Cases">
-                    <label class="form-check-label" for="mode2">
-                      Confirmed Cases
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode3" value="Deaths">
-                    <label class="form-check-label" for="mode3">
-                      Recoveries
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode3" value="Deaths">
-                    <label class="form-check-label" for="mode3">
-                      Deaths
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          -->
             <div class="form-group">
               <select onchange="client.symptomRead()" class="form-control" id="symptoms">
                 <option value="fever" selected>Fever</option>
@@ -82,6 +49,34 @@
                 <option value="cough">Dry Cough</option>
                 <option value="breathing">Difficulty Breathing</option>
               </select>
+            </div>
+            <h4>Search By Test Result</h4>
+            <div class="form-group">
+              <select onchange="client.positiveCases()" class="form-control" id="testResult">
+                <option value="1" selected>Tested Positive</option>
+                <option value="0">Tested Negative</option>
+                <option value="-1">Untested</option>
+              </select>
+            </div>
+            <h4>Search By County</h4>
+            <div class="form-group">
+              <select onchange="client.positiveCases()" class="form-control" id="countyFilter">
+                  <option value="All" selected>All</option>
+                  <option value="Barnstable">Barnstable County</option>
+                  <option value="Berkshire">Berkshire County</option>
+                  <option value="Bristol">Bristol County</option>
+                  <option value="Dukes">Dukes County</option>
+                  <option value="Essex">Essex County</option>
+                  <option value="Franklin">Franklin County</option>
+                  <option value="Hampden">Hampden County</option>
+                  <option value="Hampshire">Hampshire County</option>
+                  <option value="Middlesex">Middlesex County</option>
+                  <option value="Nantucket">Nantucket County</option>
+                  <option value="Norfolk">Norfolk County</option>
+                  <option value="Plymouth">Plymouth County</option>
+                  <option value="Suffolk">Suffolk County</option>
+                  <option value="Worcester">Worcester County</option>
+                </select>
             </div>
         </div>
         <div class="col-12 col-sm-8 table-box">
@@ -236,6 +231,7 @@
       <hr class="hr-fix" />
       <br>
       <div class="bg-light" id="chart-1" style="height: 300px;" ></div>
+      <div class="bg-light" id="chart-2" style="height: 300px;" ></div>
     </div>
   </div>
   </div>

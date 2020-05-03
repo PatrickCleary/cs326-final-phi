@@ -8,11 +8,12 @@ var UserSchema = new Schema(
     email: {type: String, required: true, max: 100},
     password: {type: String, required: true, max: 30},
     tested: {type: Boolean, default: false},
-    testedResult: {type: Number, default: -1, enum: [-1,0,1]},
+    testedResult: {type: Number, default: -2, enum: [-2,-1,0,1]},
     symptom: {type: Schema.Types.ObjectId, ref: 'Symptom'},
     sex: {type: String},
     county: {type:String},
-    age: {type:Number}
+    age: {type:Number},
+    date: {type:Date}
   }
 );
 
