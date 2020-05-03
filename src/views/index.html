@@ -31,64 +31,18 @@
           <div class="jumbotron map" id="mapcontainer">
             <div id="map"></div>
           </div>
-          <p class = 'signup'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="/register">here</a></p>
+          <p class ='lead text-light'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="/register">here</a></p>
         </div>
       </div>
       <hr class="hr-fix" />
       <div class="row middlerow">
-        <div class="col-12 col-sm-4 data-box">
-            <h4>Search By Symptoms</h4>
-            <div class="form-group">
-              <select onchange="client.symptomRead()" class="form-control" id="symptoms">
-                <option value="fever" selected>Fever</option>
-                <option value="tiredness">Tiredness</option>
-                <option value="chills">Chills and Body Aches</option>
-                <option value="digestion">Digestion Issues</option>
-                <option value="smell">Loss of smell and taste</option>
-                <option value="congestion">Head ache, sore throat, or congestion</option>
-                <option value="cough">Dry Cough</option>
-                <option value="breathing">Difficulty Breathing</option>
-              </select>
-            </div>
-            <h4>Search By Test Result</h4>
-            <div class="form-group">
-              <select onchange="client.positiveCases()" class="form-control" id="testResult">
-                <option value="1" selected>Tested Positive</option>
-                <option value="0">Tested Negative</option>
-                <option value="-1">Untested</option>
-              </select>
-            </div>
-            <h4>Search By County</h4>
-            <div class="form-group">
-              <select onchange="client.positiveCases()" class="form-control" id="countyFilter">
-                  <option value="All" selected>All</option>
-                  <option value="Barnstable">Barnstable County</option>
-                  <option value="Berkshire">Berkshire County</option>
-                  <option value="Bristol">Bristol County</option>
-                  <option value="Dukes">Dukes County</option>
-                  <option value="Essex">Essex County</option>
-                  <option value="Franklin">Franklin County</option>
-                  <option value="Hampden">Hampden County</option>
-                  <option value="Hampshire">Hampshire County</option>
-                  <option value="Middlesex">Middlesex County</option>
-                  <option value="Nantucket">Nantucket County</option>
-                  <option value="Norfolk">Norfolk County</option>
-                  <option value="Plymouth">Plymouth County</option>
-                  <option value="Suffolk">Suffolk County</option>
-                  <option value="Worcester">Worcester County</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-12 col-sm-8 table-box">
-            <h4>Table</h4>
+        <div class="col-12 table-box">
+            <h4>Case Table</h4>
             <div class="table-responsive">
               <table id ="countyTable" class="table table-striped table-sm">
                 <thead class="thead bg-dr text-light">
                   <tr>
                     <th scope="col">County</th>
-                    <th scope="col">Not Exhibiting This Symptom</th>
-                    <th scope="col">Mild</th>
-                    <th scope="col">Severe</th>
                     <th scope="col">Tested Positive for COVID-19</th>
                     <th scope="col">Tested Negative for COVID-19</th>
                     <th scope="col">Untested</th>
@@ -102,15 +56,9 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Berkshire</th>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -120,15 +68,9 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Dukes</th>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -138,15 +80,9 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Franklin</th>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -156,15 +92,9 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Hampshire</th>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -174,15 +104,9 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Nantucket</th>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -192,15 +116,9 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Plymouth</th>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -210,15 +128,9 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Worcester</th>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -230,7 +142,69 @@
       </div>
       <hr class="hr-fix" />
       <br>
-      <div class="bg-light" id="chart-1" style="height: 300px;" ></div>
+      <div class="row">
+        <div class="col-sm-4">
+          <br>
+          <br>
+          <h3 class="lead text-light" id="symptomChart">Symptom Severity by County</h3>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="lead text-light">Search By Symptoms</h4>
+          <div class="form-group">
+            <select onchange="client.symptomRead()" class="form-control" id="symptoms">
+              <option value="fever" selected>Fever</option>
+              <option value="tiredness">Tiredness</option>
+              <option value="chills">Chills and Body Aches</option>
+              <option value="digestion">Digestion Issues</option>
+              <option value="smell">Loss of smell and taste</option>
+              <option value="congestion">Head ache, sore throat, or congestion</option>
+              <option value="cough">Dry Cough</option>
+              <option value="breathing">Difficulty Breathing</option>
+            </select>
+          </div>
+        </div>
+      </div>
+        <div class="bg-light" id="chart-1" style="height: 300px;" ></div>
+      <br>
+      <div class="row">
+        <div class="col-sm-4">
+          <br>
+          <br>
+          <h3 class="lead text-light" id="caseChart">New Form Submissions by Day</h3>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="lead text-light">Search By Test Result</h4>
+            <div class="form-group">
+              <select onchange="client.positiveCases()" class="form-control" id="testResult">
+                <option value="1" selected>Tested Positive</option>
+                <option value="0">Tested Negative</option>
+                <option value="-1">Untested</option>
+              </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="lead text-light">Search By County</h4>
+          <div class="form-group">
+            <select onchange="client.positiveCases()" class="form-control" id="countyFilter">
+                <option value="All" selected>All</option>
+                <option value="Barnstable">Barnstable County</option>
+                <option value="Berkshire">Berkshire County</option>
+                <option value="Bristol">Bristol County</option>
+                <option value="Dukes">Dukes County</option>
+                <option value="Essex">Essex County</option>
+                <option value="Franklin">Franklin County</option>
+                <option value="Hampden">Hampden County</option>
+                <option value="Hampshire">Hampshire County</option>
+                <option value="Middlesex">Middlesex County</option>
+                <option value="Nantucket">Nantucket County</option>
+                <option value="Norfolk">Norfolk County</option>
+                <option value="Plymouth">Plymouth County</option>
+                <option value="Suffolk">Suffolk County</option>
+                <option value="Worcester">Worcester County</option>
+              </select>
+          </div>
+        </div>
+      </div>
       <div class="bg-light" id="chart-2" style="height: 300px;" ></div>
     </div>
   </div>

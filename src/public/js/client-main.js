@@ -56253,11 +56253,19 @@ exports.start = start;
 function positiveCases() {
     var _this = this;
     (function () { return __awaiter(_this, void 0, void 0, function () {
-        var filterTest, filterCounty, newURL, data, responseValue;
+        var filterTest, str, filterCounty, newURL, data, responseValue;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     filterTest = document.getElementById('testResult').value;
+                    str = "";
+                    if (filterTest == "1")
+                        str = "Positive";
+                    if (filterTest == "0")
+                        str = "Negative";
+                    if (filterTest == "-1")
+                        str = "Untested";
+                    document.getElementById('caseChart').innerHTML = str + " Form Submissions by Day";
                     filterCounty = document.getElementById('countyFilter').value;
                     newURL = url2 + '/caseFilter';
                     data = { "testValue": filterTest, "countyValue": filterCounty };
@@ -56274,11 +56282,13 @@ exports.positiveCases = positiveCases;
 function symptomRead() {
     var _this = this;
     (function () { return __awaiter(_this, void 0, void 0, function () {
-        var filter, newURL2, data2, responseValue;
+        var filter, filterCapitalized, newURL2, data2, responseValue;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     filter = document.getElementById('symptoms').value;
+                    filterCapitalized = filter.charAt(0).toUpperCase() + filter.slice(1);
+                    document.getElementById('symptomChart').innerHTML = filterCapitalized + " Severity by County";
                     newURL2 = url2 + '/filter';
                     console.log('getting symptom data: fetching from ' + newURL2);
                     console.log(filter);
@@ -56300,20 +56310,14 @@ function updateTable(symptomTable) {
     var table = document.getElementById("countyTable");
     for (var i = 1; i < 15; i++) {
         var row = table.rows[i];
-        for (var j = 1; j < 7; j++) {
+        for (var j = 1; j < 4; j++) {
             var counties = ["Barnstable", "Berkshire", "Bristol", "Dukes", "Essex", "Franklin", "Hampden", "Hampshire", "Middlesex", "Nantucket", "Norfolk", "Plymouth", "Suffolk", "Worcester"];
             var num = 0;
             if (j == 1)
-                num = symptomTable[counties[i - 1]].nes;
-            if (j == 2)
-                num = symptomTable[counties[i - 1]].mild;
-            if (j == 3)
-                num = symptomTable[counties[i - 1]].severe;
-            if (j == 4)
                 num = symptomTable[counties[i - 1]].positive;
-            if (j == 5)
+            if (j == 2)
                 num = symptomTable[counties[i - 1]].negative;
-            if (j == 6)
+            if (j == 3)
                 num = symptomTable[counties[i - 1]].untested;
             row.cells[j].innerHTML = num.toString();
         }
@@ -56324,30 +56328,25 @@ var c3 = require("c3");
 var d3 = require("d3");
 function updateTestedChart(filter, caseTable) {
     console.log(caseTable);
-    var count = 0;
-    var rawData = [];
-    var barData = ["none", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var days = [];
     var values = [];
     days.push('x');
-    values.push("New Cases");
+    if (filter == -1)
+        values.push("Untested");
+    else if (filter == 0)
+        values.push("Negative_Test_Result");
+    else
+        values.push("New_Positive_Cases");
     for (var _i = 0, _a = Object.entries(caseTable); _i < _a.length; _i++) {
         var key = _a[_i][0];
         days.push(key);
-        if (filter == -1) {
+        if (filter == -1)
             values.push(caseTable[key].untested);
-            count = count + caseTable[key].untested;
-        }
-        else if (filter == 0) {
+        else if (filter == 0)
             values.push(caseTable[key].negative);
-            count = count + caseTable[key].negative;
-        }
-        else if (filter == 1) {
+        else if (filter == 1)
             values.push(caseTable[key].positive);
-            count = count + caseTable[key].positive;
-        }
     }
-    console.log(count);
     var chart = c3.generate({
         bindto: '#chart-2',
         data: {
@@ -56356,7 +56355,12 @@ function updateTestedChart(filter, caseTable) {
                 days,
                 values
             ],
-            type: 'bar'
+            type: 'bar',
+            colors: {
+                Untested: '#0086b3',
+                Negative_Test_Result: '#40bf40',
+                New_Positive_Cases: '#cc0000'
+            }
         },
         axis: {
             x: {
@@ -56398,6 +56402,11 @@ function updateSymptomChart(symptom, symptomTable) {
                 none: 'bar',
                 mild: 'bar',
                 severe: 'bar'
+            },
+            colors: {
+                none: '#0086b3',
+                mild: '#40bf40',
+                severe: '#cc0000'
             }
         },
         axis: {

@@ -28,6 +28,11 @@ export function start(){
 export function positiveCases(){
     (async()=>{
         let filterTest = (<HTMLSelectElement>document.getElementById('testResult')).value;
+        let str="";
+        if(filterTest=="1")str="Positive";
+        if(filterTest=="0")str="Negative";
+        if(filterTest=="-1")str="Untested";
+        (<HTMLSelectElement>document.getElementById('caseChart')).innerHTML = str+" Form Submissions by Day";
         let filterCounty = (<HTMLSelectElement>document.getElementById('countyFilter')).value;
         const newURL = url2 + '/caseFilter';
         const data = {"testValue":filterTest,"countyValue":filterCounty};
@@ -40,6 +45,8 @@ export function positiveCases(){
 export function symptomRead(){
     (async()=>{
         let filter = (<HTMLSelectElement>document.getElementById('symptoms')).value;
+        let filterCapitalized = filter.charAt(0).toUpperCase() + filter.slice(1);
+        (<HTMLSelectElement>document.getElementById('symptomChart')).innerHTML = filterCapitalized+" Severity by County";
         const newURL2 = url2 + '/filter';
         console.log('getting symptom data: fetching from ' + newURL2);
         console.log(filter);
@@ -57,15 +64,12 @@ export function updateTable(symptomTable:any){
     let table = (<HTMLTableElement>document.getElementById("countyTable"));
     for(let i=1;i<15;i++){
         let row = table.rows[i];
-        for(let j=1;j<7;j++){
+        for(let j=1;j<4;j++){
             let counties = ["Barnstable","Berkshire","Bristol","Dukes","Essex","Franklin","Hampden","Hampshire","Middlesex","Nantucket","Norfolk","Plymouth","Suffolk","Worcester"];
             let num = 0;
-            if(j==1) num = symptomTable[counties[i-1]].nes;
-            if(j==2) num = symptomTable[counties[i-1]].mild;
-            if(j==3) num = symptomTable[counties[i-1]].severe;
-            if(j==4) num = symptomTable[counties[i-1]].positive;
-            if(j==5) num = symptomTable[counties[i-1]].negative;
-            if(j==6) num = symptomTable[counties[i-1]].untested;
+            if(j==1) num = symptomTable[counties[i-1]].positive;
+            if(j==2) num = symptomTable[counties[i-1]].negative;
+            if(j==3) num = symptomTable[counties[i-1]].untested;
 
             row.cells[j].innerHTML = num.toString();
         }
@@ -78,38 +82,29 @@ var d3 = require("d3");
 
 export function updateTestedChart(filter:any,caseTable:any){
 
-    console.log(caseTable)
-    var count = 0;
-    var rawData = [];
-    var barData = ["none",0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    console.log(caseTable);
 
     var days = [];
     var values = [];
 
     days.push('x');
-    values.push("New Cases");
+
+    if(filter==-1)
+        values.push("Untested")
+    else if(filter==0)
+        values.push("Negative_Test_Result")
+    else
+        values.push("New_Positive_Cases")
 
     for (const [key] of Object.entries(caseTable)) {
         days.push(key);
-        if(filter == -1){
+        if(filter == -1)
             values.push(caseTable[key].untested);
-            count = count + caseTable[key].untested;
-        }
-        else if(filter == 0){
+        else if(filter == 0)
             values.push(caseTable[key].negative);
-            count = count + caseTable[key].negative;
-
-        }
-        else if(filter == 1){
+        else if(filter == 1)
             values.push(caseTable[key].positive);
-            count = count + caseTable[key].positive;
-
-        }
     }
-
-
-    console.log(count);
-
 
     
     var chart = c3.generate({
@@ -120,7 +115,12 @@ export function updateTestedChart(filter:any,caseTable:any){
                 days,
                 values
               ],
-            type:'bar'
+            type:'bar',
+            colors: {
+                Untested: '#0086b3',
+                Negative_Test_Result:'#40bf40',
+                New_Positive_Cases:'#cc0000'
+            }
         },
         axis: {
             x: {
@@ -164,6 +164,11 @@ export function updateSymptomChart(symptom:string,symptomTable:any){
                 none: 'bar',
                 mild: 'bar',
                 severe: 'bar',
+            },
+            colors: {
+                none: '#0086b3',
+                mild: '#40bf40',
+                severe: '#cc0000'
             }
         },
         axis: {
