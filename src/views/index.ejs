@@ -21,6 +21,13 @@
 </head>
 
 <body onload="client.start()">
+  <% if (logged_in) { %>
+    <form align="right" name="form1" method="post" action="/users/logout">
+      <label class="logoutLblPos">
+        <input name="submit2" type="submit" id="submit2" value="log out">
+      </label>
+    </form>
+  <% } %>
   <div class="container-fluid">
     <div class="page-header">
       <h1>COVID-19 Symptom Tracker</h1>
@@ -31,7 +38,7 @@
           <div class="jumbotron map" id="mapcontainer">
             <div id="map"></div>
           </div>
-          <p class ='lead text-light'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="/register">here</a></p>
+          <p class ='lead text-light'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="/symptoms/checkup">here</a></p>
         </div>
       </div>
       <hr class="hr-fix" />

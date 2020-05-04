@@ -48,9 +48,53 @@ router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, v
         newbie.save(function (err) {
             if (err)
                 return err;
-            res.redirect('/symptoms/' + newbie.username + '/checkup');
+            req.session.logged_in = true;
+            req.session.username = req.body.username;
+            res.redirect('/symptoms/checkup');
         });
         return [2 /*return*/];
     });
 }); });
+router.post('/auth', function (req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var username, password, currUser;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    username = req.body.username;
+                    password = req.body.password;
+                    if (!(username && password)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, User.findOne({ username: username, password: password })];
+                case 1:
+                    currUser = _a.sent();
+                    if (currUser == null) {
+                        res.send('Incorrect Username or Password');
+                        res.end();
+                    }
+                    else {
+                        console.log(currUser);
+                        req.session.logged_in = true;
+                        req.session.username = username;
+                        res.redirect('/symptoms/checkup');
+                    }
+                    return [3 /*break*/, 3];
+                case 2:
+                    res.send('Please enter Username and Password!');
+                    res.end();
+                    _a.label = 3;
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+});
+router.post('/logout', function (req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            req.session.logged_in = false;
+            req.session.username = "";
+            res.redirect('/');
+            return [2 /*return*/];
+        });
+    });
+});
 module.exports = router;

@@ -39,18 +39,26 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 var Symptom = require('../models/Symptoms');
+var authenticate = function (req, res, next) {
+    if (req.session.logged_in) {
+        return next();
+    }
+    else {
+        res.redirect('/login');
+    }
+};
 /* GET users listing. */
-router.get('/:username/checkup', function (req, res) {
-    console.log("/symptoms/" + req.params.username + "/update");
-    res.render('form', { user: ("/symptoms/" + req.params.username + "/update") });
+router.get('/checkup', authenticate, function (req, res) {
+    console.log("/symptoms/" + req.session.username + "/update");
+    res.render('form', { logged_in: true });
 });
-router.post('/:username/update', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+router.post('/update', authenticate, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var curr_user, sick;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                req.body.username = req.params.username;
-                return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult', 'symptom'], { lean: true }, function (err, u) {
+                req.body.username = req.session.username;
+                return [4 /*yield*/, User.findOne({ username: req.session.username }, ['_id', 'tested', 'testedResult', 'symptom'], { lean: true }, function (err, u) {
                         return u;
                     })];
             case 1:
@@ -222,7 +230,6 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                 flatSymptoms = query.map(function (user) {
                     return user.toObject();
                 });
-                console.log(flatSymptoms);
                 results = {};
                 results = {
                     "Barnstable": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },

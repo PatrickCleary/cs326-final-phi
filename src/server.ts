@@ -3,6 +3,8 @@ let url = require('url');
 let express = require('express');
 let mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+var envConf = require('dotenv').config();
+var session = require('express-session');
 import {Database} from './database';
 
 export class Server {
@@ -23,6 +25,13 @@ export class Server {
         response.header('Access-Control-Allow-Headers', '*');
         next();
     });
+
+    this.server.use(session({
+	   secret: process.env.SESSION_SECRET,
+	   resave: true,
+	   saveUninitialized: true
+    }));
+
 
     this.server.use(bodyParser.urlencoded({ extended: true }));
     this.server.use(bodyParser.json());

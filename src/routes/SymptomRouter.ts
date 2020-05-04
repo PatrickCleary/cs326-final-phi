@@ -3,16 +3,24 @@ var router = express.Router();
 var User = require('../models/User');
 var Symptom = require('../models/Symptoms');
 
+var authenticate = function(req:any, res:any, next:any) {
+  if(req.session.logged_in) {
+    return next();
+  }
+  else{
+    res.redirect('/login');
+  }
+}
 
 /* GET users listing. */
-router.get('/:username/checkup', function(req: any, res: any) {
-  console.log("/symptoms/" + req.params.username + "/update");
-  res.render('form', { user: ("/symptoms/" + req.params.username + "/update") });
+router.get('/checkup', authenticate, function(req: any, res: any) {
+  console.log("/symptoms/" + req.session.username + "/update");
+  res.render('form', { logged_in:true });
 });
 
-router.post('/:username/update', async (req: any, res: any) => {
-  req.body.username = req.params.username;
-  var curr_user = await User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult','symptom'], { lean: true },
+router.post('/update', authenticate, async (req: any, res: any) => {
+  req.body.username = req.session.username;
+  var curr_user = await User.findOne({ username: req.session.username }, ['_id', 'tested', 'testedResult','symptom'], { lean: true },
     function(err: any, u: any) {
       return u;
     });
@@ -151,7 +159,6 @@ router.post('/filter', async (req: any, res: any) => {
   var flatSymptoms = query.map(function(user: any) {
     return user.toObject();
   });
-  console.log(flatSymptoms);
   var results: { [key: string]: { [key: string]: number; } } = {};
   results = {
     "Barnstable": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },

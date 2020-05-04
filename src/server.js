@@ -5,6 +5,8 @@ var url = require('url');
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var envConf = require('dotenv').config();
+var session = require('express-session');
 var Server = /** @class */ (function () {
     function Server(db) {
         // Server stuff: use express instead of http.createServer
@@ -18,6 +20,11 @@ var Server = /** @class */ (function () {
             response.header('Access-Control-Allow-Headers', '*');
             next();
         });
+        this.server.use(session({
+            secret: process.env.SESSION_SECRET,
+            resave: true,
+            saveUninitialized: true
+        }));
         this.server.use(bodyParser.urlencoded({ extended: true }));
         this.server.use(bodyParser.json());
         this.server.use(express.json()); // to support JSON-encoded bodies

@@ -3,7 +3,12 @@ var express = require('express');
 var router = express.Router();
 /* GET users listing. */
 router.get('/', function (req, res) {
-    res.render('index');
+    if (req.session.logged_in) {
+        res.render('index', { logged_in: true });
+    }
+    else {
+        res.render('index', { logged_in: false });
+    }
 });
 router.get('/login', function (req, res) {
     res.render('login');
