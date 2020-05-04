@@ -203,10 +203,6 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                         month = 3;
                     }
                     date = month + "-" + day + "-" + year;
-<<<<<<< HEAD
-=======
-                    //console.log(datePre,date)
->>>>>>> deaae45f3c1109d42d59d10491880713b6af918d
                     if (queryTest[i].testedResult == 1) {
                         results[date].positive += 1;
                     }
@@ -251,13 +247,11 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                 };
                 for (symp in flatSymptoms) {
                     currObj = flatSymptoms[symp];
-                    if (currObj.user == null)
+                    if ((currObj.user == null) || (currObj == null))
                         continue;
                     testedResult = currObj.user.testedResult;
-                    if (testedResult == -2) {
-                        console.log("hey");
+                    if (testedResult == -2)
                         continue;
-                    }
                     county = currObj.user.county;
                     tested = currObj.user.tested;
                     sympResult = currObj[req.body.symptom];

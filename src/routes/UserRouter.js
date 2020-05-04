@@ -82,6 +82,7 @@ router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, v
                     newbie.save(function (err) {
                         if (err)
                             return err;
+                        console.log('saving');
                         req.session.logged_in = true;
                         req.session.username = req.body.username;
                         res.redirect('/symptoms/checkup');
