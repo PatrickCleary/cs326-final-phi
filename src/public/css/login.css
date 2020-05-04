@@ -79,6 +79,7 @@ label{
     display:flex;
     align-items: center;
     justify-content: center;
+    height: 40px;
 }
 p{
     margin:1%;

@@ -204,7 +204,7 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                         month = 3;
                     }
                     date = month + "-" + day + "-" + year;
-                    //console.log(datePre,date)
+                    console.log(datePre, date);
                     if (queryTest[i].testedResult == 1) {
                         results[date].positive += 1;
                     }
@@ -249,22 +249,28 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                 };
                 for (symp in flatSymptoms) {
                     currObj = flatSymptoms[symp];
-                    if (currObj && currObj !== null && currObj.user && currObj.user !== null) {
-                        county = currObj.user.county;
-                        tested = currObj.user.tested;
-                        testedResult = currObj.user.testedResult;
-                        sympResult = currObj[req.body.symptom];
-                        if (tested) {
-                            if (testedResult === 1) {
-                                results[county].positive += 1;
-                            }
-                            else if (testedResult === 0) {
-                                results[county].negative += 1;
-                            }
+                    county = currObj.user.county;
+                    tested = currObj.user.tested;
+                    testedResult = currObj.user.testedResult;
+                    sympResult = currObj[req.body.symptom];
+                    if (testedResult === 1)
+                        results[county].positive += 1;
+                    else if (testedResult === 0)
+                        results[county].negative += 1;
+                    else if (testedResult === -1)
+                        results[county].untested += 1;
+                    if (req.body.testValue == "All") {
+                        if (sympResult === 0) {
+                            results[county].nes += 1;
                         }
-                        else {
-                            results[county].untested += 1;
+                        else if (sympResult === 1) {
+                            results[county].mild += 1;
                         }
+                        else if (sympResult === 2) {
+                            results[county].severe += 1;
+                        }
+                    }
+                    else if (req.body.testValue == testedResult) {
                         if (sympResult === 0) {
                             results[county].nes += 1;
                         }
