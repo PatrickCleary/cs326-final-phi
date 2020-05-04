@@ -161,16 +161,28 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                     "5-3-2020": { "positive": 0, "negative": 0, "untested": 0 },
                     "5-4-2020": { "positive": 0, "negative": 0, "untested": 0 }
                 };
-                if (!(countyValue == "All")) return [3 /*break*/, 2];
-                return [4 /*yield*/, User.find({ testedResult: value }, { testedResult: 1, date: 1, _id: 0 })];
+                if (!((countyValue == "All") && (value == 2))) return [3 /*break*/, 2];
+                return [4 /*yield*/, User.find({}, { testedResult: 1, date: 1, _id: 0 })];
             case 1:
                 queryTest = _a.sent();
-                return [3 /*break*/, 4];
-            case 2: return [4 /*yield*/, User.find({ testedResult: value, county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
+                return [3 /*break*/, 8];
+            case 2:
+                if (!(countyValue == "All")) return [3 /*break*/, 4];
+                return [4 /*yield*/, User.find({ testedResult: value }, { testedResult: 1, date: 1, _id: 0 })];
             case 3:
                 queryTest = _a.sent();
-                _a.label = 4;
+                return [3 /*break*/, 8];
             case 4:
+                if (!(value == 2)) return [3 /*break*/, 6];
+                return [4 /*yield*/, User.find({ county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
+            case 5:
+                queryTest = _a.sent();
+                return [3 /*break*/, 8];
+            case 6: return [4 /*yield*/, User.find({ testedResult: value, county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
+            case 7:
+                queryTest = _a.sent();
+                _a.label = 8;
+            case 8:
                 for (i in queryTest) {
                     datePre = queryTest[i].date;
                     day = datePre.getDate();
@@ -229,25 +241,33 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                     tested = currObj.user.tested;
                     testedResult = currObj.user.testedResult;
                     sympResult = currObj[req.body.symptom];
-                    //if(tested) {
-                    if (testedResult === 1) {
+                    if (testedResult === 1)
                         results[county].positive += 1;
-                    }
-                    else if (testedResult === 0) {
+                    else if (testedResult === 0)
                         results[county].negative += 1;
-                    }
-                    //}
-                    else {
+                    else
                         results[county].untested += 1;
+                    if (req.body.testValue == "All") {
+                        if (sympResult === 0) {
+                            results[county].nes += 1;
+                        }
+                        else if (sympResult === 1) {
+                            results[county].mild += 1;
+                        }
+                        else if (sympResult === 2) {
+                            results[county].severe += 1;
+                        }
                     }
-                    if (sympResult === 0) {
-                        results[county].nes += 1;
-                    }
-                    else if (sympResult === 1) {
-                        results[county].mild += 1;
-                    }
-                    else if (sympResult === 2) {
-                        results[county].severe += 1;
+                    else if (req.body.testValue == testedResult) {
+                        if (sympResult === 0) {
+                            results[county].nes += 1;
+                        }
+                        else if (sympResult === 1) {
+                            results[county].mild += 1;
+                        }
+                        else if (sympResult === 2) {
+                            results[county].severe += 1;
+                        }
                     }
                 }
                 res.send(JSON.stringify(results));

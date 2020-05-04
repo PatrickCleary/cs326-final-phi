@@ -29,10 +29,11 @@ export function positiveCases(){
     (async()=>{
         let filterTest = (<HTMLSelectElement>document.getElementById('testResult')).value;
         let str="";
-        if(filterTest=="1")str="Positive";
-        if(filterTest=="0")str="Negative";
-        if(filterTest=="-1")str="Untested";
-        (<HTMLSelectElement>document.getElementById('caseChart')).innerHTML = str+" Form Submissions by Day";
+        if(filterTest=="2")str="All ";
+        if(filterTest=="1")str="Positive ";
+        if(filterTest=="0")str="Negative ";
+        if(filterTest=="-1")str="Untested ";
+        (<HTMLSelectElement>document.getElementById('caseChart')).innerHTML = str+"Form Submissions by Day";
         let filterCounty = (<HTMLSelectElement>document.getElementById('countyFilter')).value;
         const newURL = url2 + '/caseFilter';
         const data = {"testValue":filterTest,"countyValue":filterCounty};
@@ -44,23 +45,23 @@ export function positiveCases(){
 
 export function symptomRead(){
     (async()=>{
-        let filter = (<HTMLSelectElement>document.getElementById('symptoms')).value;
-        let filterCapitalized = filter.charAt(0).toUpperCase() + filter.slice(1);
+        let filterSymptom = (<HTMLSelectElement>document.getElementById('symptoms')).value;
+        let filterTest = (<HTMLSelectElement>document.getElementById('symptomChartTestResult')).value;
+
+        let filterCapitalized = filterSymptom.charAt(0).toUpperCase() + filterSymptom.slice(1);
         (<HTMLSelectElement>document.getElementById('symptomChart')).innerHTML = filterCapitalized+" Severity by County";
+
         const newURL2 = url2 + '/filter';
-        console.log('getting symptom data: fetching from ' + newURL2);
-        console.log(filter);
-        const data2 = {"symptom":filter}
+        const data2 = {"symptom":filterSymptom,"testValue":filterTest}
         const responseValue = await connect(newURL2,data2);
         updateTable(responseValue);
-        updateSymptomChart(filter,responseValue);
+        updateSymptomChart(responseValue);
         updateMap(responseValue);
     })();
 }
 
 export function updateTable(symptomTable:any){
 
-    console.log(symptomTable)
     let table = (<HTMLTableElement>document.getElementById("countyTable"));
     for(let i=1;i<15;i++){
         let row = table.rows[i];
@@ -90,11 +91,13 @@ export function updateTestedChart(filter:any,caseTable:any){
     days.push('x');
 
     if(filter==-1)
-        values.push("Untested")
+        values.push("Untested");
     else if(filter==0)
-        values.push("Negative_Test_Result")
-    else
-        values.push("New_Positive_Cases")
+        values.push("Negative_Test_Result");
+    else if(filter==1)
+        values.push("New_Positive_Cases");
+    else 
+        values.push("All_Forms");
 
     for (const [key] of Object.entries(caseTable)) {
         days.push(key);
@@ -104,6 +107,8 @@ export function updateTestedChart(filter:any,caseTable:any){
             values.push(caseTable[key].negative);
         else if(filter == 1)
             values.push(caseTable[key].positive);
+        else if(filter ==2)
+            values.push(caseTable[key].positive + caseTable[key].negative + caseTable[key].untested);
     }
 
     
@@ -117,6 +122,7 @@ export function updateTestedChart(filter:any,caseTable:any){
               ],
             type:'bar',
             colors: {
+                All_Forms:'#000080',
                 Untested: '#0086b3',
                 Negative_Test_Result:'#40bf40',
                 New_Positive_Cases:'#cc0000'
@@ -131,8 +137,9 @@ export function updateTestedChart(filter:any,caseTable:any){
     });
 }
 
-export function updateSymptomChart(symptom:string,symptomTable:any){
+export function updateSymptomChart(symptomTable:any){
 
+    console.log(symptomTable);
 
     var rawData = [];
     var barData = [["none",0,0,0,0,0,0,0,0,0,0,0,0,0,0],["mild",0,0,0,0,0,0,0,0,0,0,0,0,0,0],

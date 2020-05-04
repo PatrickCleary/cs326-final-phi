@@ -105,12 +105,16 @@ router.post('/caseFilter', async (req: any, res: any) => {
 
   var queryTest;
 
-  if(countyValue == "All"){
+  if((countyValue == "All") && (value == 2))
+    queryTest = await User.find({},{testedResult:1,date:1,_id:0});
+  else if(countyValue == "All")
     queryTest = await User.find({testedResult:value},{testedResult:1,date:1,_id:0});
-  }
-  else{
+  else if(value==2)
+    queryTest = await User.find({county:countyValue},{testedResult:1,date:1,_id:0});
+  else
     queryTest = await User.find({testedResult:value,county:countyValue},{testedResult:1,date:1,_id:0});
-  }
+  
+
 
 
   for(var i in queryTest){
@@ -136,6 +140,8 @@ router.post('/caseFilter', async (req: any, res: any) => {
     }
 
   }
+
+
   res.send(JSON.stringify(results));
 });
 
@@ -167,26 +173,37 @@ router.post('/filter', async (req: any, res: any) => {
     var tested = currObj.user.tested;
     var testedResult = currObj.user.testedResult;
     var sympResult = currObj[req.body.symptom];
-    //if(tested) {
-      if(testedResult===1) {
+
+    if(testedResult===1)
         results[county].positive +=1;
-      }
-      else if(testedResult===0) {
-        results[county].negative +=1;
-      }
-    //}
-    else {
+    else if(testedResult===0)
+      results[county].negative +=1;
+    else
       results[county].untested+=1;
+
+    if(req.body.testValue == "All"){
+      if(sympResult===0) {
+        results[county].nes+=1;
+      }
+      else if(sympResult===1) {
+        results[county].mild+=1;
+      }
+      else if(sympResult===2) {
+        results[county].severe+=1;
+      }
     }
-    if(sympResult===0) {
-      results[county].nes+=1;
+    else if (req.body.testValue == testedResult){
+      if(sympResult===0) {
+        results[county].nes+=1;
+      }
+      else if(sympResult===1) {
+        results[county].mild+=1;
+      }
+      else if(sympResult===2) {
+        results[county].severe+=1;
+      }
     }
-    else if(sympResult===1) {
-      results[county].mild+=1;
-    }
-    else if(sympResult===2) {
-      results[county].severe+=1;
-    }
+    
   }
   res.send(JSON.stringify(results));
 });
