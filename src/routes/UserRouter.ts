@@ -6,6 +6,18 @@ router.get('/', function(req: any, res: any) {
   res.render('signup');
 });
 
+
+router.post('/deleteUser', async (req:any, res:any)=>{
+  
+  var currUser = await User.deleteOne({username:req.body.username}, (err:any)=>{
+    if (err) return err;
+    res.redirect('/')
+    
+    
+  });
+
+})
+
 router.post('/newuser', async (req: any, res: any) => {
   var currUser = await User.findOne({ username: req.body.username});
   if(currUser==null) {
@@ -28,7 +40,6 @@ router.post('/auth', async function(req:any, res:any) {
   if(username&&password) {
     var currUser = await User.findOne({ username: username, password: password });
     if (currUser==null){
-      res.send('Incorrect Username or Password');
       res.redirect('/login');
     }
     else {

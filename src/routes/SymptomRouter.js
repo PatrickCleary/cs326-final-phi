@@ -49,7 +49,6 @@ var authenticate = function (req, res, next) {
 };
 /* GET users listing. */
 router.get('/checkup', authenticate, function (req, res) {
-    console.log("/symptoms/" + req.session.username + "/update");
     res.render('form', { logged_in: true });
 });
 router.post('/update', authenticate, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -204,7 +203,6 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                         month = 3;
                     }
                     date = month + "-" + day + "-" + year;
-                    //console.log(datePre,date)
                     if (queryTest[i].testedResult == 1) {
                         results[date].positive += 1;
                     }

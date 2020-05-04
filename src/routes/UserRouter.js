@@ -41,6 +41,21 @@ var User = require('../models/User');
 router.get('/', function (req, res) {
     res.render('signup');
 });
+router.post('/deleteUser', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var currUser;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, User.deleteOne({ username: req.body.username }, function (err) {
+                    if (err)
+                        return err;
+                    res.redirect('/');
+                })];
+            case 1:
+                currUser = _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); });
 router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var currUser, newbie;
     return __generator(this, function (_a) {
@@ -79,7 +94,6 @@ router.post('/auth', function (req, res) {
                 case 1:
                     currUser = _a.sent();
                     if (currUser == null) {
-                        res.send('Incorrect Username or Password');
                         res.redirect('/login');
                     }
                     else {

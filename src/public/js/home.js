@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 //TODO: Fix double variable names, scope issue, url2/postData2/newURL2,data2
 var url2 = '/symptoms';
 var connect = function postData(url, data) {
@@ -223,7 +223,7 @@ function updateSymptomChart(symptomTable) {
             types: {
                 none: 'bar',
                 mild: 'bar',
-                severe: 'bar'
+                severe: 'bar',
             },
             colors: {
                 none: '#0086b3',

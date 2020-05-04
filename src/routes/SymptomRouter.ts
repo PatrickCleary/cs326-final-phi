@@ -14,7 +14,6 @@ var authenticate = function(req:any, res:any, next:any) {
 
 /* GET users listing. */
 router.get('/checkup', authenticate, function(req: any, res: any) {
-  console.log("/symptoms/" + req.session.username + "/update");
   res.render('form', { logged_in:true });
 });
 
@@ -139,7 +138,6 @@ router.post('/caseFilter', async (req: any, res: any) => {
     }
 
     var date = month + "-" + day + "-" + year;
-    //console.log(datePre,date)
     if(queryTest[i].testedResult == 1){
       results[date].positive += 1;
     }
