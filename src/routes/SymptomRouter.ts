@@ -138,6 +138,10 @@ router.post('/caseFilter', async (req: any, res: any) => {
     }
 
     var date = month + "-" + day + "-" + year;
+<<<<<<< HEAD
+=======
+    console.log(datePre,date)
+>>>>>>> eff4890b14ecc5663634f9bb9a7314debe819e2c
     if(queryTest[i].testedResult == 1){
       results[date].positive += 1;
     }
@@ -157,7 +161,7 @@ router.post('/filter', async (req: any, res: any) => {
   var flatSymptoms = query.map(function(user: any) {
     return user.toObject();
   });
-  var results: { [key: string]: { [key: string]: number; } } = {};
+  var results: { [key: string]: { [key: string]: number;} } = {};
   results = {
     "Barnstable": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
     "Berkshire": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
@@ -176,33 +180,41 @@ router.post('/filter', async (req: any, res: any) => {
   }
   for (var symp in flatSymptoms) {
     var currObj = flatSymptoms[symp];
-    if (currObj && currObj !== null && currObj.user && currObj.user!== null) {
-      var county = currObj.user.county;
-      var tested = currObj.user.tested;
-      var testedResult = currObj.user.testedResult;
-      var sympResult = currObj[req.body.symptom];
-      if (tested) {
-        if (testedResult === 1) {
-          results[county].positive += 1;
-        }
-        else if (testedResult === 0) {
-          results[county].negative += 1;
-        }
+    var county = currObj.user.county as string;
+    var tested = currObj.user.tested;
+    var testedResult = currObj.user.testedResult;
+    var sympResult = currObj[req.body.symptom];
+
+    if(testedResult===1)
+        results[county].positive +=1;
+    else if(testedResult===0)
+      results[county].negative +=1;
+    else if(testedResult === -1)
+      results[county].untested+=1;
+
+    if(req.body.testValue == "All"){
+      if(sympResult===0) {
+        results[county].nes+=1;
       }
-      else {
-        results[county].untested += 1;
+      else if(sympResult===1) {
+        results[county].mild+=1;
       }
-      if (sympResult === 0) {
-        results[county].nes += 1;
-      }
-      else if (sympResult === 1) {
-        results[county].mild += 1;
-      }
-      else if (sympResult === 2) {
-        results[county].severe += 1;
+      else if(sympResult===2) {
+        results[county].severe+=1;
       }
     }
-
+    else if (req.body.testValue == testedResult){
+      if(sympResult===0) {
+        results[county].nes+=1;
+      }
+      else if(sympResult===1) {
+        results[county].mild+=1;
+      }
+      else if(sympResult===2) {
+        results[county].severe+=1;
+      }
+    }    
+    
   }
   res.send(JSON.stringify(results));
 });
@@ -233,9 +245,9 @@ router.post('/all', async (req: any, res: any) => {
   for (var symp in flatSymptoms) {
     var currObj = flatSymptoms[symp];
     var county = currObj.user.county as string;
-
+   
         results[county] +=1;
-        results['total']+=1;
+        results['total']+=1; 
   }
   res.send(JSON.stringify(results));
 });

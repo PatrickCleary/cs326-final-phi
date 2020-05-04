@@ -21,6 +21,7 @@
 </head>
 
 <body onload="client.start()">
+<<<<<<< HEAD
   <% if (logged_in) { %>
     <form align="right" name="form1" method="post" action="/users/logout">
       <label class="logoutLblPos">
@@ -34,6 +35,56 @@
     </form>
   <% } %>
   <div class="container-fluid">
+=======
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Heat Map<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#table">Case Table<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#symptomChart">Symptom Chart<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#caseChart">Case Chart<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      
+          <div class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a role="button" class="btn btn-outline-success my-2 my-sm-0" href="/symptoms/checkup">Submission Form</a>
+              </li>
+            </ul>
+          </div>
+        
+        <% if (logged_in) { %>
+          <form class="form-inline my-2 my-lg-0" name="form1" method="post" action="/users/logout">
+            <label class="logoutLblPos">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit2" name="submit2">Log Out</button>
+            </label>
+          </form>
+        <% } else { %>        
+          <form class="form-inline my-2 my-lg-0" name="form2" method="GET" action="/login">
+            <label class="logoutLblPos">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="signin" name="signin">Sign In</button>
+            </label>
+          </form>
+          <form class="form-inline my-2 my-lg-0" name="form3" method="GET" action="/register">
+            <label class="logoutLblPos">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="signup" name="signup">Sign Up</button>
+            </label>
+          </form>
+        <% } %>
+    </div>
+  </nav>
+
+  <div class="container-fluid" id="top">
+    <br>
+>>>>>>> eff4890b14ecc5663634f9bb9a7314debe819e2c
     <div class="page-header">
       <h1>COVID-19 Symptom Tracker</h1>
     </div>
@@ -48,7 +99,7 @@
       </div>
       <hr class="hr-fix" />
       <div class="row middlerow">
-        <div class="col-12 table-box">
+        <div class="col-12 table-box" id="table">
             <h4>Case Table</h4>
             <div class="table-responsive">
               <table id ="countyTable" class="table table-striped table-sm">
