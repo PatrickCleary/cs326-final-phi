@@ -38,20 +38,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var User = require('../models/Symptoms');
 router.get('/', function (req, res) {
     res.render('signup');
 });
 router.post('/deleteUser', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var currUser;
+    var curruser, currUser;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, User.deleteOne({ username: req.body.username }, function (err) {
+            case 0: return [4 /*yield*/, User.findOne({ username: req.session.username })];
+            case 1:
+                curruser = _a.sent();
+                console.log(curruser);
+                if (!(curruser.symptom != null)) return [3 /*break*/, 3];
+                return [4 /*yield*/, Symptom.deleteOne({ _id: curruser.symptom }, function (err) {
+                        res.redirect('/');
+                    })];
+            case 2:
+                currUser = _a.sent();
+                _a.label = 3;
+            case 3: return [4 /*yield*/, Symptom.deleteOne({ username: req.session.username }, function (err) {
                     if (err)
                         return err;
+                    req.session.logged_in = false;
+                    req.session.username = "";
                     res.redirect('/');
                 })];
-            case 1:
-                currUser = _a.sent();
+            case 4:
+                _a.sent();
                 return [2 /*return*/];
         }
     });

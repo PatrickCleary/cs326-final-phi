@@ -212,14 +212,12 @@ export function updateMap(symptoms:any){
         totals[i] = symptoms[counties[i]].mild+
         symptoms[counties[i]].nes+
         symptoms[counties[i]].severe
-
         totals[i] = (totals[i]- symptoms[counties[i]].nes)/1100;
         totals[i] = 255 - Math.round(totals[i]*255);
     }
 
     map.removeLayer(geojsonlayer);
       jQuery.getJSON("/maps/COUNTIES_POLY.json",function(hoodData: any){
-
      geojsonlayer = L.geoJson(hoodData, {style: function(feature:any) {
         switch(feature.properties.NAME){
             case('Barnstable'): return {color: 'rgb(255, '+totals[0] + ','+ totals[0]+')'};

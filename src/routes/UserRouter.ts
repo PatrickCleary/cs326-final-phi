@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var User = require('../models/Symptoms');
 
 router.get('/', function(req: any, res: any) {
   res.render('signup');
@@ -8,15 +9,25 @@ router.get('/', function(req: any, res: any) {
 
 
 router.post('/deleteUser', async (req:any, res:any)=>{
-  
-  var currUser = await User.deleteOne({username:req.body.username}, (err:any)=>{
+  var curruser = await User.findOne({username:req.session.username});
+  console.log(curruser)
+  if(curruser.symptom != null){
+    var currUser = await Symptom.deleteOne({_id: curruser.symptom}, (err:any)=>{
+      res.redirect('/');
+    })
+  }
+  await Symptom.deleteOne({username:req.session.username}, (err:any)=>{
+
     if (err) return err;
+    req.session.logged_in=false;
+    req.session.username="";
     res.redirect('/')
-    
+
+  });
+  
     
   });
 
-})
 
 router.post('/newuser', async (req: any, res: any) => {
   var currUser = await User.findOne({ username: req.body.username});

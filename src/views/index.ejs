@@ -21,21 +21,6 @@
 </head>
 
 <body onload="client.start()">
-<<<<<<< HEAD
-  <% if (logged_in) { %>
-    <form align="right" name="form1" method="post" action="/users/logout">
-      <label class="logoutLblPos">
-        <input name="submit2" type="submit" id="submit2" value="log out">
-      </label>
-    </form>
-    <form align="right" name="form1" method="post" action="/users/deleteUser">
-      <label class="delete-account">
-        <input name="submit3" type="submit" id="submit-delete" value="delete">
-      </label>
-    </form>
-  <% } %>
-  <div class="container-fluid">
-=======
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -67,6 +52,11 @@
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit2" name="submit2">Log Out</button>
             </label>
           </form>
+          <form class="form-inline my-2 my-lg-0" name="form1" method="post" action="/users/deleteUser">
+            <label class="logoutLblPos">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit2" name="submit2">Delete Account</button>
+            </label>
+          </form>
         <% } else { %>        
           <form class="form-inline my-2 my-lg-0" name="form2" method="GET" action="/login">
             <label class="logoutLblPos">
@@ -84,7 +74,6 @@
 
   <div class="container-fluid" id="top">
     <br>
->>>>>>> eff4890b14ecc5663634f9bb9a7314debe819e2c
     <div class="page-header">
       <h1>COVID-19 Symptom Tracker</h1>
     </div>

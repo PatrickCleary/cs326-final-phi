@@ -138,10 +138,6 @@ router.post('/caseFilter', async (req: any, res: any) => {
     }
 
     var date = month + "-" + day + "-" + year;
-<<<<<<< HEAD
-=======
-    console.log(datePre,date)
->>>>>>> eff4890b14ecc5663634f9bb9a7314debe819e2c
     if(queryTest[i].testedResult == 1){
       results[date].positive += 1;
     }
