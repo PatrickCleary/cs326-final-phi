@@ -7,13 +7,19 @@ router.get('/', function(req: any, res: any) {
 });
 
 router.post('/newuser', async (req: any, res: any) => {
+  var currUser = await User.findOne({ username: req.body.username});
+  if(currUser==null) {
   var newbie = new User({ username: req.body.username, email: req.body.email, password: req.body.password, tested: false, testedResult: -2, symptom: null ,sex: null, county: null, age: null, date:null});
   newbie.save(function(err:any) {
     if (err) return err;
-    req.session.logged_in = true;
-    req.session.username = req.body.username;
-    res.redirect('/symptoms/checkup');
-  });
+      req.session.logged_in = true;
+      req.session.username = req.body.username;
+      res.redirect('/symptoms/checkup');
+    });
+  } else {
+    res.send('That Username is Taken');
+    res.redirect('/users');
+  }
 });
 
 router.post('/auth', async function(req:any, res:any) {
@@ -23,7 +29,7 @@ router.post('/auth', async function(req:any, res:any) {
     var currUser = await User.findOne({ username: username, password: password });
     if (currUser==null){
       res.send('Incorrect Username or Password');
-      res.end();
+      res.redirect('/login');
     }
     else {
       console.log(currUser);
@@ -33,7 +39,7 @@ router.post('/auth', async function(req:any, res:any) {
     }
   } else {
 		res.send('Please enter Username and Password!');
-		res.end();
+		res.redirect('/login');
 	}
 });
 
