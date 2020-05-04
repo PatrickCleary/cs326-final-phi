@@ -19,24 +19,36 @@ MongoClient.connect(url, function(err, client) {
   // get access to the relevant collections
   const usersCollection = db.collection("users");
   const symptomsCollection = db.collection("symptoms");
+  let counties = ["Barnstable","Berkshire","Bristol","Dukes","Essex","Franklin","Hampden",
+  "Hampshire","Middlesex","Nantucket","Norfolk","Plymouth","Suffolk","Worcester"];
+  let sexy = ["male","female"]
   // make a bunch of users
   let users = [];
   let userIds = [];
-  usersCollection.deleteMany({});
-  symptomsCollection.deleteMany({});
-  for (let i = 0; i < 1000; i += 1) {
+  //usersCollection.deleteMany({});
+  //symptomsCollection.deleteMany({});
+  for (let i = 0; i < 5000; i += 1) {
     const email = faker.internet.email();
     const password = faker.internet.password();
+    const date = faker.date.between('2020-03-01', '2020-05-03');
+    const test = faker.random.boolean();
+    var result = 0;
+    if (test){
+      result = faker.random.number({max:1, min:0});
+    }
+    else{
+      result = -1;
+    }
     let newUser = {
-      tested: faker.random.boolean(),
-        testedResult:faker.random.number({max:1, min:-1}),
-        
-        email,
-        password,
-        symptom:null,
-      sex:"female",
-      county: "Suffolk",
-      age:23
+      tested: test,
+      testedResult:result,
+      email,
+      password,
+      symptom:null,
+      sex:sexy[faker.random.number({max:1,min:0})],
+      county: counties[faker.random.number({max:13,min:0})],
+      age:faker.random.number({max:75,min:1}),
+      date
     };
     users.push(newUser);
 
@@ -48,7 +60,7 @@ MongoClient.connect(url, function(err, client) {
     userIds= r.insertedIds;
     console.log(userIds);
     let symptoms = [];
-  for (let i = 0; i < 1000; i += 1) {
+  for (let i = 0; i < 5000; i += 1) {
     let newSymptom = {
     fever: faker.random.number({max:2, min:0}),
     tiredness: faker.random.number({max:2, min:0}),
@@ -58,17 +70,16 @@ MongoClient.connect(url, function(err, client) {
     congestion: faker.random.number({max:2, min:0}),
     cough: faker.random.number({max:2, min:0}),
     breathing: faker.random.number({max:2, min:0}),
-    user:userIds[i],
-    startDate:faker.date.past,
-    endDate:faker.date.past,
-      // use lodash to pick a random user as the author of this post
-     // author: _.sample(users),
+    user:userIds[i]
+    };
+        // use lodash to pick a random user as the author of this post
+      // author: _.sample(users),
 
       // use lodash to add a random subset of the users to this post
-//      likes: _.sampleSize(users, Math.round(Math.random * users.length)).map(
-  //      user => user._id
-    //  )
-    };
+      //      likes: _.sampleSize(users, Math.round(Math.random * users.length)).map(
+      //      user => user._id
+        //  )
+    
     symptoms.push(newSymptom);
 
     // visual feedback again!
@@ -76,7 +87,7 @@ MongoClient.connect(url, function(err, client) {
   }
   symptomsCollection.insertMany(symptoms, function(err, r){
       symptomIds = r.insertedIds;
-      for( let i = 0; i<1000; i++){
+      for( let i = 0; i<5000; i++){
       usersCollection.findOneAndUpdate({_id: userIds[i]},
       { $set: { symptom: symptomIds[i]}});
       }

@@ -44,7 +44,7 @@ router.get('/', function (req, res) {
 router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var newbie;
     return __generator(this, function (_a) {
-        newbie = new User({ username: req.body.username, email: req.body.email, password: req.body.password, tested: false, testedResult: -1, symptom: null, sex: null, county: null, age: null });
+        newbie = new User({ username: req.body.username, email: req.body.email, password: req.body.password, tested: false, testedResult: -2, symptom: null, sex: null, county: null, age: null, date: null });
         newbie.save(function (err) {
             if (err)
                 return err;

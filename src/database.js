@@ -7,9 +7,7 @@ var Database = /** @class */ (function () {
     //Import the mongoose module
     //Set up default mongoose connection
     function Database(name) {
-        // test:
-        var mongoDB = 'mongodb://heroku_user:potato99@cluster0-shard-00-00-krl3x.mongodb.net:27017,cluster0-shard-00-01-krl3x.mongodb.net:27017,cluster0-shard-00-02-krl3x.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
-        // prod:
+        var mongoDB = 'mongodb://heroku_user:potato99@cluster0-shard-00-00-krl3x.mongodb.net:27017,cluster0-shard-00-01-krl3x.mongodb.net:27017,cluster0-shard-00-02-krl3x.mongodb.net:27017/coronaDB?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority';
         mongoose.connect(mongoDB, { useNewUrlParser: true });
         //Get the default connection
         var db = mongoose.connection;

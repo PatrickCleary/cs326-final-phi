@@ -10,6 +10,13 @@
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
 }
+#mapContainer{
+  width: 100%;
+  display:flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
 
 /* Mouse-over effects */
 .slider:hover {
@@ -34,6 +41,14 @@
 #map{
   height:60vh;
   width:80vw;
+}
+
+#mapcontainer{
+	width:100%;
+	display:flex;
+	justify-content:center;
+	align-content:center;
+	align-items;
 }
 body{
   background-color:rgb(40, 40, 40);

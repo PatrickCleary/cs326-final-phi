@@ -20,7 +20,7 @@
   <title>COVID-19 Symptom Tracker</title>
 </head>
 
-<body onload="client.symptomRead()">
+<body onload="client.start()">
   <div class="container-fluid">
     <div class="page-header">
       <h1>COVID-19 Symptom Tracker</h1>
@@ -28,72 +28,21 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12 col-sm-12">
-          <div class="jumbotron map">
+          <div class="jumbotron map" id="mapcontainer">
             <div id="map"></div>
           </div>
-          <p class = 'signup'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="/register">here</a></p>
+          <p class ='lead text-light'>Help us document untracked cases! Submit your symptoms <a style="color:blue" href="/register">here</a></p>
         </div>
       </div>
       <hr class="hr-fix" />
       <div class="row middlerow">
-        <div class="col-12 col-sm-4 data-box">
-            <h4>Search By Symptoms</h4>
-            <!--
-            <fieldset class="form-group">
-              <div class="row">
-                <legend class="col-form-label col-sm-4 text-right">Mode</legend>
-                <div class="col-sm-8">
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode1" value="Active Cases" checked>
-                    <label class="form-check-label" for="mode1">
-                      Active Cases
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode2" value="Confirmed Cases">
-                    <label class="form-check-label" for="mode2">
-                      Confirmed Cases
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode3" value="Deaths">
-                    <label class="form-check-label" for="mode3">
-                      Recoveries
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="mode" id="mode3" value="Deaths">
-                    <label class="form-check-label" for="mode3">
-                      Deaths
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          -->
-            <div class="form-group">
-              <select onchange="client.symptomRead()" class="form-control" id="symptoms">
-                <option value="fever" selected>Fever</option>
-                <option value="tiredness">Tiredness</option>
-                <option value="chills">Chills and Body Aches</option>
-                <option value="digestion">Digestion Issues</option>
-                <option value="smell">Loss of smell and taste</option>
-                <option value="congestion">Head ache, sore throat, or congestion</option>
-                <option value="cough">Dry Cough</option>
-                <option value="breathing">Difficulty Breathing</option>
-              </select>
-            </div>
-        </div>
-        <div class="col-12 col-sm-8 table-box">
-            <h4>Table</h4>
+        <div class="col-12 table-box">
+            <h4>Case Table</h4>
             <div class="table-responsive">
               <table id ="countyTable" class="table table-striped table-sm">
                 <thead class="thead bg-dr text-light">
                   <tr>
                     <th scope="col">County</th>
-                    <th scope="col">Not Exhibiting This Symptom</th>
-                    <th scope="col">Mild</th>
-                    <th scope="col">Severe</th>
                     <th scope="col">Tested Positive for COVID-19</th>
                     <th scope="col">Tested Negative for COVID-19</th>
                     <th scope="col">Untested</th>
@@ -104,129 +53,87 @@
                   <!-- TODO: I think we should replace this with js functions-->
                   <tr>
                     <th scope="row">Barnstable</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Berkshire</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Bristol</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Dukes</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Essex</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Franklin</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Hampden</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Hampshire</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Middlesex</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Nantucket</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Norfolk</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Plymouth</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Suffolk</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                   <tr>
                     <th scope="row">Worcester</th>
-                    <td>100</td>
-                    <td>50</td>
-                    <td>5</td>
-                    <td>20</td>
-                    <td>5</td>
-                    <td>20</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                   </tr>
                 </tbody>
               </table>
@@ -235,56 +142,85 @@
       </div>
       <hr class="hr-fix" />
       <br>
-      <div class="bg-light" id="chart-1" style="height: 300px;" ></div>
+      <div class="row">
+        <div class="col-sm-4">
+          <br>
+          <br>
+          <h3 class="lead text-light" id="symptomChart">Symptom Severity by County</h3>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="lead text-light">Search By Test Result</h4>
+            <div class="form-group">
+              <select onchange="client.symptomRead()" class="form-control" id="symptomChartTestResult">
+                <option value="All" selected>All</option>
+                <option value="1">Tested Positive</option>
+                <option value="0">Tested Negative</option>
+                <option value="-1">Untested</option>
+              </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="lead text-light">Search By Symptoms</h4>
+          <div class="form-group">
+            <select onchange="client.symptomRead()" class="form-control" id="symptoms">
+              <option value="fever" selected>Fever</option>
+              <option value="tiredness">Tiredness</option>
+              <option value="chills">Chills and Body Aches</option>
+              <option value="digestion">Digestion Issues</option>
+              <option value="smell">Loss of smell and taste</option>
+              <option value="congestion">Head ache, sore throat, or congestion</option>
+              <option value="cough">Dry Cough</option>
+              <option value="breathing">Difficulty Breathing</option>
+            </select>
+          </div>
+        </div>
+      </div>
+        <div class="bg-light" id="chart-1" style="height: 300px;" ></div>
+      <br>
+      <div class="row">
+        <div class="col-sm-4">
+          <br>
+          <br>
+          <h3 class="lead text-light" id="caseChart">New Form Submissions by Day</h3>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="lead text-light">Search By Test Result</h4>
+            <div class="form-group">
+              <select onchange="client.positiveCases()" class="form-control" id="testResult">
+                <option value="2" selected>All</option>
+                <option value="1">Tested Positive</option>
+                <option value="0">Tested Negative</option>
+                <option value="-1">Untested</option>
+              </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+          <h4 class="lead text-light">Search By County</h4>
+          <div class="form-group">
+            <select onchange="client.positiveCases()" class="form-control" id="countyFilter">
+                <option value="All" selected>All</option>
+                <option value="Barnstable">Barnstable County</option>
+                <option value="Berkshire">Berkshire County</option>
+                <option value="Bristol">Bristol County</option>
+                <option value="Dukes">Dukes County</option>
+                <option value="Essex">Essex County</option>
+                <option value="Franklin">Franklin County</option>
+                <option value="Hampden">Hampden County</option>
+                <option value="Hampshire">Hampshire County</option>
+                <option value="Middlesex">Middlesex County</option>
+                <option value="Nantucket">Nantucket County</option>
+                <option value="Norfolk">Norfolk County</option>
+                <option value="Plymouth">Plymouth County</option>
+                <option value="Suffolk">Suffolk County</option>
+                <option value="Worcester">Worcester County</option>
+              </select>
+          </div>
+        </div>
+      </div>
+      <div class="bg-light" id="chart-2" style="height: 300px;" ></div>
     </div>
   </div>
   </div>
-  <script>
-
-    // initialize the map
-    var map = L.map('map').setView([42.35, -71.08], 13);
-
-var geojsonFeature = {
-    "type": "Feature",
-    "properties": {
-        "name": "Coors Field",
-        "amenity": "Baseball Stadium",
-        "popupContent": "This is where the Rockies play!"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [42.3601, 71.0589]
-
-    }
-
-    }
-var myStyle = {
-    "color": "#ff7800",
-    "weight": 10,
-};
-    // load a tile layer
-    L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
-      {
-        attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
-        maxZoom: 17,
-        minZoom: 8
-      }).addTo(map);
-
-      jQuery.getJSON("/maps/COUNTIES_POLY.json",function(hoodData){
-        console.log(hoodData);
-
-
-     L.geoJson( hoodData, {style: function(feature) {
-    switch (feature.properties.NAME) {
-        case 'Suffolk': return {color: "#ff0000"};
-        case 'Democrat':   return {color: "#0000ff"};
-        default: return {};
-    }
-}} ).addTo(map);
-
-});
-
-    </script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

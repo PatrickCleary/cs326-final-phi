@@ -50,16 +50,13 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 req.body.username = req.params.username;
-                console.log("first", req.body);
                 return [4 /*yield*/, User.findOne({ username: req.params.username }, ['_id', 'tested', 'testedResult', 'symptom'], { lean: true }, function (err, u) {
                         return u;
                     })];
             case 1:
                 curr_user = _a.sent();
-                console.log(curr_user);
                 if (!(curr_user.symptom === null)) return [3 /*break*/, 2];
-                console.log("new", curr_user.symptom);
-                sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate });
+                sick = new Symptom({ user: curr_user._id, fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, date: req.body.date });
                 sick.save(function (err) {
                     return __awaiter(this, void 0, void 0, function () {
                         return __generator(this, function (_a) {
@@ -67,7 +64,7 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
                                 case 0:
                                     if (err)
                                         return [2 /*return*/, err];
-                                    return [4 /*yield*/, User.updateOne({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) })];
+                                    return [4 /*yield*/, User.updateOne({ _id: curr_user._id }, { symptom: sick._id, tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age), date: req.body.date })];
                                 case 1:
                                     _a.sent();
                                     return [2 /*return*/];
@@ -76,15 +73,141 @@ router.post('/:username/update', function (req, res) { return __awaiter(void 0, 
                     });
                 });
                 return [3 /*break*/, 5];
-            case 2: return [4 /*yield*/, Symptom.updateOne({ user: curr_user._id }, { fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, startDate: req.body.startDate, endDate: req.body.endDate })];
+            case 2: return [4 /*yield*/, Symptom.updateOne({ user: curr_user._id }, { fever: req.body.fever, tiredness: req.body.tiredness, chills: req.body.chills, digestion: req.body.digestion, smell: req.body.smell, congestion: req.body.congestion, cough: req.body.cough, breathing: req.body.breathing, date: req.body.date })];
             case 3:
                 _a.sent();
-                return [4 /*yield*/, User.updateOne({ _id: curr_user._id }, { tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age) })];
+                return [4 /*yield*/, User.updateOne({ _id: curr_user._id }, { tested: req.body.tested, testedResult: req.body.testedResult, sex: req.body.sex, county: req.body.county, age: Number(req.body.age), date: req.body.date })];
             case 4:
                 _a.sent();
                 _a.label = 5;
             case 5:
                 res.redirect('/');
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var value, countyValue, results, queryTest, i, datePre, day, month, year, date;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                value = parseInt(req.body.testValue);
+                countyValue = req.body.countyValue;
+                results = {};
+                //maybe let this dictionary reside in a different folder
+                results = {
+                    "3-1-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-2-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-3-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-4-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-5-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-6-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-7-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-8-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-9-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-10-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-11-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-12-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-13-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-14-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-15-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-16-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-17-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-18-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-19-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-20-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-21-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-22-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-23-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-24-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-25-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-26-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-27-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-28-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-29-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-30-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "3-31-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-1-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-2-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-3-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-4-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-5-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-6-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-7-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-8-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-9-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-10-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-11-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-12-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-13-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-14-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-15-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-16-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-17-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-18-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-19-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-20-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-21-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-22-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-23-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-24-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-25-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-26-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-27-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-28-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-29-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "4-30-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "5-1-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "5-2-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "5-3-2020": { "positive": 0, "negative": 0, "untested": 0 },
+                    "5-4-2020": { "positive": 0, "negative": 0, "untested": 0 }
+                };
+                if (!((countyValue == "All") && (value == 2))) return [3 /*break*/, 2];
+                return [4 /*yield*/, User.find({ testedResult: [1, 0, -1] }, { testedResult: 1, date: 1, _id: 0 })];
+            case 1:
+                //testedResult == -1,0,1
+                queryTest = _a.sent();
+                return [3 /*break*/, 8];
+            case 2:
+                if (!(countyValue == "All")) return [3 /*break*/, 4];
+                return [4 /*yield*/, User.find({ testedResult: value }, { testedResult: 1, date: 1, _id: 0 })];
+            case 3:
+                queryTest = _a.sent();
+                return [3 /*break*/, 8];
+            case 4:
+                if (!(value == 2)) return [3 /*break*/, 6];
+                return [4 /*yield*/, User.find({ testedResult: [1, 0, -1], county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
+            case 5:
+                //testedResult == -1,0,1
+                queryTest = _a.sent();
+                return [3 /*break*/, 8];
+            case 6: return [4 /*yield*/, User.find({ testedResult: value, county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
+            case 7:
+                queryTest = _a.sent();
+                _a.label = 8;
+            case 8:
+                for (i in queryTest) {
+                    datePre = queryTest[i].date;
+                    day = datePre.getDate();
+                    month = datePre.getMonth() + 1;
+                    year = datePre.getFullYear();
+                    if ((day == 29) && (month == 2)) {
+                        day = 1;
+                        month = 3;
+                    }
+                    date = month + "-" + day + "-" + year;
+                    //console.log(datePre,date)
+                    if (queryTest[i].testedResult == 1) {
+                        results[date].positive += 1;
+                    }
+                    else if (queryTest[i].testedResult == 0) {
+                        results[date].negative += 1;
+                    }
+                    else if (queryTest[i].testedResult == -1) {
+                        results[date].untested += 1;
+                    }
+                }
+                res.send(JSON.stringify(results));
                 return [2 /*return*/];
         }
     });
@@ -120,7 +243,6 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                 for (symp in flatSymptoms) {
                     currObj = flatSymptoms[symp];
                     if (currObj && currObj !== null && currObj.user && currObj.user !== null) {
-                        console.log(currObj);
                         county = currObj.user.county;
                         tested = currObj.user.tested;
                         testedResult = currObj.user.testedResult;
@@ -146,6 +268,45 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                             results[county].severe += 1;
                         }
                     }
+                }
+                res.send(JSON.stringify(results));
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.post('/all', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var query, flatSymptoms, results, symp, currObj, county;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Symptom.find().populate('user')];
+            case 1:
+                query = _a.sent();
+                flatSymptoms = query.map(function (user) {
+                    return user.toObject();
+                });
+                results = {};
+                results = {
+                    "Barnstable": 0,
+                    "Berkshire": 0,
+                    "Bristol": 0,
+                    "Dukes": 0,
+                    "Essex": 0,
+                    "Franklin": 0,
+                    "Hampden": 0,
+                    "Hampshire": 0,
+                    "Middlesex": 0,
+                    "Nantucket": 0,
+                    "Norfolk": 0,
+                    "Plymouth": 0,
+                    "Suffolk": 0,
+                    "Worcester": 0,
+                    "total": 0,
+                };
+                for (symp in flatSymptoms) {
+                    currObj = flatSymptoms[symp];
+                    county = currObj.user.county;
+                    results[county] += 1;
+                    results['total'] += 1;
                 }
                 res.send(JSON.stringify(results));
                 return [2 /*return*/];

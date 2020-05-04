@@ -10,8 +10,7 @@ var SymptomSchema = new Schema({
     congestion: { type: Number, "default": 0, required: true },
     cough: { type: Number, "default": 0, required: true },
     breathing: { type: Number, "default": 0, required: true },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true }
+    date: { type: Date, required: true }
 });
 SymptomSchema.set('toJSON', { virtuals: true });
 //Export model
