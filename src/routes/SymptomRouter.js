@@ -204,7 +204,7 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                         month = 3;
                     }
                     date = month + "-" + day + "-" + year;
-                    console.log(datePre, date);
+                    //console.log(datePre,date)
                     if (queryTest[i].testedResult == 1) {
                         results[date].positive += 1;
                     }
@@ -221,7 +221,7 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
     });
 }); });
 router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var query, flatSymptoms, results, symp, currObj, county, tested, testedResult, sympResult;
+    var query, flatSymptoms, results, symp, currObj, testedResult, county, tested, sympResult;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, Symptom.find({}, 'user ' + req.body.symptom).populate('user')];
@@ -249,9 +249,15 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                 };
                 for (symp in flatSymptoms) {
                     currObj = flatSymptoms[symp];
+                    if (currObj.user == null)
+                        continue;
+                    testedResult = currObj.user.testedResult;
+                    if (testedResult == -2) {
+                        console.log("hey");
+                        continue;
+                    }
                     county = currObj.user.county;
                     tested = currObj.user.tested;
-                    testedResult = currObj.user.testedResult;
                     sympResult = currObj[req.body.symptom];
                     if (testedResult === 1)
                         results[county].positive += 1;
