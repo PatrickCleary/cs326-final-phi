@@ -162,8 +162,9 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                     "5-4-2020": { "positive": 0, "negative": 0, "untested": 0 }
                 };
                 if (!((countyValue == "All") && (value == 2))) return [3 /*break*/, 2];
-                return [4 /*yield*/, User.find({}, { testedResult: 1, date: 1, _id: 0 })];
+                return [4 /*yield*/, User.find({ testedResult: [1, 0, -1] }, { testedResult: 1, date: 1, _id: 0 })];
             case 1:
+                //testedResult == -1,0,1
                 queryTest = _a.sent();
                 return [3 /*break*/, 8];
             case 2:
@@ -174,8 +175,9 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                 return [3 /*break*/, 8];
             case 4:
                 if (!(value == 2)) return [3 /*break*/, 6];
-                return [4 /*yield*/, User.find({ county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
+                return [4 /*yield*/, User.find({ testedResult: [1, 0, -1], county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
             case 5:
+                //testedResult == -1,0,1
                 queryTest = _a.sent();
                 return [3 /*break*/, 8];
             case 6: return [4 /*yield*/, User.find({ testedResult: value, county: countyValue }, { testedResult: 1, date: 1, _id: 0 })];
@@ -193,6 +195,7 @@ router.post('/caseFilter', function (req, res) { return __awaiter(void 0, void 0
                         month = 3;
                     }
                     date = month + "-" + day + "-" + year;
+                    console.log(datePre, date);
                     if (queryTest[i].testedResult == 1) {
                         results[date].positive += 1;
                     }
@@ -245,7 +248,7 @@ router.post('/filter', function (req, res) { return __awaiter(void 0, void 0, vo
                         results[county].positive += 1;
                     else if (testedResult === 0)
                         results[county].negative += 1;
-                    else
+                    else if (testedResult === -1)
                         results[county].untested += 1;
                     if (req.body.testValue == "All") {
                         if (sympResult === 0) {

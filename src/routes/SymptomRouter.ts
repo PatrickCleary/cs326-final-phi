@@ -106,18 +106,19 @@ router.post('/caseFilter', async (req: any, res: any) => {
   var queryTest;
 
   if((countyValue == "All") && (value == 2))
-    queryTest = await User.find({},{testedResult:1,date:1,_id:0});
+    //testedResult == -1,0,1
+    queryTest = await User.find({testedResult:[1,0,-1]},{testedResult:1,date:1,_id:0});
   else if(countyValue == "All")
     queryTest = await User.find({testedResult:value},{testedResult:1,date:1,_id:0});
   else if(value==2)
-    queryTest = await User.find({county:countyValue},{testedResult:1,date:1,_id:0});
+    //testedResult == -1,0,1
+    queryTest = await User.find({testedResult:[1,0,-1],county:countyValue},{testedResult:1,date:1,_id:0});
   else
     queryTest = await User.find({testedResult:value,county:countyValue},{testedResult:1,date:1,_id:0});
-  
-
 
 
   for(var i in queryTest){
+    //Issue: getDate() sometimes returns wrong day
     var datePre = queryTest[i].date;
     var day = datePre.getDate();
     var month = datePre.getMonth() + 1;
@@ -129,6 +130,7 @@ router.post('/caseFilter', async (req: any, res: any) => {
     }
 
     var date = month + "-" + day + "-" + year;
+    //console.log(datePre,date)
     if(queryTest[i].testedResult == 1){
       results[date].positive += 1;
     }
@@ -140,8 +142,6 @@ router.post('/caseFilter', async (req: any, res: any) => {
     }
 
   }
-
-
   res.send(JSON.stringify(results));
 });
 
@@ -178,7 +178,7 @@ router.post('/filter', async (req: any, res: any) => {
         results[county].positive +=1;
     else if(testedResult===0)
       results[county].negative +=1;
-    else
+    else if(testedResult === -1)
       results[county].untested+=1;
 
     if(req.body.testValue == "All"){
