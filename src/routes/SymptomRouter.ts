@@ -174,11 +174,21 @@ router.post('/filter', async (req: any, res: any) => {
     "Suffolk": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 },
     "Worcester": { "nes": 0, "mild": 0, "severe": 0, "positive": 0, "negative": 0, "untested": 0 }
   }
+
+
   for (var symp in flatSymptoms) {
     var currObj = flatSymptoms[symp];
+
+    if((currObj.user == null) || (currObj == null))
+      continue;
+
+    var testedResult = currObj.user.testedResult;
+
+    if(testedResult == -2)
+      continue;
+
     var county = currObj.user.county as string;
     var tested = currObj.user.tested;
-    var testedResult = currObj.user.testedResult;
     var sympResult = currObj[req.body.symptom];
 
     if(testedResult===1)
