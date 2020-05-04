@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
-var User = require('../models/Symptoms');
+var Symptoms = require('../models/Symptoms');
 
 router.get('/', function(req: any, res: any) {
   res.render('signup');
@@ -10,14 +10,12 @@ router.get('/', function(req: any, res: any) {
 
 router.post('/deleteUser', async (req:any, res:any)=>{
   var curruser = await User.findOne({username:req.session.username});
-  console.log(curruser)
   if(curruser.symptom != null){
-    var currUser = await Symptom.deleteOne({_id: curruser.symptom}, (err:any)=>{
+    await Symptoms.deleteOne({_id: curruser.symptom}, (err:any)=>{
       res.redirect('/');
     })
   }
-  await Symptom.deleteOne({username:req.session.username}, (err:any)=>{
-
+  await User.deleteOne({username:req.session.username}, (err:any)=>{
     if (err) return err;
     req.session.logged_in=false;
     req.session.username="";
@@ -35,7 +33,6 @@ router.post('/newuser', async (req: any, res: any) => {
     var newbie = new User({ username: req.body.username, email: req.body.email, password: req.body.password, tested: false, testedResult: -2, symptom: null ,sex: null, county: null, age: null, date:null});
     newbie.save(function(err:any) {
       if (err) return err;
-      console.log('saving')
         req.session.logged_in = true;
         req.session.username = req.body.username;
         res.redirect('/symptoms/checkup');
@@ -56,7 +53,6 @@ router.post('/auth', async function(req:any, res:any) {
       res.redirect('/login');
     }
     else {
-      console.log(currUser);
       req.session.logged_in = true;
       req.session.username = username;
 			res.redirect('/symptoms/checkup');

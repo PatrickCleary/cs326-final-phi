@@ -39,5 +39,5 @@ User table:
 We had done most of the work for this milestone in the previous milestone, and so our commits are relatively small.
 
 Nathan: User session, and routes to go along with user sessions.
-Stephen: 
+Stephen: Index html work, added nav bar, and more read operations for charts and tables 
 Patrick:
