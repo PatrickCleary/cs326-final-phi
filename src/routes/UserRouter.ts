@@ -39,7 +39,6 @@ router.post('/newuser', async (req: any, res: any) => {
       });
   } 
   else {
-    res.send('That Username is Taken');
     res.redirect('/users');
   }
 });
