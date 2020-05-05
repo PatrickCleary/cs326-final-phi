@@ -97,10 +97,17 @@ User table:
 
 
 ### URL Routes/Mappings:
-- / homepage
-- /login login page
-- /register sign up page
-- /form form submission page (only available if logged in)
+Home page
+- /
+
+login page
+- /login
+
+Sign up page
+- /register
+
+Form submission Page (only available if logged in)
+- /form
 
 ### Authentication/Authorization:
 
@@ -110,9 +117,13 @@ Once logged in users have options to log out, and delete their account. Those op
 
 ### Division of labor:
 Patrick: CSS and HTML work on all pages, Map on homepage, routes for map, API and routes for user deletion
+
 Stephen: CSS and HTML work on all pages, Charts and tables on homepage, API and routes for charts, tables, etc.
+
 Nathan: CSS and HTML work on all pages, Helped with all aspects of front end, designed and implemented database, and structure of backend.
 
 
 
-Conclusion: A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered.
+### Conclusion:
+
+We struggled a lot with getting a good understanding of the architecture of the entire project. We didn't really know how we were expected to have all of the pieces connect together, and it was difficult to figure out. It was also a challenge for us to set up the express routes correctly, as we did not have much experience with that. We also got stuck getting typescript to work on the browser, which held up the front end of our project for awhile. 
