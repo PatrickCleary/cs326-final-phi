@@ -65,35 +65,34 @@ A form that allows users to submit information about their symptoms, location, a
 
 Two tables, Users, and Symptoms. Every User object has a corresponding Symptom Object and vice versa.
 
-User table:
-
- {
-    __id: object ID
-    username: string,
-    email: string,
-    password: string,
-    tested: boolean,
-    testedResult: integer,
-    symptom: Symptom Object ID,
-    sex: string,
-    county: String,
-    age: integer,
-    date: Date
-  }
-
-  Symptoms table:
-    {
-        user: User object ID,
-        fever: integer,
-        tiredness: integer,
-        chills: integer,
-        digestion: integer,
-        smell: integer,
-        congestion: integer,
-        cough: integer,
-        breathing: integer,
-        date: integer,
-    }
+User table:  
+ {  
+    __id: object ID  
+    username: string,  
+    email: string,  
+    password: string,  
+    tested: boolean,  
+    testedResult: integer,  
+    symptom: Symptom Object ID,  
+    sex: string,  
+    county: String,  
+    age: integer,  
+    date: Date  
+  }  
+  
+  Symptoms table:  
+    {  
+        user: User object ID,  
+        fever: integer,  
+        tiredness: integer,  
+        chills: integer,  
+        digestion: integer,  
+        smell: integer,  
+        congestion: integer,  
+        cough: integer,  
+        breathing: integer,  
+        date: integer,  
+    }  
 
 
 ### URL Routes/Mappings:
