@@ -87,7 +87,6 @@ router.post('/newuser', function (req, res) { return __awaiter(void 0, void 0, v
                     });
                 }
                 else {
-                    res.send('That Username is Taken');
                     res.redirect('/users');
                 }
                 return [2 /*return*/];

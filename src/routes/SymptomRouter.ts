@@ -108,7 +108,16 @@ router.post('/caseFilter', async (req: any, res: any) => {
     "5-1-2020": { "positive": 0, "negative": 0, "untested": 0},
     "5-2-2020": { "positive": 0, "negative": 0, "untested": 0},
     "5-3-2020": { "positive": 0, "negative": 0, "untested": 0},
-    "5-4-2020": { "positive": 0, "negative": 0, "untested": 0}
+    "5-4-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-5-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-6-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-7-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-8-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-9-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-10-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-11-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-12-2020": { "positive": 0, "negative": 0, "untested": 0},
+    "5-13-2020": { "positive": 0, "negative": 0, "untested": 0}
   }
 
   var queryTest;
@@ -136,8 +145,12 @@ router.post('/caseFilter', async (req: any, res: any) => {
       day=1;
       month=3;
     }
-
     var date = month + "-" + day + "-" + year;
+
+    if(!results[date]){
+      continue;
+    }
+
     if(queryTest[i].testedResult == 1){
       results[date].positive += 1;
     }
